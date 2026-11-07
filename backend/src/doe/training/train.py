@@ -10,7 +10,7 @@ import torch
 from torch.utils.data import DataLoader
 
 from doe.loss import reconstruction_loss
-from doe.models import ARCHITECTURE, CHECKPOINT_FORMAT, FresnelUNet
+from doe.models import CHECKPOINT_FORMAT, FresnelUNet
 from doe.physics import FresnelPropagator, quantize_phase
 
 from .dataset import DATASET_VERSION, SyntheticTargets
@@ -29,6 +29,7 @@ class TrainingConfig:
     seed: int = 2026
     threads: int = 4
     overfit: bool = False
+    projection_steps: int = 0
 
     def __post_init__(self) -> None:
         sizes = (self.epochs, self.train_count, self.val_count, self.batch_size, self.threads)
@@ -46,6 +47,8 @@ class TrainingConfig:
             raise ValueError("learning rate must be finite and positive")
         if type(self.overfit) is not bool:
             raise ValueError("overfit must be a boolean")
+        if type(self.projection_steps) is not int or not 0 <= self.projection_steps <= 8:
+            raise ValueError("projection_steps must be an integer in [0, 8]")
 
 
 def _save(data: dict, path: Path) -> None:
@@ -74,7 +77,7 @@ def train(
     if not resume and any(path.exists() for path in (best_path, last_path, log_path)):
         raise FileExistsError(f"{output} contains a previous run. Use --resume or a new --output.")
 
-    model = FresnelUNet(config.width).to(device)
+    model = FresnelUNet(config.width, config.projection_steps).to(device)
     propagator = FresnelPropagator().to(device)
     optimizer = torch.optim.Adam(model.parameters(), lr=config.learning_rate)
     training_data = SyntheticTargets("train", config.train_count, config.seed)
@@ -90,8 +93,8 @@ def train(
         state = torch.load(last_path, map_location="cpu", weights_only=True)
         if (
             state["format_version"] != CHECKPOINT_FORMAT
-            or state["architecture"] != ARCHITECTURE
-            or state["settings"] != run_settings
+            or state["architecture"] != model.architecture
+            or {"projection_steps": 0, **state["settings"]} != run_settings
         ):
             raise ValueError("resume requires the same architecture, data, device and settings")
         model.load_state_dict(state["model"])
@@ -144,8 +147,9 @@ def train(
         history.append(record)
         checkpoint = {
             "format_version": CHECKPOINT_FORMAT,
-            "architecture": ARCHITECTURE,
+            "architecture": model.architecture,
             "width": config.width,
+            "projection_steps": config.projection_steps,
             "epoch": epoch,
             "step": step,
             "model": model.state_dict(),

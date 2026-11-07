@@ -5,7 +5,7 @@ from pathlib import Path
 
 import torch
 
-from .unet import ARCHITECTURE, FresnelUNet
+from .unet import ARCHITECTURE, PROJECTED_ARCHITECTURE, FresnelUNet
 
 CHECKPOINT_FORMAT = 1
 
@@ -19,15 +19,17 @@ def load_model(path: str | Path, device: str | torch.device = "cpu") -> tuple[Fr
     if (
         not isinstance(data, dict)
         or data.get("format_version") != CHECKPOINT_FORMAT
-        or data.get("architecture") != ARCHITECTURE
+        or data.get("architecture") not in (ARCHITECTURE, PROJECTED_ARCHITECTURE)
         or not isinstance(data.get("step"), int)
         or data["step"] < 1
     ):
         raise ValueError("checkpoint is not a supported trained DOE model")
 
     try:
-        model = FresnelUNet(width=data["width"])
+        model = FresnelUNet(width=data["width"], projection_steps=data.get("projection_steps", 0))
+        if model.architecture != data["architecture"]:
+            raise ValueError("checkpoint architecture and projection count disagree")
         model.load_state_dict(data["model"], strict=True)
     except (KeyError, RuntimeError, TypeError) as exc:
         raise ValueError("checkpoint has invalid model parameters") from exc
-    return model.to(device).eval(), f"{ARCHITECTURE}:{version}"
+    return model.to(device).eval(), f"{model.architecture}:{version}"

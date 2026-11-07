@@ -1,6 +1,7 @@
 import math
 from dataclasses import replace
 
+import pytest
 import torch
 
 from doe.models import FresnelUNet, load_model
@@ -26,9 +27,10 @@ def test_dataset_splits_and_png_levels():
     assert torch.unique(train_targets[3]).numel() > 100
 
 
-def test_zero_targets_have_finite_phase_gradient():
+@pytest.mark.parametrize("projection_steps", [0, 3])
+def test_zero_targets_have_finite_phase_gradient(projection_steps):
     torch.set_num_threads(2)
-    model = FresnelUNet(width=4)
+    model = FresnelUNet(width=4, projection_steps=projection_steps)
     target = torch.zeros(2, 4, 128, 128)
     phase = model(target)
     assert phase.shape == (2, 1, 128, 128)
