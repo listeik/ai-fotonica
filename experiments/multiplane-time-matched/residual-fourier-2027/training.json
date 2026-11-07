@@ -6,5 +6,6 @@
   "optimizer_steps": 256,
   "samples_seen": 2048,
   "train_seconds": 142.29467180001666,
+  "checkpoint_path": "../../../artifacts/doe-residual-fourier.pt",
   "checkpoint_sha256": "38cf98d0ceb539d8ca27498f83e81be9b90b04bce1c287bb47b02b6d09a1f630"
 }

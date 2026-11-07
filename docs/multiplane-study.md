@@ -52,7 +52,9 @@ DeepCGH использует дифракционную модель в функ
 
 Измерения относятся к симуляции на одной конфигурации Френеля и двум внешним семействам целей. Интервалы отражают вариацию на этих стеках и трёх seed. Тайминги относятся к CPU, поскольку установленная сборка PyTorch работала на CPU, а загрузка CUDA-сборки прервалась.
 
-В каталогах [основного](../experiments/multiplane-study/) и [дополнительного](../experiments/multiplane-time-matched/) прогонов лежат девять `best.pt`, конфигурации, окружение, журналы обучения и хеши чекпойнтов. Файлы `planes.csv` содержат метрики каждой плоскости, `latency-ms.json` — все замеры времени, `datasets.json` — индексы тестов, а `results.json` — сводки и интервалы.
+В каталогах [основного](../experiments/multiplane-study/) и [дополнительного](../experiments/multiplane-time-matched/) прогонов хранятся конфигурации, журналы, хеши и восемь файлов `best.pt`. Девятый чекпойнт, Fourier с seed 2027 из дополнительного прогона, опубликован в [`artifacts/doe-residual-fourier.pt`](../artifacts/doe-residual-fourier.pt). Его `training.json` содержит относительный путь к весам, а оценка проверяет их SHA-256.
+
+Файлы `planes.csv` содержат метрики каждой плоскости, `latency-ms.json` — замеры времени, а `results.json` — сводки и интервалы. Оба прогона использовали одинаковые [индексы тестов](../experiments/multiplane-study/datasets.json) и [окружение для обучения и оценки](../experiments/multiplane-study/training-environment.json).
 
 ## Воспроизведение
 

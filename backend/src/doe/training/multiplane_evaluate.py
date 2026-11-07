@@ -234,8 +234,10 @@ def evaluate_study(study, cache, published, device, *, fourier_study=None):
     training = {}
     for run, path in paths.items():
         metadata = json.loads((path.parent / "training.json").read_text(encoding="utf-8"))
-        if digest(path) != metadata["checkpoint_sha256"]:
+        checkpoint = path.parent / metadata.get("checkpoint_path", path.name)
+        if digest(checkpoint) != metadata["checkpoint_sha256"]:
             raise ValueError(f"Checkpoint hash mismatch for {run}")
+        paths[run] = checkpoint
         training[run] = metadata
     if published is not None:
         paths["published-projection-v2"] = published
