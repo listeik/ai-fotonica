@@ -172,6 +172,7 @@ def main(argv: list[str] | None = None) -> None:
         parser.error("install the backend's benchmark extra to generate reports")
 
     import torch
+
     from doe.physics import FresnelPropagator
     from doe.synthesis import synthesize
     from doe.training.dataset import DATASET_VERSION, synthetic_targets

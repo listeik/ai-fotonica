@@ -70,7 +70,9 @@ def main() -> None:
         SyntheticTargets(args.split, args.count, args.seed), batch_size=args.batch_size
     )
     result = validation_metrics(model, propagator, batches, device, png_round_trip=True)
-    print(json.dumps({"model": version, "split": args.split, "seed": args.seed, **result}, indent=2))
+    print(
+        json.dumps({"model": version, "split": args.split, "seed": args.seed, **result}, indent=2)
+    )
 
 
 if __name__ == "__main__":

@@ -1,0 +1,51 @@
+# AI Photonica
+
+Синтез одного фазового дифракционного оптического элемента (ДОЭ) из четырёх изображений. Каждое изображение задаёт амплитуду на своей плоскости: 24,1; 25,3; 26,5 и 27,7 мм. Лазер — 532 нм, шаг модулятора — 10 мкм.
+
+| Метод | Как рассчитывается фаза |
+|---|---|
+| Classical | Adam оптимизирует пиксели фазы с воспроизводимой случайной инициализацией. |
+| Neural | Один проход U-Net. Сеть предсказывает поправки к амплитуде и фазе четырёх полей. Обратный оператор Френеля переносит их в плоскость ДОЭ; аргумент суммы даёт искомую фазу. |
+| Hybrid | Начинает с фазы Neural и уточняет её тем же Adam, что и Classical. Лучший кандидат выбирается по общей функции потерь на 8-битной фазе. |
+
+Все методы экспортируют фазу в одноканальный PNG 128×128, где 0 соответствует −π, а 255 — +π. Четыре PNG восстановления строятся из декодированной фазы. Метрики PCC и SSIM сравнивают их с загруженными целями. Подробнее — в [описании модели](docs/physics.md).
+
+## Запуск
+
+Понадобятся Python 3.11, Node.js 24 и pnpm 11.25.0. Из корня репозитория в PowerShell:
+
+```powershell
+py -3.11 -m venv .venv
+$python = ".\.venv\Scripts\python.exe"
+& $python -m pip install --upgrade pip
+& $python -m pip install torch==2.7.1 --index-url https://download.pytorch.org/whl/cpu
+& $python -m pip install -e "./backend[dev,benchmark]"
+& $python -m uvicorn doe.api:app --port 8000
+```
+
+В другом терминале:
+
+```powershell
+pnpm --dir frontend install --frozen-lockfile
+pnpm --dir frontend dev
+```
+
+Откройте [интерфейс](http://localhost:5173) или [справку API](http://localhost:8000/docs). Выберите готовый набор или загрузите четыре PNG (128×128, 8 бит, один канал). Методы можно запустить на тех же целях и сравнить в интерфейсе. Архив результатов содержит фазу, реконструкции и метрики.
+
+По умолчанию API ищет веса в `artifacts/doe-unet.pt`. Путь можно изменить через `DOE_CHECKPOINT`, устройство — через `DOE_DEVICE` (`auto`, `cpu` или `cuda`). Если веса не загружены, доступен Classical, а запросы Neural и Hybrid возвращают HTTP 503. Для GPU установите подходящую сборку по [инструкции PyTorch](https://pytorch.org/get-started/previous-versions/#v271).
+
+Альтернативный запуск в Docker: `docker compose -f infra/compose.yaml up --build`. Веса монтируются из каталога `artifacts`, интерфейс доступен на порту 5173.
+
+## Командная строка и эксперименты
+
+```powershell
+& $python -m doe --demo 0 --method classical --output runs/example
+& $python -m doe --method hybrid --output runs/example-hybrid plane1.png plane2.png plane3.png plane4.png
+& $python -m pytest backend
+& $python -m doe.training.train --config configs/train.json --device auto --output runs/training
+& $python -m doe.benchmark --checkpoint artifacts/doe-unet.pt --device cpu --samples 16 --output runs/comparison
+```
+
+Файлы целей перечисляются в порядке роста расстояния. Обучение использует воспроизводимые синтетические наборы: геометрические фигуры, контуры, символы и полутоновые цели. Потери объединяют MSE амплитуды, PCC и локальный SSIM; градиент проходит через квантование с прямой оценкой производной и через модель Френеля. Разбиения для обучения, валидации, тестирования и демонстрации используют разные потоки генератора. Веса выбираются по валидации и сохраняются в `best.pt`; `last.pt` позволяет продолжить обучение с `--resume`. Для установки своих весов скопируйте `best.pt` в `artifacts/doe-unet.pt`.
+
+[Протокол бенчмарка](docs/benchmark.md) фиксирует одинаковые цели, нормировку и измерение времени для всех методов. Примеры и результаты моделирования не заменяют оптическую проверку на реальном модуляторе.

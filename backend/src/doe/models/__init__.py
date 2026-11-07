@@ -10,9 +10,7 @@ from .unet import ARCHITECTURE, FresnelUNet
 CHECKPOINT_FORMAT = 1
 
 
-def load_model(
-    path: str | Path, device: str | torch.device = "cpu"
-) -> tuple[FresnelUNet, str]:
+def load_model(path: str | Path, device: str | torch.device = "cpu") -> tuple[FresnelUNet, str]:
     """Load a trained model and return its content-based version identifier."""
     with Path(path).open("rb") as stream:
         version = file_digest(stream, "sha256").hexdigest()[:12]

@@ -1,0 +1,30 @@
+[build-system]
+requires = ["setuptools>=68"]
+build-backend = "setuptools.build_meta"
+
+[project]
+name = "ai-fotonica"
+version = "0.1.0"
+requires-python = ">=3.11"
+dependencies = [
+    "torch>=2.7,<3",
+    "numpy>=1.26,<3",
+    "Pillow>=10,<14",
+    "scikit-image>=0.24,<1",
+    "fastapi>=0.115,<1",
+    "uvicorn>=0.30,<1",
+    "python-multipart>=0.0.18,<1",
+]
+
+[project.optional-dependencies]
+dev = ["pytest>=8,<10", "httpx>=0.27,<1", "ruff>=0.11,<1"]
+benchmark = ["matplotlib>=3.9,<4"]
+
+[tool.pytest.ini_options]
+testpaths = ["tests"]
+
+[tool.ruff]
+line-length = 100
+
+[tool.ruff.lint]
+select = ["E4", "E7", "E9", "F", "I"]

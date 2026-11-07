@@ -50,10 +50,7 @@ def test_demo_images_pass_strict_upload_validation(client):
     assert demo.status_code == 200
     images = demo.json()["images"]
     assert len(images) == 4
-    files = [
-        ("images", ("demo.png", base64.b64decode(encoded), "image/png"))
-        for encoded in images
-    ]
+    files = [("images", ("demo.png", base64.b64decode(encoded), "image/png")) for encoded in images]
     result = client.post("/api/synthesize", files=files, data={"iterations": 1})
     assert result.status_code == 200, result.text
     assert client.get("/api/demo/3").status_code == 404
@@ -67,9 +64,12 @@ def test_upload_count_and_image_format_are_validated(client):
     result = client.post("/api/synthesize", files=files)
     assert result.status_code == 422
     assert result.json()["detail"].startswith("Plane 2:")
-    assert client.post(
-        "/api/synthesize", files=_uploads(), data={"iterations": api.MAX_ITERATIONS + 1}
-    ).status_code == 422
+    assert (
+        client.post(
+            "/api/synthesize", files=_uploads(), data={"iterations": api.MAX_ITERATIONS + 1}
+        ).status_code
+        == 422
+    )
 
 
 def test_missing_checkpoint_disables_neural_and_hybrid(client):

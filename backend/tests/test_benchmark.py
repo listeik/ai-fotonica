@@ -2,6 +2,7 @@ import csv
 import json
 
 import pytest
+
 from doe.benchmark import main
 
 

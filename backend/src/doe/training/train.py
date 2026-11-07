@@ -33,7 +33,9 @@ class TrainingConfig:
     def __post_init__(self) -> None:
         sizes = (self.epochs, self.train_count, self.val_count, self.batch_size, self.threads)
         if any(type(value) is not int or value < 1 for value in sizes):
-            raise ValueError("epochs, sample counts, batch size and threads must be positive integers")
+            raise ValueError(
+                "epochs, sample counts, batch size and threads must be positive integers"
+            )
         if type(self.width) is not int or not 4 <= self.width <= 64:
             raise ValueError("width must be an integer between 4 and 64")
         if type(self.patience) is not int or self.patience < 0:

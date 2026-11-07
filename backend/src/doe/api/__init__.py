@@ -103,14 +103,10 @@ def create_app(
         app.state.model = None
         app.state.model_version = None
         app.state.model_status = "missing"
-        weights = Path(
-            checkpoint or os.getenv("DOE_CHECKPOINT", "artifacts/doe-unet.pt")
-        )
+        weights = Path(checkpoint or os.getenv("DOE_CHECKPOINT", "artifacts/doe-unet.pt"))
         if weights.is_file():
             try:
-                app.state.model, app.state.model_version = load_model(
-                    weights, app.state.device
-                )
+                app.state.model, app.state.model_version = load_model(weights, app.state.device)
                 app.state.model_status = "ready"
             except Exception:
                 LOGGER.exception("Could not load the configured model checkpoint")
@@ -123,9 +119,7 @@ def create_app(
         lifespan=lifespan,
     )
     app.add_middleware(LimitSynthesisBody)
-    origins = os.getenv(
-        "DOE_CORS_ORIGINS", "http://localhost:5173,http://127.0.0.1:5173"
-    )
+    origins = os.getenv("DOE_CORS_ORIGINS", "http://localhost:5173,http://127.0.0.1:5173")
     app.add_middleware(
         CORSMiddleware,
         allow_origins=[origin.strip() for origin in origins.split(",") if origin.strip()],
@@ -208,7 +202,8 @@ def create_app(
             limiter.acquire_nowait()
         except anyio.WouldBlock as exc:
             raise HTTPException(
-                429, "Synthesis is busy. Try again after the active run finishes.",
+                429,
+                "Synthesis is busy. Try again after the active run finishes.",
                 headers={"Retry-After": "2"},
             ) from exc
 
