@@ -40,7 +40,7 @@
 
 Медиана времени одного `forward` на GPU составила 8,94 мс для новой модели, 5,75 мс для прежней Projection и 4,20 мс для Fourier. Это отдельный последовательный замер одного набора, десять прогревов и пятьдесят повторений, с синхронизацией CUDA. Он исключает ввод-вывод и физическое восстановление PNG; порядок моделей фиксирован, поэтому значения являются ориентиром задержки в этой сессии.
 
-Сохранены веса `runs/photo-model-v1/best.pt`, полный отчёт `evaluation.json`, примеры `preview.png`, графики `learning-curves.png` и `comparison.png`. Веса занимают 2 211 558 байт, SHA-256: `527142714a0da4a92c3293e95f54846a6573fc0931a6335727ef6a6926cd1f2b`. Рядом с этим документом находятся сводные метрики, конфигурация, история эпох, сведения об окружении, контрольные суммы кода и описание выборок. В копии `data.json` для Git непрерывные индексы обучения 0–15999 представлены диапазоном с исключённой правой границей; выбранные индексы остальных групп перечислены явно.
+Сохранены веса `runs/photo-model-v1/best.pt`, полный отчёт `evaluation.json`, примеры `preview.png`, графики `learning-curves.png` и `comparison.png`. Копия весов включена в репозиторий как `artifacts/doe-photo-projection-v1.pt`. Веса занимают 2 211 558 байт, SHA-256: `527142714a0da4a92c3293e95f54846a6573fc0931a6335727ef6a6926cd1f2b`. Рядом с этим документом находятся сводные метрики, конфигурация, история эпох, сведения об окружении, контрольные суммы кода и описание выборок. В копии `data.json` для Git непрерывные индексы обучения 0–15999 представлены диапазоном с исключённой правой границей; выбранные индексы остальных групп перечислены явно.
 
 Проверены полный короткий запуск конвейера на GPU и 18 тестов физики, обучения и синтеза. Полученный чекпойнт также проверен обычным CLI на GPU и CPU: максимальное различие четырёх агрегированных PCC/SSIM относительно контрольного отчёта для первого тестового набора меньше 0,000035. PNG и большие кэши остаются в локальном каталоге `runs/`.
 
@@ -60,5 +60,5 @@ $env:PYTHONPATH = (Resolve-Path 'runs/cuda/runtime').Path
 Пример использования полученных весов через существующий CLI:
 
 ```powershell
-.venv/Scripts/python.exe -m doe --method neural --checkpoint runs/photo-model-v1/best.pt --device cuda --output runs/photo-model-inference runs/people-doe-100-v1/test/000/target-1.png runs/people-doe-100-v1/test/000/target-2.png runs/people-doe-100-v1/test/000/target-3.png runs/people-doe-100-v1/test/000/target-4.png
+.venv/Scripts/python.exe -m doe --method neural --checkpoint artifacts/doe-photo-projection-v1.pt --device cuda --output runs/photo-model-inference runs/people-doe-100-v1/test/000/target-1.png runs/people-doe-100-v1/test/000/target-2.png runs/people-doe-100-v1/test/000/target-3.png runs/people-doe-100-v1/test/000/target-4.png
 ```

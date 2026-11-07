@@ -8,10 +8,9 @@ from pathlib import Path
 from time import perf_counter
 
 import torch
-import torch.nn.functional as F
 from torch import Tensor
 
-from doe.loss import normalize_amplitude
+from doe.loss import global_ssim, normalize_amplitude
 from doe.metrics import evaluate
 from doe.physics import FresnelPropagator, png_to_gray, png_to_phase, quantize_phase
 from doe.synthesis import export_phase
@@ -25,16 +24,6 @@ class QualityObjective:
         self.dark = target <= 2 / 255
         self.centered = target - target.mean(dim=(-2, -1), keepdim=True)
         self.energy = self.centered.square().sum(dim=(-2, -1))
-        window = min(7, *target.shape[-2:])
-        self.window = window - (1 - window % 2)
-        n = self.window**2
-        self.correction = n / (n - 1)
-        self.mean, square = self.pool(torch.stack((target, target.square()), dim=1)).unbind(1)
-        self.variance = (square - self.mean.square()).clamp_min(0) * self.correction
-
-    def pool(self, image: Tensor) -> Tensor:
-        rows = F.avg_pool2d(image, (1, self.window), stride=1)
-        return F.avg_pool2d(rows, (self.window, 1), stride=1)
 
     def scores(self, pixels: Tensor) -> tuple[Tensor, Tensor]:
         centered = pixels - pixels.mean(dim=(-2, -1), keepdim=True)
@@ -43,15 +32,7 @@ class QualityObjective:
         ).clamp_min(1e-12).sqrt()
         # Match the official convention for constant input images.
         pcc = torch.where(pixels.amax((-2, -1)) > pixels.amin((-2, -1)), pcc, 0)
-        mean, square, product = self.pool(
-            torch.stack((pixels, pixels.square(), pixels * self.target), dim=1)
-        ).unbind(1)
-        variance = (square - mean.square()).clamp_min(0) * self.correction
-        covariance = (product - mean * self.mean) * self.correction
-        ssim = ((2 * mean * self.mean + 0.01**2) * (2 * covariance + 0.03**2)) / (
-            (mean.square() + self.mean.square() + 0.01**2) * (variance + self.variance + 0.03**2)
-        )
-        return pcc, ssim.mean(dim=(-2, -1))
+        return pcc, global_ssim(pixels, self.target)
 
     def __call__(self, amplitude: Tensor, pixels: Tensor, ssim_weight: float) -> Tensor:
         pcc, ssim = self.scores(pixels)
