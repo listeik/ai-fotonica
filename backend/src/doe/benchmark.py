@@ -99,7 +99,7 @@ def _write_report(output: Path, report: dict[str, Any]) -> None:
         "# Сравнение методов синтеза",
         "",
         (
-            f"Набор `{metadata['split']}`, {metadata['sample_count']} наборов по четыре цели. "
+            f"Выборка `{metadata['split']}`: {metadata['sample_count']} случаев, по четыре цели. "
             f"Устройство — {metadata['device_name']}."
         ),
         "",

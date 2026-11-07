@@ -1,0 +1,4829 @@
+{
+  "schema_version": 1,
+  "metadata": {
+    "split": "test",
+    "sample_count": 32,
+    "dataset_version": "procedural-v1",
+    "dataset_seed": 2026,
+    "optimizer_seed_start": 0,
+    "checkpoint": {
+      "path": "artifacts\\doe-unet.pt",
+      "sha256": "695e8ba932927602c0f3968a78391bcbd77c79f0c8c23671583fc4a41636587f",
+      "model_version": "fresnel-unet-projection-v2:695e8ba93292",
+      "load_seconds": 0.09398499999952037
+    },
+    "warmup_seconds": 4.743270199993276,
+    "device": "cuda",
+    "device_name": "NVIDIA GeForce RTX 3050 Ti Laptop GPU",
+    "cuda_runtime": "12.8",
+    "torch_threads": 4,
+    "platform": "Windows-10-10.0.26200-SP0",
+    "python": "3.11.2",
+    "versions": {
+      "torch": "2.7.1+cu128",
+      "numpy": "2.4.6",
+      "pillow": "13.0.0",
+      "scikit-image": "0.26.0",
+      "matplotlib": "3.11.2"
+    },
+    "distances_m": [
+      0.0241,
+      0.0253,
+      0.0265,
+      0.0277
+    ],
+    "resolution_px": 128,
+    "wavelength_m": 5.32e-07,
+    "input_pitch_m": 1e-05,
+    "output_pitches_m": [
+      1.00165625e-05,
+      1.05153125e-05,
+      1.1014062500000001e-05,
+      1.15128125e-05
+    ]
+  },
+  "summary": [
+    {
+      "configuration": "Classical (20)",
+      "method": "classical",
+      "requested_iterations": 20,
+      "mean_iterations": 20,
+      "mean_pcc": 0.4428153462489194,
+      "mean_ssim": 0.03499060647957366,
+      "worst_pcc": 0.2530643475904006,
+      "worst_ssim": 0.015538856926792204,
+      "median_seconds": 0.15029849999700673
+    },
+    {
+      "configuration": "Classical (200)",
+      "method": "classical",
+      "requested_iterations": 200,
+      "mean_iterations": 200,
+      "mean_pcc": 0.6383481624460305,
+      "mean_ssim": 0.21411898310528837,
+      "worst_pcc": 0.2568507216257242,
+      "worst_ssim": 0.03757354113011336,
+      "median_seconds": 1.476179700002831
+    },
+    {
+      "configuration": "Neural",
+      "method": "neural",
+      "requested_iterations": 0,
+      "mean_iterations": 0,
+      "mean_pcc": 0.6280134353064485,
+      "mean_ssim": 0.06520726189374623,
+      "worst_pcc": 0.2731359367393852,
+      "worst_ssim": 0.037399750310298914,
+      "median_seconds": 0.010174400005780626
+    },
+    {
+      "configuration": "Hybrid (20)",
+      "method": "hybrid",
+      "requested_iterations": 20,
+      "mean_iterations": 20,
+      "mean_pcc": 0.6213703472548724,
+      "mean_ssim": 0.25167875429398023,
+      "worst_pcc": 0.26786347485404777,
+      "worst_ssim": 0.0555129426744927,
+      "median_seconds": 0.1625601000050665
+    }
+  ],
+  "samples": [
+    {
+      "sample_index": 0,
+      "target_sha256": "019ebf85d6dc3afb35a608472e69423a16afcc52e4f3fe27c522c4c884992e2b",
+      "phase_png_sha256": "cf9ec691143d4bd7258b1034a48c4c403e50347275cccdd86c114a978fac064f",
+      "configuration": "Classical (20)",
+      "method": "classical",
+      "requested_iterations": 20,
+      "iterations": 20,
+      "optimizer_seed": 0,
+      "seconds": 0.17756909999297932,
+      "planes": [
+        {
+          "distance_mm": 24.1,
+          "pcc": 0.3697495299784721,
+          "ssim": 0.039348699405635845
+        },
+        {
+          "distance_mm": 25.3,
+          "pcc": 0.47878645125476504,
+          "ssim": 0.034998978298029455
+        },
+        {
+          "distance_mm": 26.5,
+          "pcc": 0.39504098575486496,
+          "ssim": 0.025048746216659774
+        },
+        {
+          "distance_mm": 27.7,
+          "pcc": 0.39811440624394295,
+          "ssim": 0.01953831472465012
+        }
+      ],
+      "mean_pcc": 0.41042284330801126,
+      "mean_ssim": 0.029733684661243796,
+      "worst_pcc": 0.3697495299784721,
+      "worst_ssim": 0.01953831472465012
+    },
+    {
+      "sample_index": 0,
+      "target_sha256": "019ebf85d6dc3afb35a608472e69423a16afcc52e4f3fe27c522c4c884992e2b",
+      "phase_png_sha256": "93afc5479ed6e95fff0487a466238179c0597b4ae27e1ce21f92c60f8d0a62fc",
+      "configuration": "Classical (200)",
+      "method": "classical",
+      "requested_iterations": 200,
+      "iterations": 200,
+      "optimizer_seed": 0,
+      "seconds": 1.6146093999996083,
+      "planes": [
+        {
+          "distance_mm": 24.1,
+          "pcc": 0.5697892006730315,
+          "ssim": 0.05577542205089061
+        },
+        {
+          "distance_mm": 25.3,
+          "pcc": 0.7108805652859765,
+          "ssim": 0.04762528524596213
+        },
+        {
+          "distance_mm": 26.5,
+          "pcc": 0.5969902651594767,
+          "ssim": 0.04713666590546662
+        },
+        {
+          "distance_mm": 27.7,
+          "pcc": 0.5859265651299853,
+          "ssim": 0.053852399102579065
+        }
+      ],
+      "mean_pcc": 0.6158966490621175,
+      "mean_ssim": 0.0510974430762246,
+      "worst_pcc": 0.5697892006730315,
+      "worst_ssim": 0.04713666590546662
+    },
+    {
+      "sample_index": 0,
+      "target_sha256": "019ebf85d6dc3afb35a608472e69423a16afcc52e4f3fe27c522c4c884992e2b",
+      "phase_png_sha256": "e9272b5ea0504312ef606bb2c5f5df4fdc7a4df3b971f8b36aeb1417d30a7449",
+      "configuration": "Neural",
+      "method": "neural",
+      "requested_iterations": 0,
+      "iterations": 0,
+      "optimizer_seed": 0,
+      "seconds": 0.011625900006038137,
+      "planes": [
+        {
+          "distance_mm": 24.1,
+          "pcc": 0.5547538427087404,
+          "ssim": 0.05662963052842013
+        },
+        {
+          "distance_mm": 25.3,
+          "pcc": 0.6916102469862487,
+          "ssim": 0.04751179635847683
+        },
+        {
+          "distance_mm": 26.5,
+          "pcc": 0.5550380517813132,
+          "ssim": 0.05145370264448615
+        },
+        {
+          "distance_mm": 27.7,
+          "pcc": 0.5415461024906046,
+          "ssim": 0.06382838447430117
+        }
+      ],
+      "mean_pcc": 0.5857370609917267,
+      "mean_ssim": 0.05485587850142107,
+      "worst_pcc": 0.5415461024906046,
+      "worst_ssim": 0.04751179635847683
+    },
+    {
+      "sample_index": 0,
+      "target_sha256": "019ebf85d6dc3afb35a608472e69423a16afcc52e4f3fe27c522c4c884992e2b",
+      "phase_png_sha256": "765989e0f632ea227c6404ffc70ed2fa78641cc81bb1100dc48472ef47f6fc71",
+      "configuration": "Hybrid (20)",
+      "method": "hybrid",
+      "requested_iterations": 20,
+      "iterations": 20,
+      "optimizer_seed": 0,
+      "seconds": 0.17500000000291038,
+      "planes": [
+        {
+          "distance_mm": 24.1,
+          "pcc": 0.5329604600432577,
+          "ssim": 0.3735963580013788
+        },
+        {
+          "distance_mm": 25.3,
+          "pcc": 0.6922102387983341,
+          "ssim": 0.3075775675178408
+        },
+        {
+          "distance_mm": 26.5,
+          "pcc": 0.5507612793963637,
+          "ssim": 0.3431719843076381
+        },
+        {
+          "distance_mm": 27.7,
+          "pcc": 0.5056519322780872,
+          "ssim": 0.40599423412060787
+        }
+      ],
+      "mean_pcc": 0.5703959776290106,
+      "mean_ssim": 0.3575850359868664,
+      "worst_pcc": 0.5056519322780872,
+      "worst_ssim": 0.3075775675178408
+    },
+    {
+      "sample_index": 1,
+      "target_sha256": "8e4dcee15a9a0ea6c33b92123105d1b4d091e5876623db3ebf6b09662db36945",
+      "phase_png_sha256": "3ad5c32a6d7690845dcbc9ed2b9c2b96f4b1238a259575fcfe2923d91eea0c22",
+      "configuration": "Classical (200)",
+      "method": "classical",
+      "requested_iterations": 200,
+      "iterations": 200,
+      "optimizer_seed": 1,
+      "seconds": 1.667189200001303,
+      "planes": [
+        {
+          "distance_mm": 24.1,
+          "pcc": 0.6541312282696098,
+          "ssim": 0.07497023461682616
+        },
+        {
+          "distance_mm": 25.3,
+          "pcc": 0.6449280357701171,
+          "ssim": 0.059110919705982944
+        },
+        {
+          "distance_mm": 26.5,
+          "pcc": 0.7202478729373482,
+          "ssim": 0.06869580540175592
+        },
+        {
+          "distance_mm": 27.7,
+          "pcc": 0.5710750289869987,
+          "ssim": 0.059052130856752295
+        }
+      ],
+      "mean_pcc": 0.6475955414910184,
+      "mean_ssim": 0.06545727264532933,
+      "worst_pcc": 0.5710750289869987,
+      "worst_ssim": 0.059052130856752295
+    },
+    {
+      "sample_index": 1,
+      "target_sha256": "8e4dcee15a9a0ea6c33b92123105d1b4d091e5876623db3ebf6b09662db36945",
+      "phase_png_sha256": "8dc41cef3552c280e8c754b094525785e6ae57cad14c4f1be867b46760349c40",
+      "configuration": "Neural",
+      "method": "neural",
+      "requested_iterations": 0,
+      "iterations": 0,
+      "optimizer_seed": 1,
+      "seconds": 0.010577299995929934,
+      "planes": [
+        {
+          "distance_mm": 24.1,
+          "pcc": 0.6034919787165989,
+          "ssim": 0.060394948721833465
+        },
+        {
+          "distance_mm": 25.3,
+          "pcc": 0.6123725086850182,
+          "ssim": 0.05565293421038829
+        },
+        {
+          "distance_mm": 26.5,
+          "pcc": 0.6758828398029715,
+          "ssim": 0.05901453701466541
+        },
+        {
+          "distance_mm": 27.7,
+          "pcc": 0.5377348701546534,
+          "ssim": 0.05955683969348348
+        }
+      ],
+      "mean_pcc": 0.6073705493398105,
+      "mean_ssim": 0.05865481491009267,
+      "worst_pcc": 0.5377348701546534,
+      "worst_ssim": 0.05565293421038829
+    },
+    {
+      "sample_index": 1,
+      "target_sha256": "8e4dcee15a9a0ea6c33b92123105d1b4d091e5876623db3ebf6b09662db36945",
+      "phase_png_sha256": "ddef6d6e29c95db1d7a519e717aa7692d954c8705bf4bf0b10dcf24584cd59e1",
+      "configuration": "Hybrid (20)",
+      "method": "hybrid",
+      "requested_iterations": 20,
+      "iterations": 20,
+      "optimizer_seed": 1,
+      "seconds": 0.17881599999964237,
+      "planes": [
+        {
+          "distance_mm": 24.1,
+          "pcc": 0.6393486777868937,
+          "ssim": 0.07083289496482796
+        },
+        {
+          "distance_mm": 25.3,
+          "pcc": 0.6377683646952756,
+          "ssim": 0.05681321541848446
+        },
+        {
+          "distance_mm": 26.5,
+          "pcc": 0.7007025359853475,
+          "ssim": 0.06337497501381349
+        },
+        {
+          "distance_mm": 27.7,
+          "pcc": 0.560887009199853,
+          "ssim": 0.0555129426744927
+        }
+      ],
+      "mean_pcc": 0.6346766469168424,
+      "mean_ssim": 0.061633507017904654,
+      "worst_pcc": 0.560887009199853,
+      "worst_ssim": 0.0555129426744927
+    },
+    {
+      "sample_index": 1,
+      "target_sha256": "8e4dcee15a9a0ea6c33b92123105d1b4d091e5876623db3ebf6b09662db36945",
+      "phase_png_sha256": "74546960708f68234ffc134d5e7986f63db7f702fa619e0e8700010aeda3914d",
+      "configuration": "Classical (20)",
+      "method": "classical",
+      "requested_iterations": 20,
+      "iterations": 20,
+      "optimizer_seed": 1,
+      "seconds": 0.1568690999993123,
+      "planes": [
+        {
+          "distance_mm": 24.1,
+          "pcc": 0.4202975916821765,
+          "ssim": 0.023104180142492152
+        },
+        {
+          "distance_mm": 25.3,
+          "pcc": 0.4343748207843999,
+          "ssim": 0.03742978697132443
+        },
+        {
+          "distance_mm": 26.5,
+          "pcc": 0.46517124366086754,
+          "ssim": 0.029685684548632078
+        },
+        {
+          "distance_mm": 27.7,
+          "pcc": 0.3871680966996905,
+          "ssim": 0.030452309904860628
+        }
+      ],
+      "mean_pcc": 0.42675293820678356,
+      "mean_ssim": 0.030167990391827323,
+      "worst_pcc": 0.3871680966996905,
+      "worst_ssim": 0.023104180142492152
+    },
+    {
+      "sample_index": 2,
+      "target_sha256": "cd41c9252005c72db63007e08aedea3c44d41ac8b5e89031e80d28637d3fe2f2",
+      "phase_png_sha256": "5454bd0f15f4032fb1260def1c48a1a538baebcc347b7916048009efe8bcd50e",
+      "configuration": "Neural",
+      "method": "neural",
+      "requested_iterations": 0,
+      "iterations": 0,
+      "optimizer_seed": 2,
+      "seconds": 0.008480199991026893,
+      "planes": [
+        {
+          "distance_mm": 24.1,
+          "pcc": 0.6439389820201301,
+          "ssim": 0.0711183590983855
+        },
+        {
+          "distance_mm": 25.3,
+          "pcc": 0.5638011252937017,
+          "ssim": 0.055697896773987655
+        },
+        {
+          "distance_mm": 26.5,
+          "pcc": 0.5073803030119993,
+          "ssim": 0.0635284064718065
+        },
+        {
+          "distance_mm": 27.7,
+          "pcc": 0.6155673523639928,
+          "ssim": 0.07156472506651734
+        }
+      ],
+      "mean_pcc": 0.5826719406724561,
+      "mean_ssim": 0.06547734685267426,
+      "worst_pcc": 0.5073803030119993,
+      "worst_ssim": 0.055697896773987655
+    },
+    {
+      "sample_index": 2,
+      "target_sha256": "cd41c9252005c72db63007e08aedea3c44d41ac8b5e89031e80d28637d3fe2f2",
+      "phase_png_sha256": "dddbd115cfbde1bf200bebc7e3f425447e90063d29a5ef18955b9408f0d02c4d",
+      "configuration": "Hybrid (20)",
+      "method": "hybrid",
+      "requested_iterations": 20,
+      "iterations": 20,
+      "optimizer_seed": 2,
+      "seconds": 0.17594099999405444,
+      "planes": [
+        {
+          "distance_mm": 24.1,
+          "pcc": 0.6828642835940979,
+          "ssim": 0.08782039248447951
+        },
+        {
+          "distance_mm": 25.3,
+          "pcc": 0.6246259846502427,
+          "ssim": 0.0727063456330505
+        },
+        {
+          "distance_mm": 26.5,
+          "pcc": 0.49075589111729123,
+          "ssim": 0.12747529398218493
+        },
+        {
+          "distance_mm": 27.7,
+          "pcc": 0.5719410735008302,
+          "ssim": 0.15130754988280598
+        }
+      ],
+      "mean_pcc": 0.5925468082156155,
+      "mean_ssim": 0.10982739549563024,
+      "worst_pcc": 0.49075589111729123,
+      "worst_ssim": 0.0727063456330505
+    },
+    {
+      "sample_index": 2,
+      "target_sha256": "cd41c9252005c72db63007e08aedea3c44d41ac8b5e89031e80d28637d3fe2f2",
+      "phase_png_sha256": "d0ceeba5866e3943872054b4e34566e7560c752e3c2e509ea460c7017468def0",
+      "configuration": "Classical (20)",
+      "method": "classical",
+      "requested_iterations": 20,
+      "iterations": 20,
+      "optimizer_seed": 2,
+      "seconds": 0.1577149999939138,
+      "planes": [
+        {
+          "distance_mm": 24.1,
+          "pcc": 0.39411148861611367,
+          "ssim": 0.040625323923465094
+        },
+        {
+          "distance_mm": 25.3,
+          "pcc": 0.43145711278021065,
+          "ssim": 0.030157405014658144
+        },
+        {
+          "distance_mm": 26.5,
+          "pcc": 0.3344649715947868,
+          "ssim": 0.032872162848129084
+        },
+        {
+          "distance_mm": 27.7,
+          "pcc": 0.352759099869878,
+          "ssim": 0.037433346212450404
+        }
+      ],
+      "mean_pcc": 0.37819816821524727,
+      "mean_ssim": 0.03527205949967568,
+      "worst_pcc": 0.3344649715947868,
+      "worst_ssim": 0.030157405014658144
+    },
+    {
+      "sample_index": 2,
+      "target_sha256": "cd41c9252005c72db63007e08aedea3c44d41ac8b5e89031e80d28637d3fe2f2",
+      "phase_png_sha256": "87719d84b3e87e0b95a955a50380ae40140c5ed1cd5e488a1c8ef3af288a8373",
+      "configuration": "Classical (200)",
+      "method": "classical",
+      "requested_iterations": 200,
+      "iterations": 200,
+      "optimizer_seed": 2,
+      "seconds": 1.5627228999946965,
+      "planes": [
+        {
+          "distance_mm": 24.1,
+          "pcc": 0.6894103797949223,
+          "ssim": 0.09144423161448903
+        },
+        {
+          "distance_mm": 25.3,
+          "pcc": 0.667534675050422,
+          "ssim": 0.10329609248117474
+        },
+        {
+          "distance_mm": 26.5,
+          "pcc": 0.49531708428476146,
+          "ssim": 0.09816953102224793
+        },
+        {
+          "distance_mm": 27.7,
+          "pcc": 0.6046775674607475,
+          "ssim": 0.06313177795377671
+        }
+      ],
+      "mean_pcc": 0.6142349266477133,
+      "mean_ssim": 0.0890104082679221,
+      "worst_pcc": 0.49531708428476146,
+      "worst_ssim": 0.06313177795377671
+    },
+    {
+      "sample_index": 3,
+      "target_sha256": "3b63168d0d1865c9d0dda233895a5f3276386a0d0660e15f31266f77a1b4e213",
+      "phase_png_sha256": "52520f7bb6db30c8d10c3f50c7fe92659797ca27426c1c7d9a7e9fc0162cad31",
+      "configuration": "Hybrid (20)",
+      "method": "hybrid",
+      "requested_iterations": 20,
+      "iterations": 20,
+      "optimizer_seed": 3,
+      "seconds": 0.16532050000387244,
+      "planes": [
+        {
+          "distance_mm": 24.1,
+          "pcc": 0.6156266760877659,
+          "ssim": 0.5238451313841165
+        },
+        {
+          "distance_mm": 25.3,
+          "pcc": 0.7583271669114143,
+          "ssim": 0.5384191249013471
+        },
+        {
+          "distance_mm": 26.5,
+          "pcc": 0.6559312882408062,
+          "ssim": 0.5470292379174991
+        },
+        {
+          "distance_mm": 27.7,
+          "pcc": 0.774712642083305,
+          "ssim": 0.5451590247474678
+        }
+      ],
+      "mean_pcc": 0.7011494433308227,
+      "mean_ssim": 0.5386131297376076,
+      "worst_pcc": 0.6156266760877659,
+      "worst_ssim": 0.5238451313841165
+    },
+    {
+      "sample_index": 3,
+      "target_sha256": "3b63168d0d1865c9d0dda233895a5f3276386a0d0660e15f31266f77a1b4e213",
+      "phase_png_sha256": "9c11f3c882b8f1dcc0ef22823b39e596dc8516773aa52531f2da99339f2b741c",
+      "configuration": "Classical (20)",
+      "method": "classical",
+      "requested_iterations": 20,
+      "iterations": 20,
+      "optimizer_seed": 3,
+      "seconds": 0.149098399997456,
+      "planes": [
+        {
+          "distance_mm": 24.1,
+          "pcc": 0.47219120066132364,
+          "ssim": 0.10706426878450348
+        },
+        {
+          "distance_mm": 25.3,
+          "pcc": 0.5903140485782501,
+          "ssim": 0.040106043788411566
+        },
+        {
+          "distance_mm": 26.5,
+          "pcc": 0.5496525102907086,
+          "ssim": 0.034056675132003215
+        },
+        {
+          "distance_mm": 27.7,
+          "pcc": 0.598490627318034,
+          "ssim": 0.03901365024682109
+        }
+      ],
+      "mean_pcc": 0.5526620967120791,
+      "mean_ssim": 0.05506015948793484,
+      "worst_pcc": 0.47219120066132364,
+      "worst_ssim": 0.034056675132003215
+    },
+    {
+      "sample_index": 3,
+      "target_sha256": "3b63168d0d1865c9d0dda233895a5f3276386a0d0660e15f31266f77a1b4e213",
+      "phase_png_sha256": "c80726c317b1cc39a6766af70d8b672d68553e8da21d8c84994805c45d2df2f9",
+      "configuration": "Classical (200)",
+      "method": "classical",
+      "requested_iterations": 200,
+      "iterations": 200,
+      "optimizer_seed": 3,
+      "seconds": 1.5254702000092948,
+      "planes": [
+        {
+          "distance_mm": 24.1,
+          "pcc": 0.6015133226765421,
+          "ssim": 0.6302159432965441
+        },
+        {
+          "distance_mm": 25.3,
+          "pcc": 0.7606995881589355,
+          "ssim": 0.6170530226309598
+        },
+        {
+          "distance_mm": 26.5,
+          "pcc": 0.6914856817922135,
+          "ssim": 0.5870824401978636
+        },
+        {
+          "distance_mm": 27.7,
+          "pcc": 0.7930373629979128,
+          "ssim": 0.560460824845562
+        }
+      ],
+      "mean_pcc": 0.711683988906401,
+      "mean_ssim": 0.5987030577427324,
+      "worst_pcc": 0.6015133226765421,
+      "worst_ssim": 0.560460824845562
+    },
+    {
+      "sample_index": 3,
+      "target_sha256": "3b63168d0d1865c9d0dda233895a5f3276386a0d0660e15f31266f77a1b4e213",
+      "phase_png_sha256": "31340e6479c91b1d08427e3dd974e389974ba1eba1804758567507b6fb6ed878",
+      "configuration": "Neural",
+      "method": "neural",
+      "requested_iterations": 0,
+      "iterations": 0,
+      "optimizer_seed": 3,
+      "seconds": 0.01054820000717882,
+      "planes": [
+        {
+          "distance_mm": 24.1,
+          "pcc": 0.6620908958630964,
+          "ssim": 0.0871621574787996
+        },
+        {
+          "distance_mm": 25.3,
+          "pcc": 0.7796076297039756,
+          "ssim": 0.10632557407577183
+        },
+        {
+          "distance_mm": 26.5,
+          "pcc": 0.6808532137848432,
+          "ssim": 0.0741013373658804
+        },
+        {
+          "distance_mm": 27.7,
+          "pcc": 0.8155004209408964,
+          "ssim": 0.08743977391117151
+        }
+      ],
+      "mean_pcc": 0.734513040073203,
+      "mean_ssim": 0.08875721070790585,
+      "worst_pcc": 0.6620908958630964,
+      "worst_ssim": 0.0741013373658804
+    },
+    {
+      "sample_index": 4,
+      "target_sha256": "e1711ae17ef322aca588e8859eb1eb596a4c1694d4e27839edb20a4e53235641",
+      "phase_png_sha256": "b325ff43a40aedc554d4643b2e40f95505587cfadc062bcb72cdb4cde4971c89",
+      "configuration": "Classical (20)",
+      "method": "classical",
+      "requested_iterations": 20,
+      "iterations": 20,
+      "optimizer_seed": 4,
+      "seconds": 0.16023069999937434,
+      "planes": [
+        {
+          "distance_mm": 24.1,
+          "pcc": 0.6383722510443954,
+          "ssim": 0.017782509033588956
+        },
+        {
+          "distance_mm": 25.3,
+          "pcc": 0.6269281600432588,
+          "ssim": 0.015538856926792204
+        },
+        {
+          "distance_mm": 26.5,
+          "pcc": 0.5804515621436531,
+          "ssim": 0.016551597754322755
+        },
+        {
+          "distance_mm": 27.7,
+          "pcc": 0.4532854495694027,
+          "ssim": 0.03044325041470319
+        }
+      ],
+      "mean_pcc": 0.5747593557001776,
+      "mean_ssim": 0.020079053532351777,
+      "worst_pcc": 0.4532854495694027,
+      "worst_ssim": 0.015538856926792204
+    },
+    {
+      "sample_index": 4,
+      "target_sha256": "e1711ae17ef322aca588e8859eb1eb596a4c1694d4e27839edb20a4e53235641",
+      "phase_png_sha256": "03c9a2decf2b74bb2df90df90f5c03fd475c849cfca39de3657926b7fd1985b0",
+      "configuration": "Classical (200)",
+      "method": "classical",
+      "requested_iterations": 200,
+      "iterations": 200,
+      "optimizer_seed": 4,
+      "seconds": 1.4584490999986883,
+      "planes": [
+        {
+          "distance_mm": 24.1,
+          "pcc": 0.8782696800468154,
+          "ssim": 0.047892839093504565
+        },
+        {
+          "distance_mm": 25.3,
+          "pcc": 0.8683018795500245,
+          "ssim": 0.046814413595975275
+        },
+        {
+          "distance_mm": 26.5,
+          "pcc": 0.803520832442346,
+          "ssim": 0.048130243910706264
+        },
+        {
+          "distance_mm": 27.7,
+          "pcc": 0.6172931829744503,
+          "ssim": 0.046651810332792615
+        }
+      ],
+      "mean_pcc": 0.791846393753409,
+      "mean_ssim": 0.04737232673324468,
+      "worst_pcc": 0.6172931829744503,
+      "worst_ssim": 0.046651810332792615
+    },
+    {
+      "sample_index": 4,
+      "target_sha256": "e1711ae17ef322aca588e8859eb1eb596a4c1694d4e27839edb20a4e53235641",
+      "phase_png_sha256": "00c07b2eb60d52cc91a5359fb9bbe7084cf25dbbc4cbb09080e2a921fb825aeb",
+      "configuration": "Neural",
+      "method": "neural",
+      "requested_iterations": 0,
+      "iterations": 0,
+      "optimizer_seed": 4,
+      "seconds": 0.010175500006880611,
+      "planes": [
+        {
+          "distance_mm": 24.1,
+          "pcc": 0.8527226599843867,
+          "ssim": 0.06307496837755225
+        },
+        {
+          "distance_mm": 25.3,
+          "pcc": 0.8063982716916204,
+          "ssim": 0.0743463922349836
+        },
+        {
+          "distance_mm": 26.5,
+          "pcc": 0.7666343153149968,
+          "ssim": 0.07370526633670221
+        },
+        {
+          "distance_mm": 27.7,
+          "pcc": 0.6258055308310961,
+          "ssim": 0.07286680655362411
+        }
+      ],
+      "mean_pcc": 0.7628901944555251,
+      "mean_ssim": 0.07099835837571554,
+      "worst_pcc": 0.6258055308310961,
+      "worst_ssim": 0.06307496837755225
+    },
+    {
+      "sample_index": 4,
+      "target_sha256": "e1711ae17ef322aca588e8859eb1eb596a4c1694d4e27839edb20a4e53235641",
+      "phase_png_sha256": "a44b32246bcfd075e5d589f80e63a32671222d44a12b1c58f49af1fb13eb8d1c",
+      "configuration": "Hybrid (20)",
+      "method": "hybrid",
+      "requested_iterations": 20,
+      "iterations": 20,
+      "optimizer_seed": 4,
+      "seconds": 0.1639385000016773,
+      "planes": [
+        {
+          "distance_mm": 24.1,
+          "pcc": 0.8387941903077187,
+          "ssim": 0.20381517689844217
+        },
+        {
+          "distance_mm": 25.3,
+          "pcc": 0.8137756289808413,
+          "ssim": 0.21466265543616161
+        },
+        {
+          "distance_mm": 26.5,
+          "pcc": 0.7570234295561259,
+          "ssim": 0.3581890517465543
+        },
+        {
+          "distance_mm": 27.7,
+          "pcc": 0.5939570003691488,
+          "ssim": 0.40970918629941233
+        }
+      ],
+      "mean_pcc": 0.7508875623034587,
+      "mean_ssim": 0.2965940175951426,
+      "worst_pcc": 0.5939570003691488,
+      "worst_ssim": 0.20381517689844217
+    },
+    {
+      "sample_index": 5,
+      "target_sha256": "83613c0f03d606c3256b9a6f81ab948a003c841ba63dff09bde5f05ad96f4623",
+      "phase_png_sha256": "85c3e254ecbc8f26ff1870eb0118aa25644fc829e016d5e2f2a2f7e116b11370",
+      "configuration": "Classical (200)",
+      "method": "classical",
+      "requested_iterations": 200,
+      "iterations": 200,
+      "optimizer_seed": 5,
+      "seconds": 1.5101586999953724,
+      "planes": [
+        {
+          "distance_mm": 24.1,
+          "pcc": 0.7361037656628671,
+          "ssim": 0.0956597229281911
+        },
+        {
+          "distance_mm": 25.3,
+          "pcc": 0.37683731694554806,
+          "ssim": 0.1048261719160856
+        },
+        {
+          "distance_mm": 26.5,
+          "pcc": 0.5328788634569694,
+          "ssim": 0.051967083763436166
+        },
+        {
+          "distance_mm": 27.7,
+          "pcc": 0.7531688427549804,
+          "ssim": 0.09784088187457154
+        }
+      ],
+      "mean_pcc": 0.5997471972050913,
+      "mean_ssim": 0.0875734651205711,
+      "worst_pcc": 0.37683731694554806,
+      "worst_ssim": 0.051967083763436166
+    },
+    {
+      "sample_index": 5,
+      "target_sha256": "83613c0f03d606c3256b9a6f81ab948a003c841ba63dff09bde5f05ad96f4623",
+      "phase_png_sha256": "908031f30136be0d8062488eb1fcc66e5443f515a9dfe5e3b9d7f53f250ddbfe",
+      "configuration": "Neural",
+      "method": "neural",
+      "requested_iterations": 0,
+      "iterations": 0,
+      "optimizer_seed": 5,
+      "seconds": 0.010044200011179782,
+      "planes": [
+        {
+          "distance_mm": 24.1,
+          "pcc": 0.6571982063864803,
+          "ssim": 0.06236326410774571
+        },
+        {
+          "distance_mm": 25.3,
+          "pcc": 0.44787150249781504,
+          "ssim": 0.045557760276825336
+        },
+        {
+          "distance_mm": 26.5,
+          "pcc": 0.5400949766498898,
+          "ssim": 0.05069176372520211
+        },
+        {
+          "distance_mm": 27.7,
+          "pcc": 0.683301243591577,
+          "ssim": 0.06340435370826011
+        }
+      ],
+      "mean_pcc": 0.5821164822814405,
+      "mean_ssim": 0.05550428545450831,
+      "worst_pcc": 0.44787150249781504,
+      "worst_ssim": 0.045557760276825336
+    },
+    {
+      "sample_index": 5,
+      "target_sha256": "83613c0f03d606c3256b9a6f81ab948a003c841ba63dff09bde5f05ad96f4623",
+      "phase_png_sha256": "485e10038f44b3aaae2b0981d07d00482c0e4b75634d71f7af712f743f5fb272",
+      "configuration": "Hybrid (20)",
+      "method": "hybrid",
+      "requested_iterations": 20,
+      "iterations": 20,
+      "optimizer_seed": 5,
+      "seconds": 0.15769949999230448,
+      "planes": [
+        {
+          "distance_mm": 24.1,
+          "pcc": 0.7127272905903306,
+          "ssim": 0.08057423969088974
+        },
+        {
+          "distance_mm": 25.3,
+          "pcc": 0.3754623985260967,
+          "ssim": 0.23752522894987946
+        },
+        {
+          "distance_mm": 26.5,
+          "pcc": 0.5311310656837391,
+          "ssim": 0.05643283381539286
+        },
+        {
+          "distance_mm": 27.7,
+          "pcc": 0.7279479248408333,
+          "ssim": 0.08233220062732768
+        }
+      ],
+      "mean_pcc": 0.5868171699102499,
+      "mean_ssim": 0.11421612577087245,
+      "worst_pcc": 0.3754623985260967,
+      "worst_ssim": 0.05643283381539286
+    },
+    {
+      "sample_index": 5,
+      "target_sha256": "83613c0f03d606c3256b9a6f81ab948a003c841ba63dff09bde5f05ad96f4623",
+      "phase_png_sha256": "1a1eef1cf66a270a0f6ccec17cfa029a36e7c030a9f89cf5e17b56e083fc1fdf",
+      "configuration": "Classical (20)",
+      "method": "classical",
+      "requested_iterations": 20,
+      "iterations": 20,
+      "optimizer_seed": 5,
+      "seconds": 0.14949699999124277,
+      "planes": [
+        {
+          "distance_mm": 24.1,
+          "pcc": 0.4244697048443048,
+          "ssim": 0.02275338123300687
+        },
+        {
+          "distance_mm": 25.3,
+          "pcc": 0.3211838732157921,
+          "ssim": 0.03298351115685242
+        },
+        {
+          "distance_mm": 26.5,
+          "pcc": 0.3929807053821218,
+          "ssim": 0.029975964044128806
+        },
+        {
+          "distance_mm": 27.7,
+          "pcc": 0.44065649907819066,
+          "ssim": 0.022274078972810304
+        }
+      ],
+      "mean_pcc": 0.39482269563010236,
+      "mean_ssim": 0.0269967338516996,
+      "worst_pcc": 0.3211838732157921,
+      "worst_ssim": 0.022274078972810304
+    },
+    {
+      "sample_index": 6,
+      "target_sha256": "2322df2ab477fa0d48d577e2ca0443b503782dd22c7024b0eee37c17bd4abd65",
+      "phase_png_sha256": "a09ed2da7f234b07e3e08f774f0c1fdaf243216876bd51038967a18e4c927601",
+      "configuration": "Neural",
+      "method": "neural",
+      "requested_iterations": 0,
+      "iterations": 0,
+      "optimizer_seed": 6,
+      "seconds": 0.010162100006709807,
+      "planes": [
+        {
+          "distance_mm": 24.1,
+          "pcc": 0.6309716139969126,
+          "ssim": 0.07358630736403145
+        },
+        {
+          "distance_mm": 25.3,
+          "pcc": 0.46273394641056187,
+          "ssim": 0.06894849499648166
+        },
+        {
+          "distance_mm": 26.5,
+          "pcc": 0.5531591246117874,
+          "ssim": 0.058169010549243186
+        },
+        {
+          "distance_mm": 27.7,
+          "pcc": 0.6405027006125527,
+          "ssim": 0.08337220798238376
+        }
+      ],
+      "mean_pcc": 0.5718418464079537,
+      "mean_ssim": 0.07101900522303502,
+      "worst_pcc": 0.46273394641056187,
+      "worst_ssim": 0.058169010549243186
+    },
+    {
+      "sample_index": 6,
+      "target_sha256": "2322df2ab477fa0d48d577e2ca0443b503782dd22c7024b0eee37c17bd4abd65",
+      "phase_png_sha256": "80ce6a876341ea92278f2f9dbcce3c7315f0679c15fb484813d055df44992d08",
+      "configuration": "Hybrid (20)",
+      "method": "hybrid",
+      "requested_iterations": 20,
+      "iterations": 20,
+      "optimizer_seed": 6,
+      "seconds": 0.15913680000812747,
+      "planes": [
+        {
+          "distance_mm": 24.1,
+          "pcc": 0.5696308636904964,
+          "ssim": 0.3941105499573405
+        },
+        {
+          "distance_mm": 25.3,
+          "pcc": 0.4348117146028843,
+          "ssim": 0.41076657742367406
+        },
+        {
+          "distance_mm": 26.5,
+          "pcc": 0.5243799128792522,
+          "ssim": 0.3992031208156484
+        },
+        {
+          "distance_mm": 27.7,
+          "pcc": 0.5781894151343956,
+          "ssim": 0.3980058196268758
+        }
+      ],
+      "mean_pcc": 0.5267529765767571,
+      "mean_ssim": 0.4005215169558847,
+      "worst_pcc": 0.4348117146028843,
+      "worst_ssim": 0.3941105499573405
+    },
+    {
+      "sample_index": 6,
+      "target_sha256": "2322df2ab477fa0d48d577e2ca0443b503782dd22c7024b0eee37c17bd4abd65",
+      "phase_png_sha256": "275cf61481a3889c99d556ad141ec50e6ebbcbaac7e501aedb05016a4ada6d17",
+      "configuration": "Classical (20)",
+      "method": "classical",
+      "requested_iterations": 20,
+      "iterations": 20,
+      "optimizer_seed": 6,
+      "seconds": 0.15661489999911282,
+      "planes": [
+        {
+          "distance_mm": 24.1,
+          "pcc": 0.37021702543683416,
+          "ssim": 0.028501080497829467
+        },
+        {
+          "distance_mm": 25.3,
+          "pcc": 0.33073725828027783,
+          "ssim": 0.03308491023273906
+        },
+        {
+          "distance_mm": 26.5,
+          "pcc": 0.36424875668736245,
+          "ssim": 0.03368980333220957
+        },
+        {
+          "distance_mm": 27.7,
+          "pcc": 0.3777384863780822,
+          "ssim": 0.03834466112674353
+        }
+      ],
+      "mean_pcc": 0.3607353816956391,
+      "mean_ssim": 0.033405113797380405,
+      "worst_pcc": 0.33073725828027783,
+      "worst_ssim": 0.028501080497829467
+    },
+    {
+      "sample_index": 6,
+      "target_sha256": "2322df2ab477fa0d48d577e2ca0443b503782dd22c7024b0eee37c17bd4abd65",
+      "phase_png_sha256": "672816b826bd5b157dfc3a2ac990190ac02c80dd642c04f0cc92826faf7053a6",
+      "configuration": "Classical (200)",
+      "method": "classical",
+      "requested_iterations": 200,
+      "iterations": 200,
+      "optimizer_seed": 6,
+      "seconds": 1.453366300003836,
+      "planes": [
+        {
+          "distance_mm": 24.1,
+          "pcc": 0.7010366890167359,
+          "ssim": 0.06883661209486672
+        },
+        {
+          "distance_mm": 25.3,
+          "pcc": 0.4695657353634671,
+          "ssim": 0.09361769113670346
+        },
+        {
+          "distance_mm": 26.5,
+          "pcc": 0.5730256805473457,
+          "ssim": 0.07003941748636926
+        },
+        {
+          "distance_mm": 27.7,
+          "pcc": 0.7001894890090079,
+          "ssim": 0.06736959728878783
+        }
+      ],
+      "mean_pcc": 0.6109543984841391,
+      "mean_ssim": 0.07496582950168182,
+      "worst_pcc": 0.4695657353634671,
+      "worst_ssim": 0.06736959728878783
+    },
+    {
+      "sample_index": 7,
+      "target_sha256": "28d2a75999c697599893a1d9b8081b5eee1908d349034b092299a883db14ea74",
+      "phase_png_sha256": "1e2b4e591eabc3e6c77c25a220eccbf9af0b39c4b22eaebc3f9487dd51400f87",
+      "configuration": "Hybrid (20)",
+      "method": "hybrid",
+      "requested_iterations": 20,
+      "iterations": 20,
+      "optimizer_seed": 7,
+      "seconds": 0.15714260000095237,
+      "planes": [
+        {
+          "distance_mm": 24.1,
+          "pcc": 0.38980082453120374,
+          "ssim": 0.5038815990309184
+        },
+        {
+          "distance_mm": 25.3,
+          "pcc": 0.7649401327731521,
+          "ssim": 0.48644269783962174
+        },
+        {
+          "distance_mm": 26.5,
+          "pcc": 0.6862144860919978,
+          "ssim": 0.4940403049055792
+        },
+        {
+          "distance_mm": 27.7,
+          "pcc": 0.7066874115883092,
+          "ssim": 0.48862987357771975
+        }
+      ],
+      "mean_pcc": 0.6369107137461657,
+      "mean_ssim": 0.4932486188384598,
+      "worst_pcc": 0.38980082453120374,
+      "worst_ssim": 0.48644269783962174
+    },
+    {
+      "sample_index": 7,
+      "target_sha256": "28d2a75999c697599893a1d9b8081b5eee1908d349034b092299a883db14ea74",
+      "phase_png_sha256": "34e56ee39ad4208ed945cc29dce42cc4845447e927280bc83f9e124ca1d2d2d9",
+      "configuration": "Classical (20)",
+      "method": "classical",
+      "requested_iterations": 20,
+      "iterations": 20,
+      "optimizer_seed": 7,
+      "seconds": 0.14917190000414848,
+      "planes": [
+        {
+          "distance_mm": 24.1,
+          "pcc": 0.31255464575273023,
+          "ssim": 0.03743305025325001
+        },
+        {
+          "distance_mm": 25.3,
+          "pcc": 0.577522847129539,
+          "ssim": 0.040335338634527255
+        },
+        {
+          "distance_mm": 26.5,
+          "pcc": 0.5138569199380163,
+          "ssim": 0.043022018044754085
+        },
+        {
+          "distance_mm": 27.7,
+          "pcc": 0.5271862280544664,
+          "ssim": 0.04016487575127676
+        }
+      ],
+      "mean_pcc": 0.48278016021868797,
+      "mean_ssim": 0.040238820670952025,
+      "worst_pcc": 0.31255464575273023,
+      "worst_ssim": 0.03743305025325001
+    },
+    {
+      "sample_index": 7,
+      "target_sha256": "28d2a75999c697599893a1d9b8081b5eee1908d349034b092299a883db14ea74",
+      "phase_png_sha256": "136c23da42159b76f3f5e96c6dab57f7f29994ce0be0f53d39c4ab805785c9f3",
+      "configuration": "Classical (200)",
+      "method": "classical",
+      "requested_iterations": 200,
+      "iterations": 200,
+      "optimizer_seed": 7,
+      "seconds": 1.4762340000015683,
+      "planes": [
+        {
+          "distance_mm": 24.1,
+          "pcc": 0.4019046412972928,
+          "ssim": 0.40299800021812915
+        },
+        {
+          "distance_mm": 25.3,
+          "pcc": 0.7954928166855588,
+          "ssim": 0.4377949568127328
+        },
+        {
+          "distance_mm": 26.5,
+          "pcc": 0.684850222375397,
+          "ssim": 0.40287501954274724
+        },
+        {
+          "distance_mm": 27.7,
+          "pcc": 0.7204184847346209,
+          "ssim": 0.39522078517032483
+        }
+      ],
+      "mean_pcc": 0.6506665412732174,
+      "mean_ssim": 0.4097221904359835,
+      "worst_pcc": 0.4019046412972928,
+      "worst_ssim": 0.39522078517032483
+    },
+    {
+      "sample_index": 7,
+      "target_sha256": "28d2a75999c697599893a1d9b8081b5eee1908d349034b092299a883db14ea74",
+      "phase_png_sha256": "808b50fd6fdbaf5cece3055421d3d8a3d50abd0259b8acd8392040894391dca5",
+      "configuration": "Neural",
+      "method": "neural",
+      "requested_iterations": 0,
+      "iterations": 0,
+      "optimizer_seed": 7,
+      "seconds": 0.009797499995329417,
+      "planes": [
+        {
+          "distance_mm": 24.1,
+          "pcc": 0.4474047793201491,
+          "ssim": 0.06426784691064727
+        },
+        {
+          "distance_mm": 25.3,
+          "pcc": 0.7898534016098285,
+          "ssim": 0.08049269444702763
+        },
+        {
+          "distance_mm": 26.5,
+          "pcc": 0.6920113236427772,
+          "ssim": 0.06515925002714358
+        },
+        {
+          "distance_mm": 27.7,
+          "pcc": 0.7620236949422691,
+          "ssim": 0.08568312775050323
+        }
+      ],
+      "mean_pcc": 0.672823299878756,
+      "mean_ssim": 0.07390072978383043,
+      "worst_pcc": 0.4474047793201491,
+      "worst_ssim": 0.06426784691064727
+    },
+    {
+      "sample_index": 8,
+      "target_sha256": "2df5528f04fb82bef9d3689ca3adf93f4f41a544c5316d4546326721a7f1653c",
+      "phase_png_sha256": "af8ff0a9270b873738b77b1fe83f2c17a74816db8fcc4d679d1f586ff96939f0",
+      "configuration": "Classical (20)",
+      "method": "classical",
+      "requested_iterations": 20,
+      "iterations": 20,
+      "optimizer_seed": 8,
+      "seconds": 0.14967280000564642,
+      "planes": [
+        {
+          "distance_mm": 24.1,
+          "pcc": 0.4201881228538573,
+          "ssim": 0.08337856550095439
+        },
+        {
+          "distance_mm": 25.3,
+          "pcc": 0.5112090063279037,
+          "ssim": 0.019731528375934494
+        },
+        {
+          "distance_mm": 26.5,
+          "pcc": 0.5960012035892148,
+          "ssim": 0.01879754780732739
+        },
+        {
+          "distance_mm": 27.7,
+          "pcc": 0.27967782819395287,
+          "ssim": 0.03419362397857173
+        }
+      ],
+      "mean_pcc": 0.4517690402412322,
+      "mean_ssim": 0.039025316415697,
+      "worst_pcc": 0.27967782819395287,
+      "worst_ssim": 0.01879754780732739
+    },
+    {
+      "sample_index": 8,
+      "target_sha256": "2df5528f04fb82bef9d3689ca3adf93f4f41a544c5316d4546326721a7f1653c",
+      "phase_png_sha256": "52d3c46da68695edc7ec3662de78e981937f5f9fb9f7f4bb5dba17d3cf8b9f92",
+      "configuration": "Classical (200)",
+      "method": "classical",
+      "requested_iterations": 200,
+      "iterations": 200,
+      "optimizer_seed": 8,
+      "seconds": 1.4060156999912579,
+      "planes": [
+        {
+          "distance_mm": 24.1,
+          "pcc": 0.5805163502460773,
+          "ssim": 0.46117868584468596
+        },
+        {
+          "distance_mm": 25.3,
+          "pcc": 0.692192552613203,
+          "ssim": 0.27208672630206443
+        },
+        {
+          "distance_mm": 26.5,
+          "pcc": 0.8179153277100802,
+          "ssim": 0.27050975920381765
+        },
+        {
+          "distance_mm": 27.7,
+          "pcc": 0.33402456791709545,
+          "ssim": 0.35410498850408995
+        }
+      ],
+      "mean_pcc": 0.606162199621614,
+      "mean_ssim": 0.3394700399636645,
+      "worst_pcc": 0.33402456791709545,
+      "worst_ssim": 0.27050975920381765
+    },
+    {
+      "sample_index": 8,
+      "target_sha256": "2df5528f04fb82bef9d3689ca3adf93f4f41a544c5316d4546326721a7f1653c",
+      "phase_png_sha256": "4694fc2129e779ec4f6db23c8839aea03105b3423507368a3e27adafd7b30532",
+      "configuration": "Neural",
+      "method": "neural",
+      "requested_iterations": 0,
+      "iterations": 0,
+      "optimizer_seed": 8,
+      "seconds": 0.010123800006113015,
+      "planes": [
+        {
+          "distance_mm": 24.1,
+          "pcc": 0.6894816771451552,
+          "ssim": 0.05867870977110766
+        },
+        {
+          "distance_mm": 25.3,
+          "pcc": 0.619873099224711,
+          "ssim": 0.04342033574024387
+        },
+        {
+          "distance_mm": 26.5,
+          "pcc": 0.7954178507682759,
+          "ssim": 0.0492606692883183
+        },
+        {
+          "distance_mm": 27.7,
+          "pcc": 0.3968612410524443,
+          "ssim": 0.040781099711923736
+        }
+      ],
+      "mean_pcc": 0.6254084670476465,
+      "mean_ssim": 0.04803520362789839,
+      "worst_pcc": 0.3968612410524443,
+      "worst_ssim": 0.040781099711923736
+    },
+    {
+      "sample_index": 8,
+      "target_sha256": "2df5528f04fb82bef9d3689ca3adf93f4f41a544c5316d4546326721a7f1653c",
+      "phase_png_sha256": "1bf03bef4879e5a17d50aac57c218891a280bb1b1469fad60cc4576017bf0514",
+      "configuration": "Hybrid (20)",
+      "method": "hybrid",
+      "requested_iterations": 20,
+      "iterations": 20,
+      "optimizer_seed": 8,
+      "seconds": 0.16402630000084173,
+      "planes": [
+        {
+          "distance_mm": 24.1,
+          "pcc": 0.6448417840702705,
+          "ssim": 0.22495679670176083
+        },
+        {
+          "distance_mm": 25.3,
+          "pcc": 0.6642184596083018,
+          "ssim": 0.08368284540322345
+        },
+        {
+          "distance_mm": 26.5,
+          "pcc": 0.8230783831097296,
+          "ssim": 0.09102895941242374
+        },
+        {
+          "distance_mm": 27.7,
+          "pcc": 0.3554876252265982,
+          "ssim": 0.24790828792905367
+        }
+      ],
+      "mean_pcc": 0.621906563003725,
+      "mean_ssim": 0.16189422236161544,
+      "worst_pcc": 0.3554876252265982,
+      "worst_ssim": 0.08368284540322345
+    },
+    {
+      "sample_index": 9,
+      "target_sha256": "4cd9eb0e9a27867c9a42be6be65a815188713e7f11aa320da0cb06fcc665a4e9",
+      "phase_png_sha256": "9b06395c615df599c76ac8bca3ea1cdd41ecef17085076ef834fda56c2faf1ea",
+      "configuration": "Classical (200)",
+      "method": "classical",
+      "requested_iterations": 200,
+      "iterations": 200,
+      "optimizer_seed": 9,
+      "seconds": 1.4775633999961428,
+      "planes": [
+        {
+          "distance_mm": 24.1,
+          "pcc": 0.6296280805419446,
+          "ssim": 0.07180730537253655
+        },
+        {
+          "distance_mm": 25.3,
+          "pcc": 0.6194235253276424,
+          "ssim": 0.0714196480218446
+        },
+        {
+          "distance_mm": 26.5,
+          "pcc": 0.62841050624063,
+          "ssim": 0.06382470064554482
+        },
+        {
+          "distance_mm": 27.7,
+          "pcc": 0.4441764175086242,
+          "ssim": 0.04365383073723647
+        }
+      ],
+      "mean_pcc": 0.5804096324047103,
+      "mean_ssim": 0.0626763711942906,
+      "worst_pcc": 0.4441764175086242,
+      "worst_ssim": 0.04365383073723647
+    },
+    {
+      "sample_index": 9,
+      "target_sha256": "4cd9eb0e9a27867c9a42be6be65a815188713e7f11aa320da0cb06fcc665a4e9",
+      "phase_png_sha256": "d21f5b2049907c1d86f38303b44611763f7b2908108567e2882d180948588d76",
+      "configuration": "Neural",
+      "method": "neural",
+      "requested_iterations": 0,
+      "iterations": 0,
+      "optimizer_seed": 9,
+      "seconds": 0.010252499996568076,
+      "planes": [
+        {
+          "distance_mm": 24.1,
+          "pcc": 0.5773851577597672,
+          "ssim": 0.05924491411663247
+        },
+        {
+          "distance_mm": 25.3,
+          "pcc": 0.5596525988821189,
+          "ssim": 0.05228483559589887
+        },
+        {
+          "distance_mm": 26.5,
+          "pcc": 0.5907182813882661,
+          "ssim": 0.05355987654615911
+        },
+        {
+          "distance_mm": 27.7,
+          "pcc": 0.4428284936184472,
+          "ssim": 0.04626314880539673
+        }
+      ],
+      "mean_pcc": 0.5426461329121499,
+      "mean_ssim": 0.05283819376602179,
+      "worst_pcc": 0.4428284936184472,
+      "worst_ssim": 0.04626314880539673
+    },
+    {
+      "sample_index": 9,
+      "target_sha256": "4cd9eb0e9a27867c9a42be6be65a815188713e7f11aa320da0cb06fcc665a4e9",
+      "phase_png_sha256": "dc9d86d03bb2ba543f712706eb1430588cf3b61fb988d5de6d54d303bdfaed06",
+      "configuration": "Hybrid (20)",
+      "method": "hybrid",
+      "requested_iterations": 20,
+      "iterations": 20,
+      "optimizer_seed": 9,
+      "seconds": 0.16131370000948664,
+      "planes": [
+        {
+          "distance_mm": 24.1,
+          "pcc": 0.6190608845254364,
+          "ssim": 0.06844328235359765
+        },
+        {
+          "distance_mm": 25.3,
+          "pcc": 0.6104324951926005,
+          "ssim": 0.06569370198210708
+        },
+        {
+          "distance_mm": 26.5,
+          "pcc": 0.61724593689081,
+          "ssim": 0.05957589909097732
+        },
+        {
+          "distance_mm": 27.7,
+          "pcc": 0.39144939252178107,
+          "ssim": 0.23870950165095445
+        }
+      ],
+      "mean_pcc": 0.5595471772826569,
+      "mean_ssim": 0.10810559626940913,
+      "worst_pcc": 0.39144939252178107,
+      "worst_ssim": 0.05957589909097732
+    },
+    {
+      "sample_index": 9,
+      "target_sha256": "4cd9eb0e9a27867c9a42be6be65a815188713e7f11aa320da0cb06fcc665a4e9",
+      "phase_png_sha256": "fa3013e2894effc24261cef61d93b56c05d6f802cc1ea19fa50238e02d64e9fd",
+      "configuration": "Classical (20)",
+      "method": "classical",
+      "requested_iterations": 20,
+      "iterations": 20,
+      "optimizer_seed": 9,
+      "seconds": 0.14793599999393336,
+      "planes": [
+        {
+          "distance_mm": 24.1,
+          "pcc": 0.3721336747160622,
+          "ssim": 0.025225540858459013
+        },
+        {
+          "distance_mm": 25.3,
+          "pcc": 0.4180262351175382,
+          "ssim": 0.022259211920780175
+        },
+        {
+          "distance_mm": 26.5,
+          "pcc": 0.411115094502666,
+          "ssim": 0.04705808832216338
+        },
+        {
+          "distance_mm": 27.7,
+          "pcc": 0.29562689256985325,
+          "ssim": 0.02741531926088699
+        }
+      ],
+      "mean_pcc": 0.3742254742265299,
+      "mean_ssim": 0.03048954009057239,
+      "worst_pcc": 0.29562689256985325,
+      "worst_ssim": 0.022259211920780175
+    },
+    {
+      "sample_index": 10,
+      "target_sha256": "62d7705e3534ec48a51f2496531766b7b04dd3c781f5760af4e98a43d82cf838",
+      "phase_png_sha256": "ae93d76f87f27751f47da78e47de0591367a277a3e7536ece5e761a8e68d2bcc",
+      "configuration": "Neural",
+      "method": "neural",
+      "requested_iterations": 0,
+      "iterations": 0,
+      "optimizer_seed": 10,
+      "seconds": 0.0099845000077039,
+      "planes": [
+        {
+          "distance_mm": 24.1,
+          "pcc": 0.6589231407318299,
+          "ssim": 0.07804653884832927
+        },
+        {
+          "distance_mm": 25.3,
+          "pcc": 0.53820614095585,
+          "ssim": 0.06205953790820474
+        },
+        {
+          "distance_mm": 26.5,
+          "pcc": 0.5965871765676136,
+          "ssim": 0.05976866374095301
+        },
+        {
+          "distance_mm": 27.7,
+          "pcc": 0.6795358442838293,
+          "ssim": 0.07325785046747943
+        }
+      ],
+      "mean_pcc": 0.6183130756347807,
+      "mean_ssim": 0.06828314774124161,
+      "worst_pcc": 0.53820614095585,
+      "worst_ssim": 0.05976866374095301
+    },
+    {
+      "sample_index": 10,
+      "target_sha256": "62d7705e3534ec48a51f2496531766b7b04dd3c781f5760af4e98a43d82cf838",
+      "phase_png_sha256": "efbaf660f40b2ca8d97db02af9d5f23306839c9c520cef1f1bf74e7028fa0d15",
+      "configuration": "Hybrid (20)",
+      "method": "hybrid",
+      "requested_iterations": 20,
+      "iterations": 20,
+      "optimizer_seed": 10,
+      "seconds": 0.16000249999342486,
+      "planes": [
+        {
+          "distance_mm": 24.1,
+          "pcc": 0.6805087755452625,
+          "ssim": 0.0839315585172171
+        },
+        {
+          "distance_mm": 25.3,
+          "pcc": 0.5707338739406395,
+          "ssim": 0.06802152937481469
+        },
+        {
+          "distance_mm": 26.5,
+          "pcc": 0.5655172963957716,
+          "ssim": 0.24753181045075134
+        },
+        {
+          "distance_mm": 27.7,
+          "pcc": 0.7211312941279489,
+          "ssim": 0.08501399675606716
+        }
+      ],
+      "mean_pcc": 0.6344728100024056,
+      "mean_ssim": 0.12112472377471256,
+      "worst_pcc": 0.5655172963957716,
+      "worst_ssim": 0.06802152937481469
+    },
+    {
+      "sample_index": 10,
+      "target_sha256": "62d7705e3534ec48a51f2496531766b7b04dd3c781f5760af4e98a43d82cf838",
+      "phase_png_sha256": "9276bc80f863f8f02c891f126f5113b9f119dfb733b52c8258aabacb90203850",
+      "configuration": "Classical (20)",
+      "method": "classical",
+      "requested_iterations": 20,
+      "iterations": 20,
+      "optimizer_seed": 10,
+      "seconds": 0.14771509999991395,
+      "planes": [
+        {
+          "distance_mm": 24.1,
+          "pcc": 0.4047620879421841,
+          "ssim": 0.028524306714763394
+        },
+        {
+          "distance_mm": 25.3,
+          "pcc": 0.3681823362125514,
+          "ssim": 0.053529593713532206
+        },
+        {
+          "distance_mm": 26.5,
+          "pcc": 0.438626387795217,
+          "ssim": 0.03494306222666856
+        },
+        {
+          "distance_mm": 27.7,
+          "pcc": 0.4320607341997717,
+          "ssim": 0.028674193350414344
+        }
+      ],
+      "mean_pcc": 0.4109078865374311,
+      "mean_ssim": 0.03641778900134463,
+      "worst_pcc": 0.3681823362125514,
+      "worst_ssim": 0.028524306714763394
+    },
+    {
+      "sample_index": 10,
+      "target_sha256": "62d7705e3534ec48a51f2496531766b7b04dd3c781f5760af4e98a43d82cf838",
+      "phase_png_sha256": "3dad64d55baafdbd7a52c7525b308f09a643ece1bcb7058c3f3c78d71e00020f",
+      "configuration": "Classical (200)",
+      "method": "classical",
+      "requested_iterations": 200,
+      "iterations": 200,
+      "optimizer_seed": 10,
+      "seconds": 1.467890100000659,
+      "planes": [
+        {
+          "distance_mm": 24.1,
+          "pcc": 0.6225182089127533,
+          "ssim": 0.2576817137891588
+        },
+        {
+          "distance_mm": 25.3,
+          "pcc": 0.5200348193747324,
+          "ssim": 0.3866824592884858
+        },
+        {
+          "distance_mm": 26.5,
+          "pcc": 0.5833220072192207,
+          "ssim": 0.3591209496461876
+        },
+        {
+          "distance_mm": 27.7,
+          "pcc": 0.6868365300397916,
+          "ssim": 0.18303364651887774
+        }
+      ],
+      "mean_pcc": 0.6031778913866245,
+      "mean_ssim": 0.2966296923106775,
+      "worst_pcc": 0.5200348193747324,
+      "worst_ssim": 0.18303364651887774
+    },
+    {
+      "sample_index": 11,
+      "target_sha256": "4c5c310643450239908cd94c39ac854a458c9ff5ba55ba3c5e866291cb8fbdf5",
+      "phase_png_sha256": "029cf6c717b1d499b47a8f71dede9a863be1f66a846d4b762aaf50f08a52a1fc",
+      "configuration": "Hybrid (20)",
+      "method": "hybrid",
+      "requested_iterations": 20,
+      "iterations": 20,
+      "optimizer_seed": 11,
+      "seconds": 0.15998150000814348,
+      "planes": [
+        {
+          "distance_mm": 24.1,
+          "pcc": 0.6292563718511377,
+          "ssim": 0.42347641874913183
+        },
+        {
+          "distance_mm": 25.3,
+          "pcc": 0.6054830177631092,
+          "ssim": 0.47869236257270775
+        },
+        {
+          "distance_mm": 26.5,
+          "pcc": 0.6118638460687051,
+          "ssim": 0.4578356244740425
+        },
+        {
+          "distance_mm": 27.7,
+          "pcc": 0.5812566613570226,
+          "ssim": 0.477842623115394
+        }
+      ],
+      "mean_pcc": 0.6069649742599936,
+      "mean_ssim": 0.459461757227819,
+      "worst_pcc": 0.5812566613570226,
+      "worst_ssim": 0.42347641874913183
+    },
+    {
+      "sample_index": 11,
+      "target_sha256": "4c5c310643450239908cd94c39ac854a458c9ff5ba55ba3c5e866291cb8fbdf5",
+      "phase_png_sha256": "b91065067a81f89ba1569bd57ef08094c7fa6ad5cb5eb55fb66e4f4e6d7ef17d",
+      "configuration": "Classical (20)",
+      "method": "classical",
+      "requested_iterations": 20,
+      "iterations": 20,
+      "optimizer_seed": 11,
+      "seconds": 0.1526263999985531,
+      "planes": [
+        {
+          "distance_mm": 24.1,
+          "pcc": 0.4830317748979861,
+          "ssim": 0.0339507561324508
+        },
+        {
+          "distance_mm": 25.3,
+          "pcc": 0.47239947618337297,
+          "ssim": 0.037433819367384186
+        },
+        {
+          "distance_mm": 26.5,
+          "pcc": 0.4361128989360864,
+          "ssim": 0.08350024526851929
+        },
+        {
+          "distance_mm": 27.7,
+          "pcc": 0.41321380608177427,
+          "ssim": 0.040245045855288465
+        }
+      ],
+      "mean_pcc": 0.45118948902480494,
+      "mean_ssim": 0.04878246665591068,
+      "worst_pcc": 0.41321380608177427,
+      "worst_ssim": 0.0339507561324508
+    },
+    {
+      "sample_index": 11,
+      "target_sha256": "4c5c310643450239908cd94c39ac854a458c9ff5ba55ba3c5e866291cb8fbdf5",
+      "phase_png_sha256": "22ed75aac8bb37ec016fe7df7998a989c535b79ea247ba28c36349cfd42ebe95",
+      "configuration": "Classical (200)",
+      "method": "classical",
+      "requested_iterations": 200,
+      "iterations": 200,
+      "optimizer_seed": 11,
+      "seconds": 1.4715713000041433,
+      "planes": [
+        {
+          "distance_mm": 24.1,
+          "pcc": 0.6548434028495225,
+          "ssim": 0.34174220661091215
+        },
+        {
+          "distance_mm": 25.3,
+          "pcc": 0.6304729413412036,
+          "ssim": 0.3889225137219742
+        },
+        {
+          "distance_mm": 26.5,
+          "pcc": 0.6022917382986192,
+          "ssim": 0.4892322640026936
+        },
+        {
+          "distance_mm": 27.7,
+          "pcc": 0.5925668861479766,
+          "ssim": 0.3614080339771988
+        }
+      ],
+      "mean_pcc": 0.6200437421593304,
+      "mean_ssim": 0.3953262545781947,
+      "worst_pcc": 0.5925668861479766,
+      "worst_ssim": 0.34174220661091215
+    },
+    {
+      "sample_index": 11,
+      "target_sha256": "4c5c310643450239908cd94c39ac854a458c9ff5ba55ba3c5e866291cb8fbdf5",
+      "phase_png_sha256": "9bc42cb4a5f9d1f4516bcbea035a8deca2b106122721e54465ce85d37dee5e78",
+      "configuration": "Neural",
+      "method": "neural",
+      "requested_iterations": 0,
+      "iterations": 0,
+      "optimizer_seed": 11,
+      "seconds": 0.00994959998934064,
+      "planes": [
+        {
+          "distance_mm": 24.1,
+          "pcc": 0.6525884204469622,
+          "ssim": 0.05706374694428633
+        },
+        {
+          "distance_mm": 25.3,
+          "pcc": 0.6363337415029228,
+          "ssim": 0.06581012108658901
+        },
+        {
+          "distance_mm": 26.5,
+          "pcc": 0.6353781025385308,
+          "ssim": 0.0889688000214251
+        },
+        {
+          "distance_mm": 27.7,
+          "pcc": 0.6441548466854282,
+          "ssim": 0.08615287614973284
+        }
+      ],
+      "mean_pcc": 0.642113777793461,
+      "mean_ssim": 0.07449888605050832,
+      "worst_pcc": 0.6353781025385308,
+      "worst_ssim": 0.05706374694428633
+    },
+    {
+      "sample_index": 12,
+      "target_sha256": "b241ea49c0fb0bc64171337cd0ab9be33173048297954d9dbde217a9e58588d3",
+      "phase_png_sha256": "e68f00073bb493133234c23477923861a5132f88a496b33c340acc5bc7610a54",
+      "configuration": "Classical (20)",
+      "method": "classical",
+      "requested_iterations": 20,
+      "iterations": 20,
+      "optimizer_seed": 12,
+      "seconds": 0.1492108999955235,
+      "planes": [
+        {
+          "distance_mm": 24.1,
+          "pcc": 0.5163306311685226,
+          "ssim": 0.03625078869223623
+        },
+        {
+          "distance_mm": 25.3,
+          "pcc": 0.2530643475904006,
+          "ssim": 0.04858524529314648
+        },
+        {
+          "distance_mm": 26.5,
+          "pcc": 0.5588376879651114,
+          "ssim": 0.017316502572062527
+        },
+        {
+          "distance_mm": 27.7,
+          "pcc": 0.48470590830998,
+          "ssim": 0.021205803918551955
+        }
+      ],
+      "mean_pcc": 0.45323464375850364,
+      "mean_ssim": 0.0308395851189993,
+      "worst_pcc": 0.2530643475904006,
+      "worst_ssim": 0.017316502572062527
+    },
+    {
+      "sample_index": 12,
+      "target_sha256": "b241ea49c0fb0bc64171337cd0ab9be33173048297954d9dbde217a9e58588d3",
+      "phase_png_sha256": "7b31efda8ac78a0981eddb1d06ff15d58cb5ee34ce1a27880cd4c51f4690ebe1",
+      "configuration": "Classical (200)",
+      "method": "classical",
+      "requested_iterations": 200,
+      "iterations": 200,
+      "optimizer_seed": 12,
+      "seconds": 1.4651561000064248,
+      "planes": [
+        {
+          "distance_mm": 24.1,
+          "pcc": 0.7719782848278238,
+          "ssim": 0.18468224113791407
+        },
+        {
+          "distance_mm": 25.3,
+          "pcc": 0.2568507216257242,
+          "ssim": 0.3710966145824195
+        },
+        {
+          "distance_mm": 26.5,
+          "pcc": 0.7709588529461563,
+          "ssim": 0.17129745751907952
+        },
+        {
+          "distance_mm": 27.7,
+          "pcc": 0.7248664912728608,
+          "ssim": 0.18209655496191252
+        }
+      ],
+      "mean_pcc": 0.6311635876681412,
+      "mean_ssim": 0.2272932170503314,
+      "worst_pcc": 0.2568507216257242,
+      "worst_ssim": 0.17129745751907952
+    },
+    {
+      "sample_index": 12,
+      "target_sha256": "b241ea49c0fb0bc64171337cd0ab9be33173048297954d9dbde217a9e58588d3",
+      "phase_png_sha256": "f1fd10f05e469422d114f54c583a287c5ea94cb55e688d94b128968c775797ee",
+      "configuration": "Neural",
+      "method": "neural",
+      "requested_iterations": 0,
+      "iterations": 0,
+      "optimizer_seed": 12,
+      "seconds": 0.010078899998916313,
+      "planes": [
+        {
+          "distance_mm": 24.1,
+          "pcc": 0.7698679603756268,
+          "ssim": 0.0647939675751134
+        },
+        {
+          "distance_mm": 25.3,
+          "pcc": 0.2731359367393852,
+          "ssim": 0.0446681073361445
+        },
+        {
+          "distance_mm": 26.5,
+          "pcc": 0.7303833908960334,
+          "ssim": 0.037399750310298914
+        },
+        {
+          "distance_mm": 27.7,
+          "pcc": 0.734921884847806,
+          "ssim": 0.05053834865285727
+        }
+      ],
+      "mean_pcc": 0.6270772932147128,
+      "mean_ssim": 0.04935004346860352,
+      "worst_pcc": 0.2731359367393852,
+      "worst_ssim": 0.037399750310298914
+    },
+    {
+      "sample_index": 12,
+      "target_sha256": "b241ea49c0fb0bc64171337cd0ab9be33173048297954d9dbde217a9e58588d3",
+      "phase_png_sha256": "d0978787d47cea99ae707041669baeeb220734ff5e0c1110463a60f2e9546c9c",
+      "configuration": "Hybrid (20)",
+      "method": "hybrid",
+      "requested_iterations": 20,
+      "iterations": 20,
+      "optimizer_seed": 12,
+      "seconds": 0.15813389999675564,
+      "planes": [
+        {
+          "distance_mm": 24.1,
+          "pcc": 0.7757816370494645,
+          "ssim": 0.08575428435149454
+        },
+        {
+          "distance_mm": 25.3,
+          "pcc": 0.26786347485404777,
+          "ssim": 0.26632169653358967
+        },
+        {
+          "distance_mm": 26.5,
+          "pcc": 0.7523843464510686,
+          "ssim": 0.06619489729532713
+        },
+        {
+          "distance_mm": 27.7,
+          "pcc": 0.7425012245966177,
+          "ssim": 0.06726354501853656
+        }
+      ],
+      "mean_pcc": 0.6346326707377996,
+      "mean_ssim": 0.12138360579973696,
+      "worst_pcc": 0.26786347485404777,
+      "worst_ssim": 0.06619489729532713
+    },
+    {
+      "sample_index": 13,
+      "target_sha256": "d45f504b6e7d818cf26a795085f542202b45ffea97d8ff33f2a781f81e921de8",
+      "phase_png_sha256": "23fc7d725e6286320ab40501b78a80f777920c5c19a4f343afcf34f93f65434b",
+      "configuration": "Classical (200)",
+      "method": "classical",
+      "requested_iterations": 200,
+      "iterations": 200,
+      "optimizer_seed": 13,
+      "seconds": 1.4604255000012927,
+      "planes": [
+        {
+          "distance_mm": 24.1,
+          "pcc": 0.6934709001211514,
+          "ssim": 0.07767890268147742
+        },
+        {
+          "distance_mm": 25.3,
+          "pcc": 0.6521317601647074,
+          "ssim": 0.07208110659097122
+        },
+        {
+          "distance_mm": 26.5,
+          "pcc": 0.6000041270453154,
+          "ssim": 0.06047919176804994
+        },
+        {
+          "distance_mm": 27.7,
+          "pcc": 0.6794041620126321,
+          "ssim": 0.0802139194891802
+        }
+      ],
+      "mean_pcc": 0.6562527373359516,
+      "mean_ssim": 0.0726132801324197,
+      "worst_pcc": 0.6000041270453154,
+      "worst_ssim": 0.06047919176804994
+    },
+    {
+      "sample_index": 13,
+      "target_sha256": "d45f504b6e7d818cf26a795085f542202b45ffea97d8ff33f2a781f81e921de8",
+      "phase_png_sha256": "6b2be0008a7d377e99a688a4d37ef535951d2c4f0b42d6f5c306400cada6b517",
+      "configuration": "Neural",
+      "method": "neural",
+      "requested_iterations": 0,
+      "iterations": 0,
+      "optimizer_seed": 13,
+      "seconds": 0.00966599999810569,
+      "planes": [
+        {
+          "distance_mm": 24.1,
+          "pcc": 0.6716155809722324,
+          "ssim": 0.06497583062884527
+        },
+        {
+          "distance_mm": 25.3,
+          "pcc": 0.5801381022209566,
+          "ssim": 0.05433697216734944
+        },
+        {
+          "distance_mm": 26.5,
+          "pcc": 0.5740046307329152,
+          "ssim": 0.05836618911010146
+        },
+        {
+          "distance_mm": 27.7,
+          "pcc": 0.6320561845138714,
+          "ssim": 0.06166906429394551
+        }
+      ],
+      "mean_pcc": 0.6144536246099939,
+      "mean_ssim": 0.059837014050060415,
+      "worst_pcc": 0.5740046307329152,
+      "worst_ssim": 0.05433697216734944
+    },
+    {
+      "sample_index": 13,
+      "target_sha256": "d45f504b6e7d818cf26a795085f542202b45ffea97d8ff33f2a781f81e921de8",
+      "phase_png_sha256": "eaa5ea214e88b8e1878be020b538f6c828e66e8cbfdc168cf5c62f9dc389bda6",
+      "configuration": "Hybrid (20)",
+      "method": "hybrid",
+      "requested_iterations": 20,
+      "iterations": 20,
+      "optimizer_seed": 13,
+      "seconds": 0.11387549999926705,
+      "planes": [
+        {
+          "distance_mm": 24.1,
+          "pcc": 0.6894454442012538,
+          "ssim": 0.07435417966892409
+        },
+        {
+          "distance_mm": 25.3,
+          "pcc": 0.6153648201909414,
+          "ssim": 0.05925961013046958
+        },
+        {
+          "distance_mm": 26.5,
+          "pcc": 0.5854243607226834,
+          "ssim": 0.056632521945934156
+        },
+        {
+          "distance_mm": 27.7,
+          "pcc": 0.6700054247024142,
+          "ssim": 0.07643898547872358
+        }
+      ],
+      "mean_pcc": 0.6400600124543232,
+      "mean_ssim": 0.06667132430601286,
+      "worst_pcc": 0.5854243607226834,
+      "worst_ssim": 0.056632521945934156
+    },
+    {
+      "sample_index": 13,
+      "target_sha256": "d45f504b6e7d818cf26a795085f542202b45ffea97d8ff33f2a781f81e921de8",
+      "phase_png_sha256": "dc7ce668046254087a459813996355d73760b162d799c145e787f30adfc4fad8",
+      "configuration": "Classical (20)",
+      "method": "classical",
+      "requested_iterations": 20,
+      "iterations": 20,
+      "optimizer_seed": 13,
+      "seconds": 0.12395110000215936,
+      "planes": [
+        {
+          "distance_mm": 24.1,
+          "pcc": 0.4576389046048099,
+          "ssim": 0.030536744473253406
+        },
+        {
+          "distance_mm": 25.3,
+          "pcc": 0.4705213075146599,
+          "ssim": 0.022793303145629724
+        },
+        {
+          "distance_mm": 26.5,
+          "pcc": 0.4315585935803373,
+          "ssim": 0.02451460686095351
+        },
+        {
+          "distance_mm": 27.7,
+          "pcc": 0.4421027539781963,
+          "ssim": 0.03700132549129365
+        }
+      ],
+      "mean_pcc": 0.4504553899195009,
+      "mean_ssim": 0.028711494992782575,
+      "worst_pcc": 0.4315585935803373,
+      "worst_ssim": 0.022793303145629724
+    },
+    {
+      "sample_index": 14,
+      "target_sha256": "9a4d76c9cda603dc3bd5e1131a0b9347935cafa405d8e7d1e1ed78023a8bb355",
+      "phase_png_sha256": "62d53c6f64b4ff4647478bab9072311b7a7742eab754e4d912196eea777dc0d5",
+      "configuration": "Neural",
+      "method": "neural",
+      "requested_iterations": 0,
+      "iterations": 0,
+      "optimizer_seed": 14,
+      "seconds": 0.010173300004680641,
+      "planes": [
+        {
+          "distance_mm": 24.1,
+          "pcc": 0.595374210134666,
+          "ssim": 0.055667099685548935
+        },
+        {
+          "distance_mm": 25.3,
+          "pcc": 0.5663960327047292,
+          "ssim": 0.0675857241570342
+        },
+        {
+          "distance_mm": 26.5,
+          "pcc": 0.5704930878274767,
+          "ssim": 0.07336266477678356
+        },
+        {
+          "distance_mm": 27.7,
+          "pcc": 0.6638097161335789,
+          "ssim": 0.0845354759003327
+        }
+      ],
+      "mean_pcc": 0.5990182617001126,
+      "mean_ssim": 0.07028774112992485,
+      "worst_pcc": 0.5663960327047292,
+      "worst_ssim": 0.055667099685548935
+    },
+    {
+      "sample_index": 14,
+      "target_sha256": "9a4d76c9cda603dc3bd5e1131a0b9347935cafa405d8e7d1e1ed78023a8bb355",
+      "phase_png_sha256": "482f92aaede47b4e2fe6931f6e0c645b6e36a1348c797d3e12b48b15ee926d8e",
+      "configuration": "Hybrid (20)",
+      "method": "hybrid",
+      "requested_iterations": 20,
+      "iterations": 20,
+      "optimizer_seed": 14,
+      "seconds": 0.1674044999963371,
+      "planes": [
+        {
+          "distance_mm": 24.1,
+          "pcc": 0.6786559338170036,
+          "ssim": 0.08701864256708264
+        },
+        {
+          "distance_mm": 25.3,
+          "pcc": 0.5608263626987208,
+          "ssim": 0.06755401551065615
+        },
+        {
+          "distance_mm": 26.5,
+          "pcc": 0.5535529343101803,
+          "ssim": 0.13685812463026953
+        },
+        {
+          "distance_mm": 27.7,
+          "pcc": 0.6436272880210094,
+          "ssim": 0.14412123215090897
+        }
+      ],
+      "mean_pcc": 0.6091656297117285,
+      "mean_ssim": 0.10888800371472931,
+      "worst_pcc": 0.5535529343101803,
+      "worst_ssim": 0.06755401551065615
+    },
+    {
+      "sample_index": 14,
+      "target_sha256": "9a4d76c9cda603dc3bd5e1131a0b9347935cafa405d8e7d1e1ed78023a8bb355",
+      "phase_png_sha256": "66764f64eb7602f5857c2c336e627b71fea6f422777a51131fa3a3e799c53522",
+      "configuration": "Classical (20)",
+      "method": "classical",
+      "requested_iterations": 20,
+      "iterations": 20,
+      "optimizer_seed": 14,
+      "seconds": 0.14979930000845343,
+      "planes": [
+        {
+          "distance_mm": 24.1,
+          "pcc": 0.4153622244329349,
+          "ssim": 0.02400277653083699
+        },
+        {
+          "distance_mm": 25.3,
+          "pcc": 0.4080335716023229,
+          "ssim": 0.031134469106991202
+        },
+        {
+          "distance_mm": 26.5,
+          "pcc": 0.3789479741868936,
+          "ssim": 0.041549299617118785
+        },
+        {
+          "distance_mm": 27.7,
+          "pcc": 0.40466515182328544,
+          "ssim": 0.039469347540825386
+        }
+      ],
+      "mean_pcc": 0.4017522305113592,
+      "mean_ssim": 0.03403897319894309,
+      "worst_pcc": 0.3789479741868936,
+      "worst_ssim": 0.02400277653083699
+    },
+    {
+      "sample_index": 14,
+      "target_sha256": "9a4d76c9cda603dc3bd5e1131a0b9347935cafa405d8e7d1e1ed78023a8bb355",
+      "phase_png_sha256": "1106bb21a0393fccf5a8ae75633ea9be49247e59ac7f6aa727d4645289de9f05",
+      "configuration": "Classical (200)",
+      "method": "classical",
+      "requested_iterations": 200,
+      "iterations": 200,
+      "optimizer_seed": 14,
+      "seconds": 1.4647221000050195,
+      "planes": [
+        {
+          "distance_mm": 24.1,
+          "pcc": 0.7266342955493232,
+          "ssim": 0.11154302012120354
+        },
+        {
+          "distance_mm": 25.3,
+          "pcc": 0.5846645686658939,
+          "ssim": 0.06178773903671066
+        },
+        {
+          "distance_mm": 26.5,
+          "pcc": 0.5709757275750663,
+          "ssim": 0.061708176460660534
+        },
+        {
+          "distance_mm": 27.7,
+          "pcc": 0.6978465921705359,
+          "ssim": 0.07344550093694002
+        }
+      ],
+      "mean_pcc": 0.6450302959902048,
+      "mean_ssim": 0.07712110913887868,
+      "worst_pcc": 0.5709757275750663,
+      "worst_ssim": 0.061708176460660534
+    },
+    {
+      "sample_index": 15,
+      "target_sha256": "2cce9f52611a64c316da1a7f271ec10172ca0fb2e5844c753a9c0b867cc0777e",
+      "phase_png_sha256": "f8f860ba39486a0eb3361050d560440c9718a025e3aeb057115ced5d3c462c96",
+      "configuration": "Hybrid (20)",
+      "method": "hybrid",
+      "requested_iterations": 20,
+      "iterations": 20,
+      "optimizer_seed": 15,
+      "seconds": 0.1607986000017263,
+      "planes": [
+        {
+          "distance_mm": 24.1,
+          "pcc": 0.6726541015679752,
+          "ssim": 0.46349394223825524
+        },
+        {
+          "distance_mm": 25.3,
+          "pcc": 0.44281922815166747,
+          "ssim": 0.47125055575425523
+        },
+        {
+          "distance_mm": 26.5,
+          "pcc": 0.5427720048858334,
+          "ssim": 0.4151827965182795
+        },
+        {
+          "distance_mm": 27.7,
+          "pcc": 0.7731405444788274,
+          "ssim": 0.4243074564164785
+        }
+      ],
+      "mean_pcc": 0.6078464697710759,
+      "mean_ssim": 0.44355868773181717,
+      "worst_pcc": 0.44281922815166747,
+      "worst_ssim": 0.4151827965182795
+    },
+    {
+      "sample_index": 15,
+      "target_sha256": "2cce9f52611a64c316da1a7f271ec10172ca0fb2e5844c753a9c0b867cc0777e",
+      "phase_png_sha256": "af63670fe5a0714cb840d64d53d7e82324b2a036567b89246c7cc04fdc1a36d2",
+      "configuration": "Classical (20)",
+      "method": "classical",
+      "requested_iterations": 20,
+      "iterations": 20,
+      "optimizer_seed": 15,
+      "seconds": 0.1550413000077242,
+      "planes": [
+        {
+          "distance_mm": 24.1,
+          "pcc": 0.4880601760624884,
+          "ssim": 0.04870815392846998
+        },
+        {
+          "distance_mm": 25.3,
+          "pcc": 0.33793489953685324,
+          "ssim": 0.03893369421292254
+        },
+        {
+          "distance_mm": 26.5,
+          "pcc": 0.3878822831049008,
+          "ssim": 0.06983463947489846
+        },
+        {
+          "distance_mm": 27.7,
+          "pcc": 0.5664516484196933,
+          "ssim": 0.04147188699153599
+        }
+      ],
+      "mean_pcc": 0.44508225178098393,
+      "mean_ssim": 0.049737093651956735,
+      "worst_pcc": 0.33793489953685324,
+      "worst_ssim": 0.03893369421292254
+    },
+    {
+      "sample_index": 15,
+      "target_sha256": "2cce9f52611a64c316da1a7f271ec10172ca0fb2e5844c753a9c0b867cc0777e",
+      "phase_png_sha256": "0bff68ae2b23096a06b7fd7960090d9b97d16025dd632ea140f68baf1ed5a1c7",
+      "configuration": "Classical (200)",
+      "method": "classical",
+      "requested_iterations": 200,
+      "iterations": 200,
+      "optimizer_seed": 15,
+      "seconds": 1.4627303000015672,
+      "planes": [
+        {
+          "distance_mm": 24.1,
+          "pcc": 0.6985860662928358,
+          "ssim": 0.43415959186951725
+        },
+        {
+          "distance_mm": 25.3,
+          "pcc": 0.4410961859699053,
+          "ssim": 0.49287289844412824
+        },
+        {
+          "distance_mm": 26.5,
+          "pcc": 0.530538905038391,
+          "ssim": 0.5258894595076307
+        },
+        {
+          "distance_mm": 27.7,
+          "pcc": 0.7879541245833271,
+          "ssim": 0.4860356204729838
+        }
+      ],
+      "mean_pcc": 0.6145438204711148,
+      "mean_ssim": 0.484739392573565,
+      "worst_pcc": 0.4410961859699053,
+      "worst_ssim": 0.43415959186951725
+    },
+    {
+      "sample_index": 15,
+      "target_sha256": "2cce9f52611a64c316da1a7f271ec10172ca0fb2e5844c753a9c0b867cc0777e",
+      "phase_png_sha256": "e9929417516a34e90560e5a298bb4f2b7ebe87fc53514d1830542015357f20c3",
+      "configuration": "Neural",
+      "method": "neural",
+      "requested_iterations": 0,
+      "iterations": 0,
+      "optimizer_seed": 15,
+      "seconds": 0.00992299999052193,
+      "planes": [
+        {
+          "distance_mm": 24.1,
+          "pcc": 0.7246178276558536,
+          "ssim": 0.05271982678448401
+        },
+        {
+          "distance_mm": 25.3,
+          "pcc": 0.4630808144302576,
+          "ssim": 0.05827071096440871
+        },
+        {
+          "distance_mm": 26.5,
+          "pcc": 0.5443054056838689,
+          "ssim": 0.07207580068306807
+        },
+        {
+          "distance_mm": 27.7,
+          "pcc": 0.8131741952946542,
+          "ssim": 0.07530736474967138
+        }
+      ],
+      "mean_pcc": 0.6362945607661585,
+      "mean_ssim": 0.06459342579540804,
+      "worst_pcc": 0.4630808144302576,
+      "worst_ssim": 0.05271982678448401
+    },
+    {
+      "sample_index": 16,
+      "target_sha256": "932e8840fa0dc7d65aebe919f2f7b993d78df10af106b396af90a2ad65d3e03d",
+      "phase_png_sha256": "ba2d1be30916982deb50169b133291c0ed9a131ca55fdac3994e331f844f16fa",
+      "configuration": "Classical (20)",
+      "method": "classical",
+      "requested_iterations": 20,
+      "iterations": 20,
+      "optimizer_seed": 16,
+      "seconds": 0.16839550000440795,
+      "planes": [
+        {
+          "distance_mm": 24.1,
+          "pcc": 0.5665802382894206,
+          "ssim": 0.02059405181193567
+        },
+        {
+          "distance_mm": 25.3,
+          "pcc": 0.49138752101614813,
+          "ssim": 0.050520106451683325
+        },
+        {
+          "distance_mm": 26.5,
+          "pcc": 0.4592453271250097,
+          "ssim": 0.016848395951319338
+        },
+        {
+          "distance_mm": 27.7,
+          "pcc": 0.5225070300631071,
+          "ssim": 0.022436308578418607
+        }
+      ],
+      "mean_pcc": 0.5099300291234213,
+      "mean_ssim": 0.027599715698339237,
+      "worst_pcc": 0.4592453271250097,
+      "worst_ssim": 0.016848395951319338
+    },
+    {
+      "sample_index": 16,
+      "target_sha256": "932e8840fa0dc7d65aebe919f2f7b993d78df10af106b396af90a2ad65d3e03d",
+      "phase_png_sha256": "a63e8447273df555ab584746d83580abf9c98f8fa6a8381a659fad3e471709ed",
+      "configuration": "Classical (200)",
+      "method": "classical",
+      "requested_iterations": 200,
+      "iterations": 200,
+      "optimizer_seed": 16,
+      "seconds": 1.4713656999956584,
+      "planes": [
+        {
+          "distance_mm": 24.1,
+          "pcc": 0.7644557427287719,
+          "ssim": 0.04977335556111991
+        },
+        {
+          "distance_mm": 25.3,
+          "pcc": 0.647504030939877,
+          "ssim": 0.03757354113011336
+        },
+        {
+          "distance_mm": 26.5,
+          "pcc": 0.6452061901424903,
+          "ssim": 0.049976079930151344
+        },
+        {
+          "distance_mm": 27.7,
+          "pcc": 0.6917644507248355,
+          "ssim": 0.0632455503476886
+        }
+      ],
+      "mean_pcc": 0.6872326036339937,
+      "mean_ssim": 0.05014213174226831,
+      "worst_pcc": 0.6452061901424903,
+      "worst_ssim": 0.03757354113011336
+    },
+    {
+      "sample_index": 16,
+      "target_sha256": "932e8840fa0dc7d65aebe919f2f7b993d78df10af106b396af90a2ad65d3e03d",
+      "phase_png_sha256": "ac719e4ce9cd63ecdda025b167e9c124c5759ac1b956cf8314a728b059d6ac1e",
+      "configuration": "Neural",
+      "method": "neural",
+      "requested_iterations": 0,
+      "iterations": 0,
+      "optimizer_seed": 16,
+      "seconds": 0.011502100009238347,
+      "planes": [
+        {
+          "distance_mm": 24.1,
+          "pcc": 0.7896215687501754,
+          "ssim": 0.060738968440793774
+        },
+        {
+          "distance_mm": 25.3,
+          "pcc": 0.6518538011202499,
+          "ssim": 0.056868959291039134
+        },
+        {
+          "distance_mm": 26.5,
+          "pcc": 0.5986844480230128,
+          "ssim": 0.05897356818731763
+        },
+        {
+          "distance_mm": 27.7,
+          "pcc": 0.6149155947445807,
+          "ssim": 0.06106613200470539
+        }
+      ],
+      "mean_pcc": 0.6637688531595047,
+      "mean_ssim": 0.059411906980963984,
+      "worst_pcc": 0.5986844480230128,
+      "worst_ssim": 0.056868959291039134
+    },
+    {
+      "sample_index": 16,
+      "target_sha256": "932e8840fa0dc7d65aebe919f2f7b993d78df10af106b396af90a2ad65d3e03d",
+      "phase_png_sha256": "5d100d0dd413310706f0b0a504b85326f1fa29f848c4e3b4870a27f5d5565d40",
+      "configuration": "Hybrid (20)",
+      "method": "hybrid",
+      "requested_iterations": 20,
+      "iterations": 20,
+      "optimizer_seed": 16,
+      "seconds": 0.16058669998892583,
+      "planes": [
+        {
+          "distance_mm": 24.1,
+          "pcc": 0.7681236009436512,
+          "ssim": 0.12941188016193927
+        },
+        {
+          "distance_mm": 25.3,
+          "pcc": 0.6282296655636875,
+          "ssim": 0.1952254073515033
+        },
+        {
+          "distance_mm": 26.5,
+          "pcc": 0.6216097871192504,
+          "ssim": 0.13436229480625736
+        },
+        {
+          "distance_mm": 27.7,
+          "pcc": 0.6409504176004537,
+          "ssim": 0.12703816270709717
+        }
+      ],
+      "mean_pcc": 0.6647283678067608,
+      "mean_ssim": 0.14650943625669927,
+      "worst_pcc": 0.6216097871192504,
+      "worst_ssim": 0.12703816270709717
+    },
+    {
+      "sample_index": 17,
+      "target_sha256": "1c8b438e2b952a5acbb7de24be19f71573d71d75782421513f282453132abf21",
+      "phase_png_sha256": "5dcc1b2b1e2092f3bae94925d6441a2c0735a60ea8d72181e0defc2bad0e0ad8",
+      "configuration": "Classical (200)",
+      "method": "classical",
+      "requested_iterations": 200,
+      "iterations": 200,
+      "optimizer_seed": 17,
+      "seconds": 1.486063699994702,
+      "planes": [
+        {
+          "distance_mm": 24.1,
+          "pcc": 0.7735568511335503,
+          "ssim": 0.06868572885607188
+        },
+        {
+          "distance_mm": 25.3,
+          "pcc": 0.5905841289977624,
+          "ssim": 0.0632987215664051
+        },
+        {
+          "distance_mm": 26.5,
+          "pcc": 0.7523160465295124,
+          "ssim": 0.061567257469040904
+        },
+        {
+          "distance_mm": 27.7,
+          "pcc": 0.6975806244280386,
+          "ssim": 0.06715359977022996
+        }
+      ],
+      "mean_pcc": 0.7035094127722159,
+      "mean_ssim": 0.06517632691543696,
+      "worst_pcc": 0.5905841289977624,
+      "worst_ssim": 0.061567257469040904
+    },
+    {
+      "sample_index": 17,
+      "target_sha256": "1c8b438e2b952a5acbb7de24be19f71573d71d75782421513f282453132abf21",
+      "phase_png_sha256": "da711c4081e5f567ea10e4409decf3db85d64abfb8ed91654ce99a70ecb88d2c",
+      "configuration": "Neural",
+      "method": "neural",
+      "requested_iterations": 0,
+      "iterations": 0,
+      "optimizer_seed": 17,
+      "seconds": 0.010088199996971525,
+      "planes": [
+        {
+          "distance_mm": 24.1,
+          "pcc": 0.7489867425780631,
+          "ssim": 0.06565497005767745
+        },
+        {
+          "distance_mm": 25.3,
+          "pcc": 0.5353828867402065,
+          "ssim": 0.05971616457210615
+        },
+        {
+          "distance_mm": 26.5,
+          "pcc": 0.7163487102728524,
+          "ssim": 0.055877831912627164
+        },
+        {
+          "distance_mm": 27.7,
+          "pcc": 0.6585749271282896,
+          "ssim": 0.061965589270975126
+        }
+      ],
+      "mean_pcc": 0.6648233166798528,
+      "mean_ssim": 0.06080363895334647,
+      "worst_pcc": 0.5353828867402065,
+      "worst_ssim": 0.055877831912627164
+    },
+    {
+      "sample_index": 17,
+      "target_sha256": "1c8b438e2b952a5acbb7de24be19f71573d71d75782421513f282453132abf21",
+      "phase_png_sha256": "b60addf5d7539f41be776766b18607c8b61deffb8b5412cd5a1939222e739d5d",
+      "configuration": "Hybrid (20)",
+      "method": "hybrid",
+      "requested_iterations": 20,
+      "iterations": 20,
+      "optimizer_seed": 17,
+      "seconds": 0.15732460000435822,
+      "planes": [
+        {
+          "distance_mm": 24.1,
+          "pcc": 0.7684915191246046,
+          "ssim": 0.0686905552827619
+        },
+        {
+          "distance_mm": 25.3,
+          "pcc": 0.5729896946956207,
+          "ssim": 0.0584603006841925
+        },
+        {
+          "distance_mm": 26.5,
+          "pcc": 0.748264320713644,
+          "ssim": 0.06018750259615502
+        },
+        {
+          "distance_mm": 27.7,
+          "pcc": 0.6952221295240076,
+          "ssim": 0.06575649376135462
+        }
+      ],
+      "mean_pcc": 0.6962419160144693,
+      "mean_ssim": 0.06327371308111601,
+      "worst_pcc": 0.5729896946956207,
+      "worst_ssim": 0.0584603006841925
+    },
+    {
+      "sample_index": 17,
+      "target_sha256": "1c8b438e2b952a5acbb7de24be19f71573d71d75782421513f282453132abf21",
+      "phase_png_sha256": "118996d6db74abe91d29bb453829f959783c864caa13eb4983fe339fb69e9c67",
+      "configuration": "Classical (20)",
+      "method": "classical",
+      "requested_iterations": 20,
+      "iterations": 20,
+      "optimizer_seed": 17,
+      "seconds": 0.14896289999887813,
+      "planes": [
+        {
+          "distance_mm": 24.1,
+          "pcc": 0.5046786679117946,
+          "ssim": 0.02332928318784777
+        },
+        {
+          "distance_mm": 25.3,
+          "pcc": 0.41495693348451457,
+          "ssim": 0.05118439267225062
+        },
+        {
+          "distance_mm": 26.5,
+          "pcc": 0.5428726857076084,
+          "ssim": 0.024450925575402918
+        },
+        {
+          "distance_mm": 27.7,
+          "pcc": 0.4579183464250806,
+          "ssim": 0.036988160198557364
+        }
+      ],
+      "mean_pcc": 0.4801066583822496,
+      "mean_ssim": 0.03398819040851467,
+      "worst_pcc": 0.41495693348451457,
+      "worst_ssim": 0.02332928318784777
+    },
+    {
+      "sample_index": 18,
+      "target_sha256": "fa1b484d0644d09758c9c344126ee245a2f7c4c4718f9c1e2ae63ba8d5e62e20",
+      "phase_png_sha256": "26327861fa4cb95d65ec1683083e951e3d213597d1df81578aeab2f9069413cd",
+      "configuration": "Neural",
+      "method": "neural",
+      "requested_iterations": 0,
+      "iterations": 0,
+      "optimizer_seed": 18,
+      "seconds": 0.010470100009115413,
+      "planes": [
+        {
+          "distance_mm": 24.1,
+          "pcc": 0.6851445182437563,
+          "ssim": 0.08010966258782595
+        },
+        {
+          "distance_mm": 25.3,
+          "pcc": 0.5574081917581777,
+          "ssim": 0.06819722835644769
+        },
+        {
+          "distance_mm": 26.5,
+          "pcc": 0.5898780997393317,
+          "ssim": 0.06306682301873479
+        },
+        {
+          "distance_mm": 27.7,
+          "pcc": 0.6606399646395282,
+          "ssim": 0.06948172122851293
+        }
+      ],
+      "mean_pcc": 0.6232676935951984,
+      "mean_ssim": 0.07021385879788034,
+      "worst_pcc": 0.5574081917581777,
+      "worst_ssim": 0.06306682301873479
+    },
+    {
+      "sample_index": 18,
+      "target_sha256": "fa1b484d0644d09758c9c344126ee245a2f7c4c4718f9c1e2ae63ba8d5e62e20",
+      "phase_png_sha256": "a6b043b1de6d77ac7183cf986e0c7268b39595cd6fedcaab04e944ead1fccfad",
+      "configuration": "Hybrid (20)",
+      "method": "hybrid",
+      "requested_iterations": 20,
+      "iterations": 20,
+      "optimizer_seed": 18,
+      "seconds": 0.15791969999554567,
+      "planes": [
+        {
+          "distance_mm": 24.1,
+          "pcc": 0.712976080334608,
+          "ssim": 0.08264824969039893
+        },
+        {
+          "distance_mm": 25.3,
+          "pcc": 0.5445185619561357,
+          "ssim": 0.14582603789532486
+        },
+        {
+          "distance_mm": 26.5,
+          "pcc": 0.6015098784124594,
+          "ssim": 0.06394598760073868
+        },
+        {
+          "distance_mm": 27.7,
+          "pcc": 0.7250927726688643,
+          "ssim": 0.09578104725142138
+        }
+      ],
+      "mean_pcc": 0.6460243233430167,
+      "mean_ssim": 0.09705033060947096,
+      "worst_pcc": 0.5445185619561357,
+      "worst_ssim": 0.06394598760073868
+    },
+    {
+      "sample_index": 18,
+      "target_sha256": "fa1b484d0644d09758c9c344126ee245a2f7c4c4718f9c1e2ae63ba8d5e62e20",
+      "phase_png_sha256": "5e0f565fd3d503adcaa9f620c959669554255c53f7dc0f34ac4e187eb1b48fd5",
+      "configuration": "Classical (20)",
+      "method": "classical",
+      "requested_iterations": 20,
+      "iterations": 20,
+      "optimizer_seed": 18,
+      "seconds": 0.14863359999435488,
+      "planes": [
+        {
+          "distance_mm": 24.1,
+          "pcc": 0.43260443870805454,
+          "ssim": 0.05238478374548374
+        },
+        {
+          "distance_mm": 25.3,
+          "pcc": 0.42294506946642224,
+          "ssim": 0.03494929873922524
+        },
+        {
+          "distance_mm": 26.5,
+          "pcc": 0.4265633837726121,
+          "ssim": 0.04113121351103288
+        },
+        {
+          "distance_mm": 27.7,
+          "pcc": 0.4375835501605635,
+          "ssim": 0.022624627300604973
+        }
+      ],
+      "mean_pcc": 0.42992411052691315,
+      "mean_ssim": 0.037772480824086706,
+      "worst_pcc": 0.42294506946642224,
+      "worst_ssim": 0.022624627300604973
+    },
+    {
+      "sample_index": 18,
+      "target_sha256": "fa1b484d0644d09758c9c344126ee245a2f7c4c4718f9c1e2ae63ba8d5e62e20",
+      "phase_png_sha256": "1fe1b64fb2ce9749aa4cf377049c2ce2d6f50082431c6ccc2e9a5e1b402a3dbe",
+      "configuration": "Classical (200)",
+      "method": "classical",
+      "requested_iterations": 200,
+      "iterations": 200,
+      "optimizer_seed": 18,
+      "seconds": 1.4260569000034593,
+      "planes": [
+        {
+          "distance_mm": 24.1,
+          "pcc": 0.6212919079123943,
+          "ssim": 0.3616554669394652
+        },
+        {
+          "distance_mm": 25.3,
+          "pcc": 0.5342508264873617,
+          "ssim": 0.3780951641290818
+        },
+        {
+          "distance_mm": 26.5,
+          "pcc": 0.6010315564044107,
+          "ssim": 0.18134775551451995
+        },
+        {
+          "distance_mm": 27.7,
+          "pcc": 0.6926949239542912,
+          "ssim": 0.14324914873860392
+        }
+      ],
+      "mean_pcc": 0.6123173036896145,
+      "mean_ssim": 0.26608688383041773,
+      "worst_pcc": 0.5342508264873617,
+      "worst_ssim": 0.14324914873860392
+    },
+    {
+      "sample_index": 19,
+      "target_sha256": "3620f365cf8609cc1f5c1047f162a0788c7184d8f4779084bb4d5e7fb47f4887",
+      "phase_png_sha256": "06f729a8aca8adeaf74cad7ef98fc2df5b1262c68c736687094ba258a1db8bf6",
+      "configuration": "Hybrid (20)",
+      "method": "hybrid",
+      "requested_iterations": 20,
+      "iterations": 20,
+      "optimizer_seed": 19,
+      "seconds": 0.1650060000101803,
+      "planes": [
+        {
+          "distance_mm": 24.1,
+          "pcc": 0.42751138209155815,
+          "ssim": 0.3763195840317316
+        },
+        {
+          "distance_mm": 25.3,
+          "pcc": 0.49226762232753757,
+          "ssim": 0.39668799188611426
+        },
+        {
+          "distance_mm": 26.5,
+          "pcc": 0.6014774913626516,
+          "ssim": 0.3424145444236571
+        },
+        {
+          "distance_mm": 27.7,
+          "pcc": 0.5114535382930337,
+          "ssim": 0.3672761711614144
+        }
+      ],
+      "mean_pcc": 0.5081775085186953,
+      "mean_ssim": 0.37067457287572936,
+      "worst_pcc": 0.42751138209155815,
+      "worst_ssim": 0.3424145444236571
+    },
+    {
+      "sample_index": 19,
+      "target_sha256": "3620f365cf8609cc1f5c1047f162a0788c7184d8f4779084bb4d5e7fb47f4887",
+      "phase_png_sha256": "3e97a844a1214b0ee59641ff2ee33a9ea0cb3285cb832f6879c9f9d79c94420c",
+      "configuration": "Classical (20)",
+      "method": "classical",
+      "requested_iterations": 20,
+      "iterations": 20,
+      "optimizer_seed": 19,
+      "seconds": 0.09286949998931959,
+      "planes": [
+        {
+          "distance_mm": 24.1,
+          "pcc": 0.315021716231961,
+          "ssim": 0.061731220939050195
+        },
+        {
+          "distance_mm": 25.3,
+          "pcc": 0.41240884402572614,
+          "ssim": 0.041102534735867266
+        },
+        {
+          "distance_mm": 26.5,
+          "pcc": 0.3886852766246534,
+          "ssim": 0.05238821545735253
+        },
+        {
+          "distance_mm": 27.7,
+          "pcc": 0.35318960962080165,
+          "ssim": 0.05972318543079426
+        }
+      ],
+      "mean_pcc": 0.3673263616257855,
+      "mean_ssim": 0.05373628914076606,
+      "worst_pcc": 0.315021716231961,
+      "worst_ssim": 0.041102534735867266
+    },
+    {
+      "sample_index": 19,
+      "target_sha256": "3620f365cf8609cc1f5c1047f162a0788c7184d8f4779084bb4d5e7fb47f4887",
+      "phase_png_sha256": "35852a4e188a0ad013a1e91af200cb49eeae721831bbffe4725ecea845811fc7",
+      "configuration": "Classical (200)",
+      "method": "classical",
+      "requested_iterations": 200,
+      "iterations": 200,
+      "optimizer_seed": 19,
+      "seconds": 1.5036045000015292,
+      "planes": [
+        {
+          "distance_mm": 24.1,
+          "pcc": 0.4174373710198373,
+          "ssim": 0.4560347716425777
+        },
+        {
+          "distance_mm": 25.3,
+          "pcc": 0.5503756127325495,
+          "ssim": 0.4000390989871849
+        },
+        {
+          "distance_mm": 26.5,
+          "pcc": 0.5948869581122386,
+          "ssim": 0.4335664472928505
+        },
+        {
+          "distance_mm": 27.7,
+          "pcc": 0.4639592518175331,
+          "ssim": 0.45476271067581264
+        }
+      ],
+      "mean_pcc": 0.5066647984205396,
+      "mean_ssim": 0.4361007571496064,
+      "worst_pcc": 0.4174373710198373,
+      "worst_ssim": 0.4000390989871849
+    },
+    {
+      "sample_index": 19,
+      "target_sha256": "3620f365cf8609cc1f5c1047f162a0788c7184d8f4779084bb4d5e7fb47f4887",
+      "phase_png_sha256": "e3db0949b0884a7587417f7566917f394c557ea0f1c1c6aad6da33b2afb87253",
+      "configuration": "Neural",
+      "method": "neural",
+      "requested_iterations": 0,
+      "iterations": 0,
+      "optimizer_seed": 19,
+      "seconds": 0.010065900001791306,
+      "planes": [
+        {
+          "distance_mm": 24.1,
+          "pcc": 0.4622367169439801,
+          "ssim": 0.0683195902112192
+        },
+        {
+          "distance_mm": 25.3,
+          "pcc": 0.5238652484652401,
+          "ssim": 0.04763442232633458
+        },
+        {
+          "distance_mm": 26.5,
+          "pcc": 0.6062677911949985,
+          "ssim": 0.06705924535467446
+        },
+        {
+          "distance_mm": 27.7,
+          "pcc": 0.5552360833599375,
+          "ssim": 0.0632722671658132
+        }
+      ],
+      "mean_pcc": 0.5369014599910391,
+      "mean_ssim": 0.06157138126451035,
+      "worst_pcc": 0.4622367169439801,
+      "worst_ssim": 0.04763442232633458
+    },
+    {
+      "sample_index": 20,
+      "target_sha256": "9a17ea3b25300c4b738eb7f92638b88f201e1921f5fabb8f7c97856533e182f1",
+      "phase_png_sha256": "cd37ebcab18e9e31deaf094aca188624b4c8c9278b45ed969fc1824d3b7e75c9",
+      "configuration": "Classical (20)",
+      "method": "classical",
+      "requested_iterations": 20,
+      "iterations": 20,
+      "optimizer_seed": 20,
+      "seconds": 0.15001759999722708,
+      "planes": [
+        {
+          "distance_mm": 24.1,
+          "pcc": 0.6168206505612924,
+          "ssim": 0.01962809254108183
+        },
+        {
+          "distance_mm": 25.3,
+          "pcc": 0.5970375973993739,
+          "ssim": 0.05384041001347929
+        },
+        {
+          "distance_mm": 26.5,
+          "pcc": 0.6266837329661099,
+          "ssim": 0.018534492769739085
+        },
+        {
+          "distance_mm": 27.7,
+          "pcc": 0.6601163182738057,
+          "ssim": 0.018557905744266544
+        }
+      ],
+      "mean_pcc": 0.6251645748001455,
+      "mean_ssim": 0.027640225267141688,
+      "worst_pcc": 0.5970375973993739,
+      "worst_ssim": 0.018534492769739085
+    },
+    {
+      "sample_index": 20,
+      "target_sha256": "9a17ea3b25300c4b738eb7f92638b88f201e1921f5fabb8f7c97856533e182f1",
+      "phase_png_sha256": "85062ed879ecc98ac30885721e52cb244a18b5a2030e30e9ae4cca39f12751ce",
+      "configuration": "Classical (200)",
+      "method": "classical",
+      "requested_iterations": 200,
+      "iterations": 200,
+      "optimizer_seed": 20,
+      "seconds": 1.4653191000106744,
+      "planes": [
+        {
+          "distance_mm": 24.1,
+          "pcc": 0.8121647497550831,
+          "ssim": 0.04418924902338006
+        },
+        {
+          "distance_mm": 25.3,
+          "pcc": 0.8030544186463121,
+          "ssim": 0.04508751853677339
+        },
+        {
+          "distance_mm": 26.5,
+          "pcc": 0.8230197708156627,
+          "ssim": 0.05845364782592707
+        },
+        {
+          "distance_mm": 27.7,
+          "pcc": 0.8729616713833634,
+          "ssim": 0.05185207706716382
+        }
+      ],
+      "mean_pcc": 0.8278001526501053,
+      "mean_ssim": 0.04989562311331109,
+      "worst_pcc": 0.8030544186463121,
+      "worst_ssim": 0.04418924902338006
+    },
+    {
+      "sample_index": 20,
+      "target_sha256": "9a17ea3b25300c4b738eb7f92638b88f201e1921f5fabb8f7c97856533e182f1",
+      "phase_png_sha256": "85517b7205b2688d744da86f67d01c752b4af6c707aa58be91aab3ba0c4e1dcd",
+      "configuration": "Neural",
+      "method": "neural",
+      "requested_iterations": 0,
+      "iterations": 0,
+      "optimizer_seed": 20,
+      "seconds": 0.010404699991340749,
+      "planes": [
+        {
+          "distance_mm": 24.1,
+          "pcc": 0.8029759687404744,
+          "ssim": 0.06310262815563213
+        },
+        {
+          "distance_mm": 25.3,
+          "pcc": 0.7478290153774871,
+          "ssim": 0.08372999874615097
+        },
+        {
+          "distance_mm": 26.5,
+          "pcc": 0.7628709604191424,
+          "ssim": 0.08329283807054985
+        },
+        {
+          "distance_mm": 27.7,
+          "pcc": 0.8577205329905515,
+          "ssim": 0.06685092711386109
+        }
+      ],
+      "mean_pcc": 0.7928491193819138,
+      "mean_ssim": 0.07424409802154852,
+      "worst_pcc": 0.7478290153774871,
+      "worst_ssim": 0.06310262815563213
+    },
+    {
+      "sample_index": 20,
+      "target_sha256": "9a17ea3b25300c4b738eb7f92638b88f201e1921f5fabb8f7c97856533e182f1",
+      "phase_png_sha256": "73a87df04b172f7d274b46a14a4b03bf5bef188f9b7a94aaf3d2f27a655be9cd",
+      "configuration": "Hybrid (20)",
+      "method": "hybrid",
+      "requested_iterations": 20,
+      "iterations": 20,
+      "optimizer_seed": 20,
+      "seconds": 0.1578021000023,
+      "planes": [
+        {
+          "distance_mm": 24.1,
+          "pcc": 0.7889182147598439,
+          "ssim": 0.1867693355583898
+        },
+        {
+          "distance_mm": 25.3,
+          "pcc": 0.7569581787293186,
+          "ssim": 0.20013959505568762
+        },
+        {
+          "distance_mm": 26.5,
+          "pcc": 0.772554140522022,
+          "ssim": 0.20762956716963749
+        },
+        {
+          "distance_mm": 27.7,
+          "pcc": 0.848800195628065,
+          "ssim": 0.19065265339558518
+        }
+      ],
+      "mean_pcc": 0.7918076824098124,
+      "mean_ssim": 0.19629778779482504,
+      "worst_pcc": 0.7569581787293186,
+      "worst_ssim": 0.1867693355583898
+    },
+    {
+      "sample_index": 21,
+      "target_sha256": "4db0887364fd31a1ee7d332f4b0a407f77e8edee9c6cffadfa91cefafbaff2c5",
+      "phase_png_sha256": "a9034be915302cfcad2807f35d34411fe713574f3391fce6f9bd94adc76abd58",
+      "configuration": "Classical (200)",
+      "method": "classical",
+      "requested_iterations": 200,
+      "iterations": 200,
+      "optimizer_seed": 21,
+      "seconds": 1.4888759000023128,
+      "planes": [
+        {
+          "distance_mm": 24.1,
+          "pcc": 0.6471712419690401,
+          "ssim": 0.25309801969683016
+        },
+        {
+          "distance_mm": 25.3,
+          "pcc": 0.5018749108252993,
+          "ssim": 0.39573411865032315
+        },
+        {
+          "distance_mm": 26.5,
+          "pcc": 0.5789617189842213,
+          "ssim": 0.23837124686157796
+        },
+        {
+          "distance_mm": 27.7,
+          "pcc": 0.6789796283686768,
+          "ssim": 0.23964694299969608
+        }
+      ],
+      "mean_pcc": 0.6017468750368093,
+      "mean_ssim": 0.28171258205210686,
+      "worst_pcc": 0.5018749108252993,
+      "worst_ssim": 0.23837124686157796
+    },
+    {
+      "sample_index": 21,
+      "target_sha256": "4db0887364fd31a1ee7d332f4b0a407f77e8edee9c6cffadfa91cefafbaff2c5",
+      "phase_png_sha256": "fe2ef4b259d83c77705b170b13f82680764585a5678a75c27748102e60ff6187",
+      "configuration": "Neural",
+      "method": "neural",
+      "requested_iterations": 0,
+      "iterations": 0,
+      "optimizer_seed": 21,
+      "seconds": 0.010420699996757321,
+      "planes": [
+        {
+          "distance_mm": 24.1,
+          "pcc": 0.6670722244567988,
+          "ssim": 0.06782323469499596
+        },
+        {
+          "distance_mm": 25.3,
+          "pcc": 0.5342491715516073,
+          "ssim": 0.05838488865646745
+        },
+        {
+          "distance_mm": 26.5,
+          "pcc": 0.5189645273204933,
+          "ssim": 0.0688660963275721
+        },
+        {
+          "distance_mm": 27.7,
+          "pcc": 0.7120495582696167,
+          "ssim": 0.06327482326920088
+        }
+      ],
+      "mean_pcc": 0.608083870399629,
+      "mean_ssim": 0.0645872607370591,
+      "worst_pcc": 0.5189645273204933,
+      "worst_ssim": 0.05838488865646745
+    },
+    {
+      "sample_index": 21,
+      "target_sha256": "4db0887364fd31a1ee7d332f4b0a407f77e8edee9c6cffadfa91cefafbaff2c5",
+      "phase_png_sha256": "7b33c82623eff96d24ed6347fb70f9bdd408944708aa7d204d037504855500a0",
+      "configuration": "Hybrid (20)",
+      "method": "hybrid",
+      "requested_iterations": 20,
+      "iterations": 20,
+      "optimizer_seed": 21,
+      "seconds": 0.16497810000146274,
+      "planes": [
+        {
+          "distance_mm": 24.1,
+          "pcc": 0.6541448165615434,
+          "ssim": 0.18877368675515438
+        },
+        {
+          "distance_mm": 25.3,
+          "pcc": 0.5445769846045002,
+          "ssim": 0.2297446255749031
+        },
+        {
+          "distance_mm": 26.5,
+          "pcc": 0.5465971942377608,
+          "ssim": 0.2352966404298421
+        },
+        {
+          "distance_mm": 27.7,
+          "pcc": 0.6598357412579732,
+          "ssim": 0.38335698018691905
+        }
+      ],
+      "mean_pcc": 0.6012886841654443,
+      "mean_ssim": 0.25929298323670463,
+      "worst_pcc": 0.5445769846045002,
+      "worst_ssim": 0.18877368675515438
+    },
+    {
+      "sample_index": 21,
+      "target_sha256": "4db0887364fd31a1ee7d332f4b0a407f77e8edee9c6cffadfa91cefafbaff2c5",
+      "phase_png_sha256": "66d0069351b456ab2457d32f58cf596403feaaa79b5bcf83e9e5421a6d5406c7",
+      "configuration": "Classical (20)",
+      "method": "classical",
+      "requested_iterations": 20,
+      "iterations": 20,
+      "optimizer_seed": 21,
+      "seconds": 0.15082619999884628,
+      "planes": [
+        {
+          "distance_mm": 24.1,
+          "pcc": 0.4317150663399782,
+          "ssim": 0.034728722295859354
+        },
+        {
+          "distance_mm": 25.3,
+          "pcc": 0.4028201028218003,
+          "ssim": 0.04096740166537051
+        },
+        {
+          "distance_mm": 26.5,
+          "pcc": 0.379601626267486,
+          "ssim": 0.021768288958450288
+        },
+        {
+          "distance_mm": 27.7,
+          "pcc": 0.4858791814849985,
+          "ssim": 0.0331393050207599
+        }
+      ],
+      "mean_pcc": 0.4250039942285658,
+      "mean_ssim": 0.03265092948511002,
+      "worst_pcc": 0.379601626267486,
+      "worst_ssim": 0.021768288958450288
+    },
+    {
+      "sample_index": 22,
+      "target_sha256": "10eebc192a610831f1a355a2ee7c287362346ceed55aca7f28d4fb81dec57546",
+      "phase_png_sha256": "23654eb36537c7879a5e690fcf0d08179ae94d94b04aaa27789d1ad541af6098",
+      "configuration": "Neural",
+      "method": "neural",
+      "requested_iterations": 0,
+      "iterations": 0,
+      "optimizer_seed": 22,
+      "seconds": 0.010276200002408586,
+      "planes": [
+        {
+          "distance_mm": 24.1,
+          "pcc": 0.6706177195488667,
+          "ssim": 0.07157800802502165
+        },
+        {
+          "distance_mm": 25.3,
+          "pcc": 0.6066254428128858,
+          "ssim": 0.06954991960632607
+        },
+        {
+          "distance_mm": 26.5,
+          "pcc": 0.5266270625106789,
+          "ssim": 0.052456462477846084
+        },
+        {
+          "distance_mm": 27.7,
+          "pcc": 0.5734111353628116,
+          "ssim": 0.07610741249906611
+        }
+      ],
+      "mean_pcc": 0.5943203400588107,
+      "mean_ssim": 0.06742295065206498,
+      "worst_pcc": 0.5266270625106789,
+      "worst_ssim": 0.052456462477846084
+    },
+    {
+      "sample_index": 22,
+      "target_sha256": "10eebc192a610831f1a355a2ee7c287362346ceed55aca7f28d4fb81dec57546",
+      "phase_png_sha256": "a984de709079b7029bd2048dcd595b05036435ad710452034c80ceb8c59c2e10",
+      "configuration": "Hybrid (20)",
+      "method": "hybrid",
+      "requested_iterations": 20,
+      "iterations": 20,
+      "optimizer_seed": 22,
+      "seconds": 0.1580619000014849,
+      "planes": [
+        {
+          "distance_mm": 24.1,
+          "pcc": 0.6148728488093408,
+          "ssim": 0.2931284372434342
+        },
+        {
+          "distance_mm": 25.3,
+          "pcc": 0.630389274532381,
+          "ssim": 0.16971511336359704
+        },
+        {
+          "distance_mm": 26.5,
+          "pcc": 0.5038867964386008,
+          "ssim": 0.3655616234513905
+        },
+        {
+          "distance_mm": 27.7,
+          "pcc": 0.5372365656588131,
+          "ssim": 0.3500325498813994
+        }
+      ],
+      "mean_pcc": 0.5715963713597839,
+      "mean_ssim": 0.2946094309849553,
+      "worst_pcc": 0.5038867964386008,
+      "worst_ssim": 0.16971511336359704
+    },
+    {
+      "sample_index": 22,
+      "target_sha256": "10eebc192a610831f1a355a2ee7c287362346ceed55aca7f28d4fb81dec57546",
+      "phase_png_sha256": "bc3f0f2ddadaf1f0a083ecf510e6986c01b60add676f809629a65280f9d131f9",
+      "configuration": "Classical (20)",
+      "method": "classical",
+      "requested_iterations": 20,
+      "iterations": 20,
+      "optimizer_seed": 22,
+      "seconds": 0.14952930000436027,
+      "planes": [
+        {
+          "distance_mm": 24.1,
+          "pcc": 0.4308048437660985,
+          "ssim": 0.02967480242258066
+        },
+        {
+          "distance_mm": 25.3,
+          "pcc": 0.45055684168586335,
+          "ssim": 0.025668552519845785
+        },
+        {
+          "distance_mm": 26.5,
+          "pcc": 0.3703945635409991,
+          "ssim": 0.02635011799325568
+        },
+        {
+          "distance_mm": 27.7,
+          "pcc": 0.3703726025144351,
+          "ssim": 0.04796587019322583
+        }
+      ],
+      "mean_pcc": 0.40553221287684904,
+      "mean_ssim": 0.032414835782226994,
+      "worst_pcc": 0.3703726025144351,
+      "worst_ssim": 0.025668552519845785
+    },
+    {
+      "sample_index": 22,
+      "target_sha256": "10eebc192a610831f1a355a2ee7c287362346ceed55aca7f28d4fb81dec57546",
+      "phase_png_sha256": "996d5ff8142e0db3aeb4d11f455ce2cfcb1c566f2011d0695957dd1def8d58c8",
+      "configuration": "Classical (200)",
+      "method": "classical",
+      "requested_iterations": 200,
+      "iterations": 200,
+      "optimizer_seed": 22,
+      "seconds": 1.4681864000012865,
+      "planes": [
+        {
+          "distance_mm": 24.1,
+          "pcc": 0.6679464996546058,
+          "ssim": 0.05989005246704498
+        },
+        {
+          "distance_mm": 25.3,
+          "pcc": 0.6969868211636784,
+          "ssim": 0.09297916820043008
+        },
+        {
+          "distance_mm": 26.5,
+          "pcc": 0.5416143853882821,
+          "ssim": 0.04327753878119261
+        },
+        {
+          "distance_mm": 27.7,
+          "pcc": 0.5998675483661067,
+          "ssim": 0.07248009208723696
+        }
+      ],
+      "mean_pcc": 0.6266038136431682,
+      "mean_ssim": 0.06715671288397615,
+      "worst_pcc": 0.5416143853882821,
+      "worst_ssim": 0.04327753878119261
+    },
+    {
+      "sample_index": 23,
+      "target_sha256": "c542c83c750446ce7d8ceb8a0df5a9ed3ea85bad8e0838dbdf2c0db7ed61ac39",
+      "phase_png_sha256": "80e67e02053218b8d4a4e93ef76bab011ffd4f4ad0b7ec3784c1e56c12e9f767",
+      "configuration": "Hybrid (20)",
+      "method": "hybrid",
+      "requested_iterations": 20,
+      "iterations": 20,
+      "optimizer_seed": 23,
+      "seconds": 0.16309800000453833,
+      "planes": [
+        {
+          "distance_mm": 24.1,
+          "pcc": 0.6918042331020762,
+          "ssim": 0.5190398821854716
+        },
+        {
+          "distance_mm": 25.3,
+          "pcc": 0.4538467480541302,
+          "ssim": 0.5470936802827442
+        },
+        {
+          "distance_mm": 26.5,
+          "pcc": 0.6830094141751899,
+          "ssim": 0.5228814489788172
+        },
+        {
+          "distance_mm": 27.7,
+          "pcc": 0.7845513391787454,
+          "ssim": 0.5371255138442301
+        }
+      ],
+      "mean_pcc": 0.6533029336275354,
+      "mean_ssim": 0.5315351313228158,
+      "worst_pcc": 0.4538467480541302,
+      "worst_ssim": 0.5190398821854716
+    },
+    {
+      "sample_index": 23,
+      "target_sha256": "c542c83c750446ce7d8ceb8a0df5a9ed3ea85bad8e0838dbdf2c0db7ed61ac39",
+      "phase_png_sha256": "450bd6c0e0d07e341d6bedc63b1dd981d7cd917d1dd923bf093721b54d7b5e1a",
+      "configuration": "Classical (20)",
+      "method": "classical",
+      "requested_iterations": 20,
+      "iterations": 20,
+      "optimizer_seed": 23,
+      "seconds": 0.14786959999764804,
+      "planes": [
+        {
+          "distance_mm": 24.1,
+          "pcc": 0.5301183818565145,
+          "ssim": 0.03923279650496634
+        },
+        {
+          "distance_mm": 25.3,
+          "pcc": 0.36146374452268826,
+          "ssim": 0.054970127408906645
+        },
+        {
+          "distance_mm": 26.5,
+          "pcc": 0.4750688504583277,
+          "ssim": 0.041071200570366624
+        },
+        {
+          "distance_mm": 27.7,
+          "pcc": 0.5847548969195062,
+          "ssim": 0.04272141318043343
+        }
+      ],
+      "mean_pcc": 0.48785146843925914,
+      "mean_ssim": 0.04449888441616826,
+      "worst_pcc": 0.36146374452268826,
+      "worst_ssim": 0.03923279650496634
+    },
+    {
+      "sample_index": 23,
+      "target_sha256": "c542c83c750446ce7d8ceb8a0df5a9ed3ea85bad8e0838dbdf2c0db7ed61ac39",
+      "phase_png_sha256": "27f4a351f3229c1d10165273517c281f460512cbf2ff23340e612b7dec97b14b",
+      "configuration": "Classical (200)",
+      "method": "classical",
+      "requested_iterations": 200,
+      "iterations": 200,
+      "optimizer_seed": 23,
+      "seconds": 1.4761254000040935,
+      "planes": [
+        {
+          "distance_mm": 24.1,
+          "pcc": 0.715812671277629,
+          "ssim": 0.5988730568339872
+        },
+        {
+          "distance_mm": 25.3,
+          "pcc": 0.44053572056799917,
+          "ssim": 0.5498861627991499
+        },
+        {
+          "distance_mm": 26.5,
+          "pcc": 0.6715506243074136,
+          "ssim": 0.4660973973077795
+        },
+        {
+          "distance_mm": 27.7,
+          "pcc": 0.8254657856021984,
+          "ssim": 0.5045789217439344
+        }
+      ],
+      "mean_pcc": 0.6633412004388101,
+      "mean_ssim": 0.5298588846712128,
+      "worst_pcc": 0.44053572056799917,
+      "worst_ssim": 0.4660973973077795
+    },
+    {
+      "sample_index": 23,
+      "target_sha256": "c542c83c750446ce7d8ceb8a0df5a9ed3ea85bad8e0838dbdf2c0db7ed61ac39",
+      "phase_png_sha256": "02081f21f047827bb743de1b7bb57a3ed60c1dd233b1baaeefaeb2b03e49cd89",
+      "configuration": "Neural",
+      "method": "neural",
+      "requested_iterations": 0,
+      "iterations": 0,
+      "optimizer_seed": 23,
+      "seconds": 0.01032390000182204,
+      "planes": [
+        {
+          "distance_mm": 24.1,
+          "pcc": 0.7450635768045225,
+          "ssim": 0.06696018093583812
+        },
+        {
+          "distance_mm": 25.3,
+          "pcc": 0.5025975589486441,
+          "ssim": 0.08944482279337267
+        },
+        {
+          "distance_mm": 26.5,
+          "pcc": 0.6868219291572425,
+          "ssim": 0.06734937019736502
+        },
+        {
+          "distance_mm": 27.7,
+          "pcc": 0.8455433032823778,
+          "ssim": 0.09274008003689349
+        }
+      ],
+      "mean_pcc": 0.6950065920481967,
+      "mean_ssim": 0.07912361349086733,
+      "worst_pcc": 0.5025975589486441,
+      "worst_ssim": 0.06696018093583812
+    },
+    {
+      "sample_index": 24,
+      "target_sha256": "b824dbe5363cf4dabf737d681aff02f7b4a5cfd737e429a80482b09aa8ab7fda",
+      "phase_png_sha256": "2e7debb5ddbcc6f871c4c247b5ad00ed1c4b7768b0114612d1841497e1da9dd3",
+      "configuration": "Classical (20)",
+      "method": "classical",
+      "requested_iterations": 20,
+      "iterations": 20,
+      "optimizer_seed": 24,
+      "seconds": 0.1550582000054419,
+      "planes": [
+        {
+          "distance_mm": 24.1,
+          "pcc": 0.47495863031551,
+          "ssim": 0.022370310123764534
+        },
+        {
+          "distance_mm": 25.3,
+          "pcc": 0.48090653320927557,
+          "ssim": 0.024580130469078837
+        },
+        {
+          "distance_mm": 26.5,
+          "pcc": 0.3305908156829396,
+          "ssim": 0.027844423055451963
+        },
+        {
+          "distance_mm": 27.7,
+          "pcc": 0.4966680200517394,
+          "ssim": 0.03554343673481248
+        }
+      ],
+      "mean_pcc": 0.4457809998148662,
+      "mean_ssim": 0.02758457509577695,
+      "worst_pcc": 0.3305908156829396,
+      "worst_ssim": 0.022370310123764534
+    },
+    {
+      "sample_index": 24,
+      "target_sha256": "b824dbe5363cf4dabf737d681aff02f7b4a5cfd737e429a80482b09aa8ab7fda",
+      "phase_png_sha256": "b53591407c82569c93af7caa44407f4775a1ba2d807fb73a04d92a375095b773",
+      "configuration": "Classical (200)",
+      "method": "classical",
+      "requested_iterations": 200,
+      "iterations": 200,
+      "optimizer_seed": 24,
+      "seconds": 1.533474900003057,
+      "planes": [
+        {
+          "distance_mm": 24.1,
+          "pcc": 0.6294360819932798,
+          "ssim": 0.49216432328233484
+        },
+        {
+          "distance_mm": 25.3,
+          "pcc": 0.6251741046165235,
+          "ssim": 0.5635696582830919
+        },
+        {
+          "distance_mm": 26.5,
+          "pcc": 0.43109578029246526,
+          "ssim": 0.6118212387826325
+        },
+        {
+          "distance_mm": 27.7,
+          "pcc": 0.6932845654798123,
+          "ssim": 0.5602826828402435
+        }
+      ],
+      "mean_pcc": 0.5947476330955201,
+      "mean_ssim": 0.5569594757970757,
+      "worst_pcc": 0.43109578029246526,
+      "worst_ssim": 0.49216432328233484
+    },
+    {
+      "sample_index": 24,
+      "target_sha256": "b824dbe5363cf4dabf737d681aff02f7b4a5cfd737e429a80482b09aa8ab7fda",
+      "phase_png_sha256": "8cab001d4abe50e2923444a481585f0f41a2dfbd280ecb806e87649ee20f4909",
+      "configuration": "Neural",
+      "method": "neural",
+      "requested_iterations": 0,
+      "iterations": 0,
+      "optimizer_seed": 24,
+      "seconds": 0.01004090000060387,
+      "planes": [
+        {
+          "distance_mm": 24.1,
+          "pcc": 0.6573413233383465,
+          "ssim": 0.04829862533332348
+        },
+        {
+          "distance_mm": 25.3,
+          "pcc": 0.6687441842795656,
+          "ssim": 0.06084681057263095
+        },
+        {
+          "distance_mm": 26.5,
+          "pcc": 0.44131429125398014,
+          "ssim": 0.06713902098879429
+        },
+        {
+          "distance_mm": 27.7,
+          "pcc": 0.722720407092528,
+          "ssim": 0.06485744244364827
+        }
+      ],
+      "mean_pcc": 0.6225300514911051,
+      "mean_ssim": 0.06028547483459925,
+      "worst_pcc": 0.44131429125398014,
+      "worst_ssim": 0.04829862533332348
+    },
+    {
+      "sample_index": 24,
+      "target_sha256": "b824dbe5363cf4dabf737d681aff02f7b4a5cfd737e429a80482b09aa8ab7fda",
+      "phase_png_sha256": "60b6e7e5ae6c4ead4352d63b21df96d2e3427c3b2a024685ffaed612a3839641",
+      "configuration": "Hybrid (20)",
+      "method": "hybrid",
+      "requested_iterations": 20,
+      "iterations": 20,
+      "optimizer_seed": 24,
+      "seconds": 0.17545809999865014,
+      "planes": [
+        {
+          "distance_mm": 24.1,
+          "pcc": 0.6359275515926669,
+          "ssim": 0.27322035299030273
+        },
+        {
+          "distance_mm": 25.3,
+          "pcc": 0.6541359806641536,
+          "ssim": 0.4153564453725283
+        },
+        {
+          "distance_mm": 26.5,
+          "pcc": 0.4213760853641489,
+          "ssim": 0.4991982651764257
+        },
+        {
+          "distance_mm": 27.7,
+          "pcc": 0.6820236092491057,
+          "ssim": 0.4294404044979801
+        }
+      ],
+      "mean_pcc": 0.5983658067175187,
+      "mean_ssim": 0.4043038670093092,
+      "worst_pcc": 0.4213760853641489,
+      "worst_ssim": 0.27322035299030273
+    },
+    {
+      "sample_index": 25,
+      "target_sha256": "ad35bf949133f0856a0b9dd327cc774fcddcb7543d5acab6219abedbb08d0270",
+      "phase_png_sha256": "4575d89afae3b285a4828f3009163f528e31b2ace7c52ee174c2033413a2141a",
+      "configuration": "Classical (200)",
+      "method": "classical",
+      "requested_iterations": 200,
+      "iterations": 200,
+      "optimizer_seed": 25,
+      "seconds": 1.782846600006451,
+      "planes": [
+        {
+          "distance_mm": 24.1,
+          "pcc": 0.7793395741664279,
+          "ssim": 0.10228354909657646
+        },
+        {
+          "distance_mm": 25.3,
+          "pcc": 0.49435026859333836,
+          "ssim": 0.0474557826290334
+        },
+        {
+          "distance_mm": 26.5,
+          "pcc": 0.44462903011609906,
+          "ssim": 0.04409662293850869
+        },
+        {
+          "distance_mm": 27.7,
+          "pcc": 0.7289990323080521,
+          "ssim": 0.09386086436824113
+        }
+      ],
+      "mean_pcc": 0.6118294762959794,
+      "mean_ssim": 0.07192420475808992,
+      "worst_pcc": 0.44462903011609906,
+      "worst_ssim": 0.04409662293850869
+    },
+    {
+      "sample_index": 25,
+      "target_sha256": "ad35bf949133f0856a0b9dd327cc774fcddcb7543d5acab6219abedbb08d0270",
+      "phase_png_sha256": "3c728249a3436ccdb783eac15e9dc9426e675a843692b096cf4c7fb0ee5173ba",
+      "configuration": "Neural",
+      "method": "neural",
+      "requested_iterations": 0,
+      "iterations": 0,
+      "optimizer_seed": 25,
+      "seconds": 0.011891200003447011,
+      "planes": [
+        {
+          "distance_mm": 24.1,
+          "pcc": 0.7039487215867608,
+          "ssim": 0.0713700290264642
+        },
+        {
+          "distance_mm": 25.3,
+          "pcc": 0.4842011784867442,
+          "ssim": 0.04802218471784902
+        },
+        {
+          "distance_mm": 26.5,
+          "pcc": 0.44123592966515174,
+          "ssim": 0.047221687509672323
+        },
+        {
+          "distance_mm": 27.7,
+          "pcc": 0.6678307438038463,
+          "ssim": 0.0636185036307992
+        }
+      ],
+      "mean_pcc": 0.5743041433856257,
+      "mean_ssim": 0.05755810122119619,
+      "worst_pcc": 0.44123592966515174,
+      "worst_ssim": 0.047221687509672323
+    },
+    {
+      "sample_index": 25,
+      "target_sha256": "ad35bf949133f0856a0b9dd327cc774fcddcb7543d5acab6219abedbb08d0270",
+      "phase_png_sha256": "eb736af951ff658ff5f8146df4ba41497a2ee638ffe64993b3b2e61d2e97a49b",
+      "configuration": "Hybrid (20)",
+      "method": "hybrid",
+      "requested_iterations": 20,
+      "iterations": 20,
+      "optimizer_seed": 25,
+      "seconds": 0.19488209999690298,
+      "planes": [
+        {
+          "distance_mm": 24.1,
+          "pcc": 0.761758902448522,
+          "ssim": 0.09464451561102145
+        },
+        {
+          "distance_mm": 25.3,
+          "pcc": 0.47468692528476947,
+          "ssim": 0.0590761164203181
+        },
+        {
+          "distance_mm": 26.5,
+          "pcc": 0.4319846762073443,
+          "ssim": 0.07708199541771485
+        },
+        {
+          "distance_mm": 27.7,
+          "pcc": 0.7154676088592334,
+          "ssim": 0.08372746795106166
+        }
+      ],
+      "mean_pcc": 0.5959745281999673,
+      "mean_ssim": 0.07863252385002902,
+      "worst_pcc": 0.4319846762073443,
+      "worst_ssim": 0.0590761164203181
+    },
+    {
+      "sample_index": 25,
+      "target_sha256": "ad35bf949133f0856a0b9dd327cc774fcddcb7543d5acab6219abedbb08d0270",
+      "phase_png_sha256": "d0746518a2d4696b1bc34db860d148d0b346f9cbd4b1c04055e82e954f0c339f",
+      "configuration": "Classical (20)",
+      "method": "classical",
+      "requested_iterations": 20,
+      "iterations": 20,
+      "optimizer_seed": 25,
+      "seconds": 0.17130750000069384,
+      "planes": [
+        {
+          "distance_mm": 24.1,
+          "pcc": 0.47130650011805647,
+          "ssim": 0.024150143894678223
+        },
+        {
+          "distance_mm": 25.3,
+          "pcc": 0.3421364611657814,
+          "ssim": 0.03562032466441712
+        },
+        {
+          "distance_mm": 26.5,
+          "pcc": 0.3166401456862161,
+          "ssim": 0.027115710216932914
+        },
+        {
+          "distance_mm": 27.7,
+          "pcc": 0.41551107530947623,
+          "ssim": 0.02799529566557005
+        }
+      ],
+      "mean_pcc": 0.38639854556988257,
+      "mean_ssim": 0.028720368610399578,
+      "worst_pcc": 0.3166401456862161,
+      "worst_ssim": 0.024150143894678223
+    },
+    {
+      "sample_index": 26,
+      "target_sha256": "a3d53da0286a538aa73e66e60d0ad97fc6796b10a428dbc0b9b1db066881a77e",
+      "phase_png_sha256": "d396053da2f3e698184bdaa8ff11b40ed5a6be93fcba871ab6c4354b2da5dae9",
+      "configuration": "Neural",
+      "method": "neural",
+      "requested_iterations": 0,
+      "iterations": 0,
+      "optimizer_seed": 26,
+      "seconds": 0.012980699990293942,
+      "planes": [
+        {
+          "distance_mm": 24.1,
+          "pcc": 0.6394567634421802,
+          "ssim": 0.06978203347168031
+        },
+        {
+          "distance_mm": 25.3,
+          "pcc": 0.5257288550296576,
+          "ssim": 0.06445784431108928
+        },
+        {
+          "distance_mm": 26.5,
+          "pcc": 0.6772641466111594,
+          "ssim": 0.06577158797849489
+        },
+        {
+          "distance_mm": 27.7,
+          "pcc": 0.6249728195270913,
+          "ssim": 0.07923227704208356
+        }
+      ],
+      "mean_pcc": 0.6168556461525221,
+      "mean_ssim": 0.069810935700837,
+      "worst_pcc": 0.5257288550296576,
+      "worst_ssim": 0.06445784431108928
+    },
+    {
+      "sample_index": 26,
+      "target_sha256": "a3d53da0286a538aa73e66e60d0ad97fc6796b10a428dbc0b9b1db066881a77e",
+      "phase_png_sha256": "db5f24f5d0dc4a3f9bfa63f0534dba34e5a83a8e8311cd09141fb6ce7816423c",
+      "configuration": "Hybrid (20)",
+      "method": "hybrid",
+      "requested_iterations": 20,
+      "iterations": 20,
+      "optimizer_seed": 26,
+      "seconds": 0.17055399999662768,
+      "planes": [
+        {
+          "distance_mm": 24.1,
+          "pcc": 0.6971557394199197,
+          "ssim": 0.1058341970943049
+        },
+        {
+          "distance_mm": 25.3,
+          "pcc": 0.4766365857170786,
+          "ssim": 0.12508728857481308
+        },
+        {
+          "distance_mm": 26.5,
+          "pcc": 0.7209819981975211,
+          "ssim": 0.08623534826978
+        },
+        {
+          "distance_mm": 27.7,
+          "pcc": 0.6110360539132131,
+          "ssim": 0.07834337758480814
+        }
+      ],
+      "mean_pcc": 0.6264525943119332,
+      "mean_ssim": 0.09887505288092652,
+      "worst_pcc": 0.4766365857170786,
+      "worst_ssim": 0.07834337758480814
+    },
+    {
+      "sample_index": 26,
+      "target_sha256": "a3d53da0286a538aa73e66e60d0ad97fc6796b10a428dbc0b9b1db066881a77e",
+      "phase_png_sha256": "84a0a010a54a157a8a556cd40548037c8eb0357de86fd907aa9889fa0e82d0b5",
+      "configuration": "Classical (20)",
+      "method": "classical",
+      "requested_iterations": 20,
+      "iterations": 20,
+      "optimizer_seed": 26,
+      "seconds": 0.16054699999222066,
+      "planes": [
+        {
+          "distance_mm": 24.1,
+          "pcc": 0.4449048369372322,
+          "ssim": 0.024256454141050394
+        },
+        {
+          "distance_mm": 25.3,
+          "pcc": 0.3718031486668397,
+          "ssim": 0.03524653483658272
+        },
+        {
+          "distance_mm": 26.5,
+          "pcc": 0.48120880946397393,
+          "ssim": 0.023511638062630624
+        },
+        {
+          "distance_mm": 27.7,
+          "pcc": 0.41143106573617433,
+          "ssim": 0.029303468017186345
+        }
+      ],
+      "mean_pcc": 0.4273369652010551,
+      "mean_ssim": 0.028079523764362523,
+      "worst_pcc": 0.3718031486668397,
+      "worst_ssim": 0.023511638062630624
+    },
+    {
+      "sample_index": 26,
+      "target_sha256": "a3d53da0286a538aa73e66e60d0ad97fc6796b10a428dbc0b9b1db066881a77e",
+      "phase_png_sha256": "9a5f7276290ca5a90c4c24f7fb4a3efb142ccea826032f2febc2727bb39f6ea0",
+      "configuration": "Classical (200)",
+      "method": "classical",
+      "requested_iterations": 200,
+      "iterations": 200,
+      "optimizer_seed": 26,
+      "seconds": 1.496088999992935,
+      "planes": [
+        {
+          "distance_mm": 24.1,
+          "pcc": 0.7307609130501844,
+          "ssim": 0.126000722170542
+        },
+        {
+          "distance_mm": 25.3,
+          "pcc": 0.5040816217170908,
+          "ssim": 0.05480324930289704
+        },
+        {
+          "distance_mm": 26.5,
+          "pcc": 0.7546144646654113,
+          "ssim": 0.10968175477487138
+        },
+        {
+          "distance_mm": 27.7,
+          "pcc": 0.6233954314766635,
+          "ssim": 0.07782526630959914
+        }
+      ],
+      "mean_pcc": 0.6532131077273375,
+      "mean_ssim": 0.09207774813947739,
+      "worst_pcc": 0.5040816217170908,
+      "worst_ssim": 0.05480324930289704
+    },
+    {
+      "sample_index": 27,
+      "target_sha256": "426b74c6b929e8ef77d37541f18665a0910f1f2ae1357b9a66b502f8cc5364ce",
+      "phase_png_sha256": "698cd176242e9261424150ecbc027f26328ac58536dfa35c755ba8985dcad69d",
+      "configuration": "Hybrid (20)",
+      "method": "hybrid",
+      "requested_iterations": 20,
+      "iterations": 20,
+      "optimizer_seed": 27,
+      "seconds": 0.16922360000899062,
+      "planes": [
+        {
+          "distance_mm": 24.1,
+          "pcc": 0.7095848003521976,
+          "ssim": 0.4057702021437084
+        },
+        {
+          "distance_mm": 25.3,
+          "pcc": 0.45720361117217434,
+          "ssim": 0.46311809040812735
+        },
+        {
+          "distance_mm": 26.5,
+          "pcc": 0.47218019913938064,
+          "ssim": 0.47978247261075485
+        },
+        {
+          "distance_mm": 27.7,
+          "pcc": 0.5890445935562855,
+          "ssim": 0.4638555855834945
+        }
+      ],
+      "mean_pcc": 0.5570033010550095,
+      "mean_ssim": 0.4531315876865213,
+      "worst_pcc": 0.45720361117217434,
+      "worst_ssim": 0.4057702021437084
+    },
+    {
+      "sample_index": 27,
+      "target_sha256": "426b74c6b929e8ef77d37541f18665a0910f1f2ae1357b9a66b502f8cc5364ce",
+      "phase_png_sha256": "db807b7cedb5606f8e79883d7aaff1b163559052fbe96565ff9cefafbf29d302",
+      "configuration": "Classical (20)",
+      "method": "classical",
+      "requested_iterations": 20,
+      "iterations": 20,
+      "optimizer_seed": 27,
+      "seconds": 0.1615013000118779,
+      "planes": [
+        {
+          "distance_mm": 24.1,
+          "pcc": 0.49617754967136607,
+          "ssim": 0.049176847377601
+        },
+        {
+          "distance_mm": 25.3,
+          "pcc": 0.34402980015311424,
+          "ssim": 0.045898663409765325
+        },
+        {
+          "distance_mm": 26.5,
+          "pcc": 0.36391335122332175,
+          "ssim": 0.0425580375959468
+        },
+        {
+          "distance_mm": 27.7,
+          "pcc": 0.411968227660279,
+          "ssim": 0.04675429346118776
+        }
+      ],
+      "mean_pcc": 0.40402223217702027,
+      "mean_ssim": 0.04609696046112522,
+      "worst_pcc": 0.34402980015311424,
+      "worst_ssim": 0.0425580375959468
+    },
+    {
+      "sample_index": 27,
+      "target_sha256": "426b74c6b929e8ef77d37541f18665a0910f1f2ae1357b9a66b502f8cc5364ce",
+      "phase_png_sha256": "6d5f59d8ab065cf2cee91889eee210bc0e34d56482bad3807a3bb5a38290eefa",
+      "configuration": "Classical (200)",
+      "method": "classical",
+      "requested_iterations": 200,
+      "iterations": 200,
+      "optimizer_seed": 27,
+      "seconds": 1.4719693999941228,
+      "planes": [
+        {
+          "distance_mm": 24.1,
+          "pcc": 0.7092924846392832,
+          "ssim": 0.42169507852848903
+        },
+        {
+          "distance_mm": 25.3,
+          "pcc": 0.4625928461817159,
+          "ssim": 0.4160691943082653
+        },
+        {
+          "distance_mm": 26.5,
+          "pcc": 0.48616553659767503,
+          "ssim": 0.3736033981222636
+        },
+        {
+          "distance_mm": 27.7,
+          "pcc": 0.5664076613549326,
+          "ssim": 0.4457455181543033
+        }
+      ],
+      "mean_pcc": 0.5561146321934016,
+      "mean_ssim": 0.41427829727833027,
+      "worst_pcc": 0.4625928461817159,
+      "worst_ssim": 0.3736033981222636
+    },
+    {
+      "sample_index": 27,
+      "target_sha256": "426b74c6b929e8ef77d37541f18665a0910f1f2ae1357b9a66b502f8cc5364ce",
+      "phase_png_sha256": "7427700d02281ced93bf430a6299c9969274a17f0a174de5f57b1538bd028e64",
+      "configuration": "Neural",
+      "method": "neural",
+      "requested_iterations": 0,
+      "iterations": 0,
+      "optimizer_seed": 27,
+      "seconds": 0.009969099992304109,
+      "planes": [
+        {
+          "distance_mm": 24.1,
+          "pcc": 0.7292064690896123,
+          "ssim": 0.08021783660999594
+        },
+        {
+          "distance_mm": 25.3,
+          "pcc": 0.47954888765145254,
+          "ssim": 0.0773448572942568
+        },
+        {
+          "distance_mm": 26.5,
+          "pcc": 0.5132157828780427,
+          "ssim": 0.05943723116166582
+        },
+        {
+          "distance_mm": 27.7,
+          "pcc": 0.6286787325452058,
+          "ssim": 0.08806687854150375
+        }
+      ],
+      "mean_pcc": 0.5876624680410782,
+      "mean_ssim": 0.07626670090185558,
+      "worst_pcc": 0.47954888765145254,
+      "worst_ssim": 0.05943723116166582
+    },
+    {
+      "sample_index": 28,
+      "target_sha256": "54c4d04b3a3a452c8158acb15d210412dd5f33c47034690ba42c69743e63a409",
+      "phase_png_sha256": "2706788e298fe3df6c2e8048b6d35e965f4b3b7ee8880dab078fd2086f4f94fb",
+      "configuration": "Classical (20)",
+      "method": "classical",
+      "requested_iterations": 20,
+      "iterations": 20,
+      "optimizer_seed": 28,
+      "seconds": 0.1677482999948552,
+      "planes": [
+        {
+          "distance_mm": 24.1,
+          "pcc": 0.5451221476418067,
+          "ssim": 0.02662872031309703
+        },
+        {
+          "distance_mm": 25.3,
+          "pcc": 0.5414964398559852,
+          "ssim": 0.02072915088268795
+        },
+        {
+          "distance_mm": 26.5,
+          "pcc": 0.32080884545732113,
+          "ssim": 0.026175968962998893
+        },
+        {
+          "distance_mm": 27.7,
+          "pcc": 0.5562398901368145,
+          "ssim": 0.026258012086488234
+        }
+      ],
+      "mean_pcc": 0.49091683077298187,
+      "mean_ssim": 0.024947963061318027,
+      "worst_pcc": 0.32080884545732113,
+      "worst_ssim": 0.02072915088268795
+    },
+    {
+      "sample_index": 28,
+      "target_sha256": "54c4d04b3a3a452c8158acb15d210412dd5f33c47034690ba42c69743e63a409",
+      "phase_png_sha256": "34653e2164972f8f1622ecfdfba87444b42f3354d2ad4fd65c0ab144a823a66d",
+      "configuration": "Classical (200)",
+      "method": "classical",
+      "requested_iterations": 200,
+      "iterations": 200,
+      "optimizer_seed": 28,
+      "seconds": 1.4676072000002023,
+      "planes": [
+        {
+          "distance_mm": 24.1,
+          "pcc": 0.7801273906591206,
+          "ssim": 0.056671816076036295
+        },
+        {
+          "distance_mm": 25.3,
+          "pcc": 0.7582015902151418,
+          "ssim": 0.048311764124278275
+        },
+        {
+          "distance_mm": 26.5,
+          "pcc": 0.407571082993034,
+          "ssim": 0.05530149719664107
+        },
+        {
+          "distance_mm": 27.7,
+          "pcc": 0.8156908027892916,
+          "ssim": 0.06602303746470756
+        }
+      ],
+      "mean_pcc": 0.690397716664147,
+      "mean_ssim": 0.0565770287154158,
+      "worst_pcc": 0.407571082993034,
+      "worst_ssim": 0.048311764124278275
+    },
+    {
+      "sample_index": 28,
+      "target_sha256": "54c4d04b3a3a452c8158acb15d210412dd5f33c47034690ba42c69743e63a409",
+      "phase_png_sha256": "7802c4fe666d9abd9883740278a0b3c46d763b462444e731d0a842352f49a9b3",
+      "configuration": "Neural",
+      "method": "neural",
+      "requested_iterations": 0,
+      "iterations": 0,
+      "optimizer_seed": 28,
+      "seconds": 0.01074250000237953,
+      "planes": [
+        {
+          "distance_mm": 24.1,
+          "pcc": 0.7968861294083331,
+          "ssim": 0.06846463383232901
+        },
+        {
+          "distance_mm": 25.3,
+          "pcc": 0.6771031703270061,
+          "ssim": 0.0637937518891944
+        },
+        {
+          "distance_mm": 26.5,
+          "pcc": 0.41800376648830523,
+          "ssim": 0.053289809156474355
+        },
+        {
+          "distance_mm": 27.7,
+          "pcc": 0.7998735880012154,
+          "ssim": 0.06681379083813994
+        }
+      ],
+      "mean_pcc": 0.6729666635562149,
+      "mean_ssim": 0.06309049642903443,
+      "worst_pcc": 0.41800376648830523,
+      "worst_ssim": 0.053289809156474355
+    },
+    {
+      "sample_index": 28,
+      "target_sha256": "54c4d04b3a3a452c8158acb15d210412dd5f33c47034690ba42c69743e63a409",
+      "phase_png_sha256": "1c0a010744ef90ef62555e960d7b12313e28c2e8e1e1eb3e7be48723541fb59b",
+      "configuration": "Hybrid (20)",
+      "method": "hybrid",
+      "requested_iterations": 20,
+      "iterations": 20,
+      "optimizer_seed": 28,
+      "seconds": 0.16270480000821408,
+      "planes": [
+        {
+          "distance_mm": 24.1,
+          "pcc": 0.7787392612442837,
+          "ssim": 0.1180534394131357
+        },
+        {
+          "distance_mm": 25.3,
+          "pcc": 0.720796639554367,
+          "ssim": 0.10831461916903652
+        },
+        {
+          "distance_mm": 26.5,
+          "pcc": 0.38701153598458843,
+          "ssim": 0.3154905989432781
+        },
+        {
+          "distance_mm": 27.7,
+          "pcc": 0.8006446859067694,
+          "ssim": 0.11856858313232453
+        }
+      ],
+      "mean_pcc": 0.6717980306725021,
+      "mean_ssim": 0.1651068101644437,
+      "worst_pcc": 0.38701153598458843,
+      "worst_ssim": 0.10831461916903652
+    },
+    {
+      "sample_index": 29,
+      "target_sha256": "e77ec1d1cad6b37d3a4e12f07c10cba796bb07fa6956a376ade880c3064f74e8",
+      "phase_png_sha256": "94e3dcb707e6c10cb35e6c8f11765fdf1754e3397d16384cfcf4ad0e311d3503",
+      "configuration": "Classical (200)",
+      "method": "classical",
+      "requested_iterations": 200,
+      "iterations": 200,
+      "optimizer_seed": 29,
+      "seconds": 1.4939233000040986,
+      "planes": [
+        {
+          "distance_mm": 24.1,
+          "pcc": 0.6253550281109933,
+          "ssim": 0.0774233303535354
+        },
+        {
+          "distance_mm": 25.3,
+          "pcc": 0.6495403668598819,
+          "ssim": 0.08103069570977682
+        },
+        {
+          "distance_mm": 26.5,
+          "pcc": 0.3777881061347771,
+          "ssim": 0.05750932474997811
+        },
+        {
+          "distance_mm": 27.7,
+          "pcc": 0.6720402225860211,
+          "ssim": 0.09320327045165579
+        }
+      ],
+      "mean_pcc": 0.5811809309229183,
+      "mean_ssim": 0.07729165531623652,
+      "worst_pcc": 0.3777881061347771,
+      "worst_ssim": 0.05750932474997811
+    },
+    {
+      "sample_index": 29,
+      "target_sha256": "e77ec1d1cad6b37d3a4e12f07c10cba796bb07fa6956a376ade880c3064f74e8",
+      "phase_png_sha256": "8536d7fff01040dfa691402fd99f0f2c26657429ae21d55aaf00e7f392491d26",
+      "configuration": "Neural",
+      "method": "neural",
+      "requested_iterations": 0,
+      "iterations": 0,
+      "optimizer_seed": 29,
+      "seconds": 0.010325499999453314,
+      "planes": [
+        {
+          "distance_mm": 24.1,
+          "pcc": 0.5797821642424487,
+          "ssim": 0.06591128519762685
+        },
+        {
+          "distance_mm": 25.3,
+          "pcc": 0.5719893022425092,
+          "ssim": 0.04813732046671591
+        },
+        {
+          "distance_mm": 26.5,
+          "pcc": 0.4511761118391484,
+          "ssim": 0.041028003190710885
+        },
+        {
+          "distance_mm": 27.7,
+          "pcc": 0.6040464100058875,
+          "ssim": 0.05764970949770147
+        }
+      ],
+      "mean_pcc": 0.5517484970824984,
+      "mean_ssim": 0.05318157958818878,
+      "worst_pcc": 0.4511761118391484,
+      "worst_ssim": 0.041028003190710885
+    },
+    {
+      "sample_index": 29,
+      "target_sha256": "e77ec1d1cad6b37d3a4e12f07c10cba796bb07fa6956a376ade880c3064f74e8",
+      "phase_png_sha256": "09e73e73f37d42ff91ff876c3c3b9c97659a04f48ace4c289cd14e979c353ca1",
+      "configuration": "Hybrid (20)",
+      "method": "hybrid",
+      "requested_iterations": 20,
+      "iterations": 20,
+      "optimizer_seed": 29,
+      "seconds": 0.15885490000073332,
+      "planes": [
+        {
+          "distance_mm": 24.1,
+          "pcc": 0.6205128073986429,
+          "ssim": 0.07616380881190614
+        },
+        {
+          "distance_mm": 25.3,
+          "pcc": 0.6163408246194189,
+          "ssim": 0.061187066930040904
+        },
+        {
+          "distance_mm": 26.5,
+          "pcc": 0.38670262182077947,
+          "ssim": 0.14141093075069755
+        },
+        {
+          "distance_mm": 27.7,
+          "pcc": 0.644224935389824,
+          "ssim": 0.07643962879669818
+        }
+      ],
+      "mean_pcc": 0.5669452973071663,
+      "mean_ssim": 0.0888003588223357,
+      "worst_pcc": 0.38670262182077947,
+      "worst_ssim": 0.061187066930040904
+    },
+    {
+      "sample_index": 29,
+      "target_sha256": "e77ec1d1cad6b37d3a4e12f07c10cba796bb07fa6956a376ade880c3064f74e8",
+      "phase_png_sha256": "c8261520a6ab2ad2f91f1092312e68b27acaca7fd4ea79c94d7300c10ca2595a",
+      "configuration": "Classical (20)",
+      "method": "classical",
+      "requested_iterations": 20,
+      "iterations": 20,
+      "optimizer_seed": 29,
+      "seconds": 0.14924909999535885,
+      "planes": [
+        {
+          "distance_mm": 24.1,
+          "pcc": 0.38719239587333154,
+          "ssim": 0.027876755172646237
+        },
+        {
+          "distance_mm": 25.3,
+          "pcc": 0.4269985394105443,
+          "ssim": 0.022703003514590932
+        },
+        {
+          "distance_mm": 26.5,
+          "pcc": 0.3122609456557352,
+          "ssim": 0.044148983885475536
+        },
+        {
+          "distance_mm": 27.7,
+          "pcc": 0.419739286908444,
+          "ssim": 0.022697952292578212
+        }
+      ],
+      "mean_pcc": 0.3865477919620138,
+      "mean_ssim": 0.02935667371632273,
+      "worst_pcc": 0.3122609456557352,
+      "worst_ssim": 0.022697952292578212
+    },
+    {
+      "sample_index": 30,
+      "target_sha256": "8736786aa050c56d39eebf19ea33006c9ab6aaefe64ad79ba1c2f06a6424373e",
+      "phase_png_sha256": "4ba1a8e97faac4c5368e06423a13b69391a19ec361d73566d080cf063e1f3445",
+      "configuration": "Neural",
+      "method": "neural",
+      "requested_iterations": 0,
+      "iterations": 0,
+      "optimizer_seed": 30,
+      "seconds": 0.010216399998171255,
+      "planes": [
+        {
+          "distance_mm": 24.1,
+          "pcc": 0.7905152390876258,
+          "ssim": 0.09101321538270113
+        },
+        {
+          "distance_mm": 25.3,
+          "pcc": 0.6639465846653146,
+          "ssim": 0.09036676921969848
+        },
+        {
+          "distance_mm": 26.5,
+          "pcc": 0.6650787930915824,
+          "ssim": 0.07274937098463836
+        },
+        {
+          "distance_mm": 27.7,
+          "pcc": 0.5624197956815316,
+          "ssim": 0.05499484744970438
+        }
+      ],
+      "mean_pcc": 0.6704901031315136,
+      "mean_ssim": 0.0772810507591856,
+      "worst_pcc": 0.5624197956815316,
+      "worst_ssim": 0.05499484744970438
+    },
+    {
+      "sample_index": 30,
+      "target_sha256": "8736786aa050c56d39eebf19ea33006c9ab6aaefe64ad79ba1c2f06a6424373e",
+      "phase_png_sha256": "91cad3b05f25da6e758fe97727c6b5f951281b0e8297ec73165420fc4020708d",
+      "configuration": "Hybrid (20)",
+      "method": "hybrid",
+      "requested_iterations": 20,
+      "iterations": 20,
+      "optimizer_seed": 30,
+      "seconds": 0.16406340000685304,
+      "planes": [
+        {
+          "distance_mm": 24.1,
+          "pcc": 0.7272392831069043,
+          "ssim": 0.35724717009046486
+        },
+        {
+          "distance_mm": 25.3,
+          "pcc": 0.6420144296127882,
+          "ssim": 0.4188535614561332
+        },
+        {
+          "distance_mm": 26.5,
+          "pcc": 0.6414325504770843,
+          "ssim": 0.34755747617282756
+        },
+        {
+          "distance_mm": 27.7,
+          "pcc": 0.5406495532991028,
+          "ssim": 0.3628529025940535
+        }
+      ],
+      "mean_pcc": 0.6378339541239699,
+      "mean_ssim": 0.3716277775783698,
+      "worst_pcc": 0.5406495532991028,
+      "worst_ssim": 0.34755747617282756
+    },
+    {
+      "sample_index": 30,
+      "target_sha256": "8736786aa050c56d39eebf19ea33006c9ab6aaefe64ad79ba1c2f06a6424373e",
+      "phase_png_sha256": "69d1387e8cf04c6b441a30fc61d54993cb09162a7ae9ac9fa90b3b1cbbfc65ca",
+      "configuration": "Classical (20)",
+      "method": "classical",
+      "requested_iterations": 20,
+      "iterations": 20,
+      "optimizer_seed": 30,
+      "seconds": 0.15290770000137854,
+      "planes": [
+        {
+          "distance_mm": 24.1,
+          "pcc": 0.48938351982886813,
+          "ssim": 0.03361717522591265
+        },
+        {
+          "distance_mm": 25.3,
+          "pcc": 0.4669720631823713,
+          "ssim": 0.05202600343240655
+        },
+        {
+          "distance_mm": 26.5,
+          "pcc": 0.4561106209660482,
+          "ssim": 0.02549332379946034
+        },
+        {
+          "distance_mm": 27.7,
+          "pcc": 0.41706338497546,
+          "ssim": 0.027341698087475393
+        }
+      ],
+      "mean_pcc": 0.45738239723818686,
+      "mean_ssim": 0.03461955013631373,
+      "worst_pcc": 0.41706338497546,
+      "worst_ssim": 0.02549332379946034
+    },
+    {
+      "sample_index": 30,
+      "target_sha256": "8736786aa050c56d39eebf19ea33006c9ab6aaefe64ad79ba1c2f06a6424373e",
+      "phase_png_sha256": "5f43fc685b0c0cb77cd1b49dce3b884f3715393655f6ca71666fc4e7b1628785",
+      "configuration": "Classical (200)",
+      "method": "classical",
+      "requested_iterations": 200,
+      "iterations": 200,
+      "optimizer_seed": 30,
+      "seconds": 1.506866199997603,
+      "planes": [
+        {
+          "distance_mm": 24.1,
+          "pcc": 0.821744598789757,
+          "ssim": 0.07808867195762148
+        },
+        {
+          "distance_mm": 25.3,
+          "pcc": 0.7214408684785157,
+          "ssim": 0.07480370504993543
+        },
+        {
+          "distance_mm": 26.5,
+          "pcc": 0.7179153815938469,
+          "ssim": 0.06261784140686268
+        },
+        {
+          "distance_mm": 27.7,
+          "pcc": 0.6010101956962367,
+          "ssim": 0.048694431104792296
+        }
+      ],
+      "mean_pcc": 0.715527761139589,
+      "mean_ssim": 0.06605116237980296,
+      "worst_pcc": 0.6010101956962367,
+      "worst_ssim": 0.048694431104792296
+    },
+    {
+      "sample_index": 31,
+      "target_sha256": "be6d5d6cd7d4460047585405f9f7451b77f0d22c6fd899c5c7f44efa7a739053",
+      "phase_png_sha256": "9261bdb2f530ba475611366c760d2c8a3c44b351fa8eb7357161ff19574fa169",
+      "configuration": "Hybrid (20)",
+      "method": "hybrid",
+      "requested_iterations": 20,
+      "iterations": 20,
+      "optimizer_seed": 31,
+      "seconds": 0.1624154000019189,
+      "planes": [
+        {
+          "distance_mm": 24.1,
+          "pcc": 0.7188935193994542,
+          "ssim": 0.4577784188558168
+        },
+        {
+          "distance_mm": 25.3,
+          "pcc": 0.5269203993258926,
+          "ssim": 0.4613762540803272
+        },
+        {
+          "distance_mm": 26.5,
+          "pcc": 0.4427744114115383,
+          "ssim": 0.4802897607837833
+        },
+        {
+          "distance_mm": 27.7,
+          "pcc": 0.6377164965419131,
+          "ssim": 0.48324158495565206
+        }
+      ],
+      "mean_pcc": 0.5815762066696996,
+      "mean_ssim": 0.47067150466889485,
+      "worst_pcc": 0.4427744114115383,
+      "worst_ssim": 0.4577784188558168
+    },
+    {
+      "sample_index": 31,
+      "target_sha256": "be6d5d6cd7d4460047585405f9f7451b77f0d22c6fd899c5c7f44efa7a739053",
+      "phase_png_sha256": "628148b466154b74fbbbcdcc6eb6c25b7913e8ead32adf7095732e3a87dcc923",
+      "configuration": "Classical (20)",
+      "method": "classical",
+      "requested_iterations": 20,
+      "iterations": 20,
+      "optimizer_seed": 31,
+      "seconds": 0.15057939999678638,
+      "planes": [
+        {
+          "distance_mm": 24.1,
+          "pcc": 0.5026809433968706,
+          "ssim": 0.04591160014269647
+        },
+        {
+          "distance_mm": 25.3,
+          "pcc": 0.393775303783866,
+          "ssim": 0.03624517377269245
+        },
+        {
+          "distance_mm": 26.5,
+          "pcc": 0.3403490559109381,
+          "ssim": 0.03265657310015097
+        },
+        {
+          "distance_mm": 27.7,
+          "pcc": 0.4476581430649309,
+          "ssim": 0.04917211882091125
+        }
+      ],
+      "mean_pcc": 0.4211158615391514,
+      "mean_ssim": 0.04099636645911278,
+      "worst_pcc": 0.3403490559109381,
+      "worst_ssim": 0.03265657310015097
+    },
+    {
+      "sample_index": 31,
+      "target_sha256": "be6d5d6cd7d4460047585405f9f7451b77f0d22c6fd899c5c7f44efa7a739053",
+      "phase_png_sha256": "34097da6bbd84428cfc9e69ca1cea4c7d5e4458561910cfaec44a220c9e04e07",
+      "configuration": "Classical (200)",
+      "method": "classical",
+      "requested_iterations": 200,
+      "iterations": 200,
+      "optimizer_seed": 31,
+      "seconds": 1.4928653999959351,
+      "planes": [
+        {
+          "distance_mm": 24.1,
+          "pcc": 0.733833648398581,
+          "ssim": 0.32330649123283045
+        },
+        {
+          "distance_mm": 25.3,
+          "pcc": 0.5472291080529539,
+          "ssim": 0.47905342408044504
+        },
+        {
+          "distance_mm": 26.5,
+          "pcc": 0.44374799849235824,
+          "ssim": 0.4328813296885321
+        },
+        {
+          "distance_mm": 27.7,
+          "pcc": 0.6572061894082181,
+          "ssim": 0.3277452916411974
+        }
+      ],
+      "mean_pcc": 0.5955042360880278,
+      "mean_ssim": 0.3907466341607512,
+      "worst_pcc": 0.44374799849235824,
+      "worst_ssim": 0.32330649123283045
+    },
+    {
+      "sample_index": 31,
+      "target_sha256": "be6d5d6cd7d4460047585405f9f7451b77f0d22c6fd899c5c7f44efa7a739053",
+      "phase_png_sha256": "31791dd5eaf00887979259cd3226af266e6b4ee23b5aaae288bde3580c6e6957",
+      "configuration": "Neural",
+      "method": "neural",
+      "requested_iterations": 0,
+      "iterations": 0,
+      "optimizer_seed": 31,
+      "seconds": 0.010163999992073514,
+      "planes": [
+        {
+          "distance_mm": 24.1,
+          "pcc": 0.7561284760092479,
+          "ssim": 0.06422269394902026
+        },
+        {
+          "distance_mm": 25.3,
+          "pcc": 0.5472255020839915,
+          "ssim": 0.06300983111197597
+        },
+        {
+          "distance_mm": 26.5,
+          "pcc": 0.48898844329000696,
+          "ssim": 0.06517668372932821
+        },
+        {
+          "distance_mm": 27.7,
+          "pcc": 0.6699035941037926,
+          "ssim": 0.06714297852124122
+        }
+      ],
+      "mean_pcc": 0.6155615038717597,
+      "mean_ssim": 0.06488804682789143,
+      "worst_pcc": 0.48898844329000696,
+      "worst_ssim": 0.06300983111197597
+    }
+  ]
+}
