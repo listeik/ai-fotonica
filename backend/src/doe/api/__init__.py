@@ -13,6 +13,7 @@ from fastapi import FastAPI, File, Form, HTTPException, UploadFile
 from fastapi.middleware.cors import CORSMiddleware
 from starlette.concurrency import run_in_threadpool
 from starlette.responses import JSONResponse
+from starlette.staticfiles import StaticFiles
 from starlette.types import ASGIApp, Message, Receive, Scope, Send
 
 from doe.models import DEFAULT_CHECKPOINT, load_model
@@ -149,6 +150,12 @@ def create_app(
             "device": str(app.state.device),
         }
 
+    @app.get("/api/ready")
+    async def ready() -> dict:
+        if app.state.model is None:
+            raise HTTPException(503, "Neural checkpoint is not ready.")
+        return {"status": "ready", "model_version": app.state.model_version}
+
     @app.get("/api/methods")
     async def methods() -> dict:
         neural_ready = app.state.model is not None
@@ -229,6 +236,11 @@ def create_app(
             "iterations": result.iterations,
             "parameters": {**optics(), "seed": seed, "device": str(app.state.device)},
         }
+
+    static_directory = os.getenv("DOE_STATIC_DIR")
+    if static_directory:
+        # API routes are registered first so the frontend cannot shadow them.
+        app.mount("/", StaticFiles(directory=static_directory, html=True), name="frontend")
 
     return app
 

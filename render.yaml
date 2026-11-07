@@ -1,0 +1,20 @@
+services:
+  - type: web
+    name: ai-fotonica
+    runtime: docker
+    plan: free
+    region: frankfurt
+    branch: master
+    dockerfilePath: ./infra/render.Dockerfile
+    dockerContext: .
+    autoDeployTrigger: checksPass
+    healthCheckPath: /api/ready
+    envVars:
+      - key: DOE_DEVICE
+        value: cpu
+      - key: DOE_CPU_THREADS
+        value: "1"
+      - key: DOE_CHECKPOINT
+        value: /app/artifacts/doe-carrier-study-v1.pt
+      - key: DOE_STATIC_DIR
+        value: /app/frontend-dist

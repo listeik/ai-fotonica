@@ -22,6 +22,8 @@ Compose поднимает интерфейс и API, дождавшись за�
 
 ## Локальная разработка
 
+Для публикации на Render подготовлен [`render.yaml`](render.yaml): единый frontend/API-сервис с проверенной моделью и автоматическим деплоем из `master` после успешного GitHub Actions. [Подключение Render и схема CI/CD](docs/render.md).
+
 Понадобятся Python 3.11, Node.js 24 и pnpm 11.25.0. Из корня репозитория в PowerShell:
 
 ```powershell

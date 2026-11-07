@@ -1,6 +1,7 @@
 import numpy as np
 import pytest
 import torch
+
 from doe.loss import global_ssim, reconstruction_loss
 from doe.metrics import evaluate
 from doe.physics import FresnelPropagator, png_to_gray

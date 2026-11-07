@@ -8,6 +8,7 @@ backend/src/**/*.pyc
 !artifacts/
 !artifacts/doe-unet.pt
 !artifacts/doe-residual-fourier.pt
+!artifacts/doe-carrier-study-v1.pt
 !frontend/
 !frontend/index.html
 !frontend/package.json

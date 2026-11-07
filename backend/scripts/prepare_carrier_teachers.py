@@ -9,6 +9,7 @@ from time import perf_counter
 
 import numpy as np
 import torch
+
 from doe.loss import global_ssim, normalize_amplitude
 from doe.models import load_model
 from doe.physics import FresnelPropagator, phase_to_png, png_to_phase, quantize_phase

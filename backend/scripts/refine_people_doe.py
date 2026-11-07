@@ -6,9 +6,10 @@ import time
 from pathlib import Path
 
 import torch
-from doe.physics import FresnelPropagator, png_to_phase, quantize_phase
 from people_doe_reference import PhotoObjective, normalize_amplitude
 from prepare_people_doe import measure, rank, read_targets, require, save_json, sha256
+
+from doe.physics import FresnelPropagator, png_to_phase, quantize_phase
 
 
 def refine(folder, output, method):

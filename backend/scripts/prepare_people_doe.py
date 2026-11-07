@@ -16,6 +16,11 @@ from urllib.request import urlopen
 
 import numpy as np
 import torch
+from people_doe_reference import PhotoObjective, export_photo_phase, normalize_amplitude
+from PIL import Image, ImageDraw
+from scipy.io import loadmat
+from skimage.metrics import structural_similarity
+
 from doe.physics import (
     DISTANCES_M,
     PITCH_M,
@@ -26,10 +31,6 @@ from doe.physics import (
     png_to_phase,
     quantize_phase,
 )
-from people_doe_reference import PhotoObjective, export_photo_phase, normalize_amplitude
-from PIL import Image, ImageDraw
-from scipy.io import loadmat
-from skimage.metrics import structural_similarity
 
 ROOT = Path(__file__).resolve().parents[2]
 DEFAULT_OUTPUT = ROOT / "runs/people-doe-100-v1"

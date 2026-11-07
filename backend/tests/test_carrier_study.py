@@ -1,8 +1,9 @@
 import numpy as np
 import pytest
 import torch
-from doe.training.carrier_study import StudyConfig, train, windowed_ssim
 from skimage.metrics import structural_similarity
+
+from doe.training.carrier_study import StudyConfig, train, windowed_ssim
 
 
 @pytest.mark.parametrize("window", [7, 11])

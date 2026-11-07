@@ -13,12 +13,13 @@ from pathlib import Path
 
 import numpy as np
 import torch
-from doe.models import CHECKPOINT_FORMAT, FresnelUNet, load_model
-from doe.physics import FresnelPropagator, quantize_phase
 from people_doe_reference import PhotoObjective, normalize_amplitude
 from PIL import Image, ImageDraw
 from prepare_people_doe import measure, require, save_json, sha256
 from torch.utils.data import DataLoader, Dataset
+
+from doe.models import CHECKPOINT_FORMAT, FresnelUNet, load_model
+from doe.physics import FresnelPropagator, quantize_phase
 
 ROOT = Path(__file__).resolve().parents[2]
 

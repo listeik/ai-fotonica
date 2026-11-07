@@ -1,5 +1,6 @@
 import pytest
 import torch
+
 from doe.models import CHECKPOINT_FORMAT, FresnelUNet, load_model
 from doe.models.unet import FOURIER_UNET_ARCHITECTURE
 from doe.training.dataset import synthetic_targets

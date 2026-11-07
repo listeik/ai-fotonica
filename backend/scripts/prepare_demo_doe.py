@@ -8,6 +8,7 @@ from pathlib import Path
 from time import perf_counter
 
 import torch
+
 from doe.loss import normalize_amplitude
 from doe.models import DEFAULT_CHECKPOINT, load_model
 from doe.physics import FresnelPropagator, gray_to_png, png_to_gray, png_to_phase, quantize_phase

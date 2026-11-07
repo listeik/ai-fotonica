@@ -10,6 +10,9 @@ from pathlib import Path
 
 import numpy as np
 import torch
+from PIL import Image, ImageDraw
+from skimage.metrics import structural_similarity
+
 from doe.loss import reconstruction_loss
 from doe.metrics import evaluate
 from doe.physics import (
@@ -22,8 +25,6 @@ from doe.physics import (
     png_to_phase,
 )
 from doe.synthesis import export_phase, optimize_phase
-from PIL import Image, ImageDraw
-from skimage.metrics import structural_similarity
 
 VERSION = "freeform-caustic-reference-v1"
 ROOT = Path(__file__).resolve().parents[2]

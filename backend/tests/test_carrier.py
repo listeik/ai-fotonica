@@ -1,11 +1,12 @@
 import pytest
 import torch
+from fastapi.testclient import TestClient
+
 from doe.api import create_app
 from doe.models import CHECKPOINT_FORMAT, FresnelUNet, load_model
 from doe.models.unet import CARRIER_ARCHITECTURE
 from doe.physics import gray_to_png
 from doe.training.dataset import synthetic_targets
-from fastapi.testclient import TestClient
 
 
 def checkpoint(model):

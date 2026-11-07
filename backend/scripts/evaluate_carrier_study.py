@@ -15,12 +15,13 @@ import torch
 ROOT = Path(__file__).resolve().parents[2]
 sys.path[:0] = [str(ROOT / "backend/src"), str(ROOT / "backend/scripts")]
 
-from doe.models import load_model  # noqa: E402
-from doe.physics import DISTANCES_M, SIZE, FresnelPropagator, png_to_gray  # noqa: E402
-from doe.synthesis import synthesize as synthesize  # noqa: E402
 from prepare_people_doe import measure  # noqa: E402
 from skimage import __version__ as skimage_version  # noqa: E402
 from skimage.metrics import structural_similarity  # noqa: E402
+
+from doe.models import load_model  # noqa: E402
+from doe.physics import DISTANCES_M, SIZE, FresnelPropagator, png_to_gray  # noqa: E402
+from doe.synthesis import synthesize as synthesize  # noqa: E402
 
 METRICS = ("pcc", "ssim", "local_ssim", "local_ssim_11")
 
