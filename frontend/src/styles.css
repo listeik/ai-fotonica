@@ -162,6 +162,7 @@ td { color: #3d3150; font: 11px var(--mono); }
   nav { display: none; }
   .hero { margin-block: 15px; padding: 23px 15px 17px; }
   .hero-content { width: auto; max-width: none; }
+  h1 { font-size: clamp(26px, 8.6vw, 36px); }
   .optical-diagram { position: relative; width: 100%; right: auto; top: auto; margin-top: 3px; max-height: 156px; }
   .optics { margin-top: 3px; padding-top: 11px; }
   .optics span { padding-inline: 10px; }

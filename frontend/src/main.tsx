@@ -301,6 +301,7 @@ function App() {
       const response = await request<Run>('/api/synthesize', { method: 'POST', body: data })
       setRuns(previous => ({ ...previous, [response.method]: response }))
       setActive(response.method)
+      document.getElementById('results')?.scrollIntoView({ block: 'start' })
     } catch (failure) {
       setError(failure instanceof Error ? failure.message : 'Синтез не выполнен.')
     } finally {
@@ -447,7 +448,7 @@ function App() {
         </div>
         <Comparison runs={completed} active={active} select={id => {
           setActive(id)
-          document.getElementById('results')?.scrollIntoView({ block: 'start', behavior: 'smooth' })
+          document.getElementById('results')?.scrollIntoView({ block: 'start' })
         }} exportRuns={() => { if (!busy) void exportResults() }} />
       </section>
     </main>

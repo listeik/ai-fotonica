@@ -53,7 +53,8 @@ def test_demo_images_pass_strict_upload_validation(client):
     files = [("images", ("demo.png", base64.b64decode(encoded), "image/png")) for encoded in images]
     result = client.post("/api/synthesize", files=files, data={"iterations": 1})
     assert result.status_code == 200, result.text
-    assert client.get("/api/demo/3").status_code == 404
+    assert client.get("/api/demo/3").status_code == 200
+    assert client.get("/api/demo/4").status_code == 404
 
 
 def test_upload_count_and_image_format_are_validated(client):

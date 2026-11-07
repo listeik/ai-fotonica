@@ -18,18 +18,14 @@ from starlette.types import ASGIApp, Message, Receive, Scope, Send
 from doe.models import load_model
 from doe.physics import FresnelPropagator, gray_to_png, png_to_gray
 from doe.synthesis import synthesize
-from doe.training.dataset import synthetic_targets
+from doe.training.dataset import DEMO_NAMES, synthetic_targets
 
 LOGGER = logging.getLogger(__name__)
 MAX_FILE_BYTES = 64 * 1024
 MAX_BODY_BYTES = 4 * MAX_FILE_BYTES + 8 * 1024
 MAX_ITERATIONS = 2000
 Method = Literal["classical", "neural", "hybrid"]
-DEMOS = [
-    {"id": 0, "name": "Набор 01"},
-    {"id": 1, "name": "Набор 02"},
-    {"id": 2, "name": "Набор 03"},
-]
+DEMOS = [{"id": index, "name": name} for index, name in enumerate(DEMO_NAMES)]
 
 
 class LimitSynthesisBody:
@@ -51,7 +47,10 @@ class LimitSynthesisBody:
         content_length = dict(scope["headers"]).get(b"content-length", b"")
         if content_length.isdigit():
             significant_digits = content_length.lstrip(b"0") or b"0"
-            if len(significant_digits) > 6 or int(significant_digits) > MAX_BODY_BYTES:
+            if (
+                len(significant_digits) > len(str(MAX_BODY_BYTES))
+                or int(significant_digits) > MAX_BODY_BYTES
+            ):
                 await too_large(scope, receive, send)
                 return
 

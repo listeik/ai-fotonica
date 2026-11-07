@@ -10,6 +10,7 @@ from torch.utils.data import Dataset
 Split = Literal["train", "val", "test", "demo"]
 SIZE = 128
 DATASET_VERSION = "procedural-v1"
+DEMO_NAMES = ("Геометрия", "Цифры и символы", "Контуры", "Градиенты")
 _SPLITS = {"train": 0, "val": 1, "test": 2, "demo": 3}
 _GRID = np.linspace(-1.0, 1.0, SIZE, dtype=np.float32)
 _X, _Y = np.meshgrid(_GRID, _GRID)

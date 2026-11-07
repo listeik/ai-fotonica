@@ -9,13 +9,13 @@ import torch
 from doe.models import load_model
 from doe.physics import FresnelPropagator, png_to_gray
 from doe.synthesis import synthesize
-from doe.training.dataset import synthetic_targets
+from doe.training.dataset import DEMO_NAMES, synthetic_targets
 
 
 def main() -> None:
     parser = argparse.ArgumentParser(description=__doc__)
     parser.add_argument("images", nargs="*", type=Path, help="PNGs in ascending distance order")
-    parser.add_argument("--demo", type=int, choices=range(3), metavar="0–2")
+    parser.add_argument("--demo", type=int, choices=range(len(DEMO_NAMES)), metavar="0–3")
     parser.add_argument("--method", choices=("classical", "neural", "hybrid"), default="hybrid")
     parser.add_argument("--checkpoint", type=Path, default=Path("artifacts/doe-unet.pt"))
     parser.add_argument("--iterations", type=int)
