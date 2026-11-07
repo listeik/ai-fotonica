@@ -4,7 +4,8 @@ from dataclasses import replace
 import pytest
 import torch
 
-from doe.models import FresnelUNet, load_model
+from doe.loss import background_power_fraction, reconstruction_loss
+from doe.models import CHECKPOINT_FORMAT, FresnelUNet, load_model
 from doe.training.dataset import SyntheticTargets, synthetic_targets
 from doe.training.train import TrainingConfig, train
 
@@ -67,3 +68,65 @@ def test_cpu_checkpoint_resume_matches_continuous_training(tmp_path):
     target = synthetic_targets(0, split="val").unsqueeze(0)
     with torch.inference_mode():
         torch.testing.assert_close(continuous(target), resumed(target), rtol=0, atol=0)
+
+
+def test_background_penalty_uses_power_per_plane():
+    amplitude = torch.tensor([[[[2.0, 1.0]], [[0.0, 0.0]]]], requires_grad=True)
+    target = torch.tensor([[[[2 / 255, 3 / 255]], [[0.0, 0.0]]]])
+    fractions = background_power_fraction(amplitude, target)
+    torch.testing.assert_close(fractions, torch.tensor([[0.8, 0.0]]))
+    fractions.sum().backward()
+    assert amplitude.grad[0, 0, 0, 0] > 0
+    assert amplitude.grad[0, 0, 0, 1] < 0
+    assert torch.isfinite(amplitude.grad).all()
+
+
+def test_worst_pcc_penalty_balances_samples():
+    target = torch.linspace(0, 1, 64).reshape(1, 1, 8, 8).expand(2, 4, 8, 8)
+    amplitude = target.clone()
+    amplitude[0, 0] = 1 - target[0, 0]
+    baseline = reconstruction_loss(amplitude, target)
+    penalized = reconstruction_loss(amplitude, target, worst_pcc_weight=0.35)
+    assert (penalized - baseline).item() == pytest.approx(0.35)
+
+
+def test_finetune_loads_legacy_weights_and_keeps_floor_and_lineage_on_resume(tmp_path):
+    source = tmp_path / "source.pt"
+    output = tmp_path / "finetune"
+    model = FresnelUNet(width=4, projection_steps=1)
+    torch.save(
+        {
+            "format_version": CHECKPOINT_FORMAT,
+            "architecture": model.architecture,
+            "width": model.width,
+            "projection_steps": model.projection_steps,
+            "step": 1,
+            "model": model.state_dict(),
+        },
+        source,
+    )
+    initial, version = load_model(source)
+    assert initial.amplitude_floor == 0.03
+
+    config = TrainingConfig(
+        epochs=1,
+        train_count=1,
+        val_count=1,
+        width=4,
+        projection_steps=1,
+        batch_size=1,
+        threads=2,
+        amplitude_floor=0.005,
+        background_weight=0.25,
+        selection="pcc-ssim",
+    )
+    device = torch.device("cpu")
+    history = train(config, output, device, init_checkpoint=source)
+    assert history[0]["initialized_from"] == version
+    assert "reference_validation" in history[0]
+    resumed = train(replace(config, epochs=2), output, device, resume=True)
+    assert resumed[:2] == history
+    tuned, _ = load_model(output / "last.pt")
+    assert tuned.amplitude_floor == config.amplitude_floor
+    assert resumed[-1]["step"] == 2
+    assert torch.load(output / "last.pt", weights_only=True)["initialized_from"] == version

@@ -10,7 +10,21 @@ def normalize_amplitude(amplitude: Tensor) -> Tensor:
     return amplitude / amplitude.amax(dim=(-2, -1), keepdim=True).clamp_min(1e-8)
 
 
-def reconstruction_loss(amplitude: Tensor, target: Tensor, *, pcc_weight: float = 0.4) -> Tensor:
+def background_power_fraction(amplitude: Tensor, target: Tensor) -> Tensor:
+    """Per-plane fraction of unnormalized optical power on nearly black target pixels."""
+    intensity = amplitude.square()
+    total = intensity.sum(dim=(-2, -1)).clamp_min(1e-8)
+    return (intensity * (target <= 2 / 255)).sum(dim=(-2, -1)) / total
+
+
+def reconstruction_loss(
+    amplitude: Tensor,
+    target: Tensor,
+    *,
+    pcc_weight: float = 0.4,
+    ssim_weight: float = 0.2,
+    worst_pcc_weight: float = 0.0,
+) -> Tensor:
     """Combine amplitude MSE, PCC loss and local SSIM loss across planes."""
     if amplitude.shape != target.shape:
         raise ValueError("Amplitude and target shapes must match")
@@ -31,4 +45,8 @@ def reconstruction_loss(amplitude: Tensor, target: Tensor, *, pcc_weight: float 
     ssim = ((2 * mx * my + 0.01**2) * (2 * cov + 0.03**2)) / (
         (mx.square() + my.square() + 0.01**2) * (vx + vy + 0.03**2)
     )
-    return (x - y).square().mean() + pcc_weight * (1 - pcc.mean()) + 0.2 * (1 - ssim.mean())
+    loss = (x - y).square().mean() + pcc_weight * (1 - pcc.mean()) + ssim_weight * (1 - ssim.mean())
+    if worst_pcc_weight:
+        per_sample_worst = pcc.reshape(target.shape[:-2]).amin(dim=-1)
+        loss = loss + worst_pcc_weight * (1 - per_sample_worst.mean())
+    return loss

@@ -9,6 +9,12 @@ from doe.physics import FresnelPropagator
 
 ARCHITECTURE = "fresnel-unet-v1"
 PROJECTED_ARCHITECTURE = "fresnel-unet-projection-v2"
+DEFAULT_AMPLITUDE_FLOOR = 0.03
+
+
+def validate_amplitude_floor(value: float) -> None:
+    if not math.isfinite(value) or not 1e-4 <= value <= 1:
+        raise ValueError("amplitude_floor must be in [0.0001, 1]")
 
 
 def _block(inputs: int, outputs: int) -> nn.Sequential:
@@ -26,11 +32,19 @@ def _block(inputs: int, outputs: int) -> nn.Sequential:
 class FresnelUNet(nn.Module):
     """Predict plane fields and map their superposition to a phase-only DOE."""
 
-    def __init__(self, width: int = 16, projection_steps: int = 0) -> None:
+    def __init__(
+        self,
+        width: int = 16,
+        projection_steps: int = 0,
+        *,
+        amplitude_floor: float = DEFAULT_AMPLITUDE_FLOOR,
+    ) -> None:
         super().__init__()
         if not 4 <= width <= 64:
             raise ValueError("U-Net width must be between 4 and 64")
+        validate_amplitude_floor(amplitude_floor)
         self.width = width
+        self.amplitude_floor = amplitude_floor
         if type(projection_steps) is not int or not 0 <= projection_steps <= 8:
             raise ValueError("Expected an integer projection count in [0, 8]")
         self.projection_steps = projection_steps
@@ -71,7 +85,7 @@ class FresnelUNet(nn.Module):
         phase_delta, gain = self.head(dec1).float().tanh().chunk(2, dim=1)
         phase = self.phase_code + math.pi * phase_delta
         # A weak floor allows the model to shape the field outside each target.
-        amplitude = (target.float() + 0.03) * torch.exp(0.8 * gain)
+        amplitude = (target.float() + self.amplitude_floor) * torch.exp(0.8 * gain)
         wavefront = self.propagator.inverse_planes(torch.polar(amplitude, phase)).sum(
             dim=1, keepdim=True
         )
