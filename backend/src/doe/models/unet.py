@@ -10,6 +10,7 @@ from doe.physics import FresnelPropagator
 ARCHITECTURE = "fresnel-unet-v1"
 PROJECTED_ARCHITECTURE = "fresnel-unet-projection-v2"
 CARRIER_ARCHITECTURE = "fresnel-unet-carrier-v1"
+FOURIER_UNET_ARCHITECTURE = "fresnel-unet-fourier-v1"
 DEFAULT_AMPLITUDE_FLOOR = 0.03
 
 
@@ -41,6 +42,7 @@ class FresnelUNet(nn.Module):
         amplitude_floor: float = DEFAULT_AMPLITUDE_FLOOR,
         carrier_conditioning: bool = False,
         carrier_scale: int = 1,
+        fourier_modes: int = 0,
     ) -> None:
         super().__init__()
         if not 4 <= width <= 64:
@@ -54,8 +56,8 @@ class FresnelUNet(nn.Module):
         self.amplitude_floor = amplitude_floor
         self.carrier_conditioning = carrier_conditioning
         self.carrier_scale = carrier_scale
-        if type(projection_steps) is not int or not 0 <= projection_steps <= 8:
-            raise ValueError("Expected an integer projection count in [0, 8]")
+        if type(projection_steps) is not int or not 0 <= projection_steps <= 9:
+            raise ValueError("Expected an integer projection count in [0, 9]")
         self.projection_steps = projection_steps
         self.architecture = PROJECTED_ARCHITECTURE if projection_steps else ARCHITECTURE
         if carrier_conditioning:
@@ -64,6 +66,9 @@ class FresnelUNet(nn.Module):
             self.plane_logits = nn.Parameter(torch.zeros(projection_steps, 4))
             self.relaxation_logits = nn.Parameter(torch.ones(projection_steps) * 2)
         self.propagator = FresnelPropagator()
+        if type(fourier_modes) is not int or not 0 <= fourier_modes < self.propagator.size // 16:
+            raise ValueError("fourier_modes must be an integer from 0 to 7")
+        self.fourier_modes = fourier_modes
         self.encode1 = _block(12 if carrier_conditioning else 4, width)
         if carrier_conditioning:
             # Additional context starts as a zero contribution to the encoder.
@@ -87,6 +92,13 @@ class FresnelUNet(nn.Module):
         size = self.propagator.size
         phase_code = (2 * torch.rand(4, size, size, generator=rng) - 1) * math.pi
         self.register_buffer("phase_code", phase_code)
+        if fourier_modes:
+            # Import after unet is initialized because residual_fourier reuses _block.
+            from .residual_fourier import FourierResidual
+
+            self.fourier = FourierResidual(8 * width, fourier_modes)
+            nn.init.zeros_(self.fourier.mix.weight)
+            self.architecture = FOURIER_UNET_ARCHITECTURE
 
     def forward(self, target: Tensor) -> Tensor:
         features = target
@@ -100,6 +112,8 @@ class FresnelUNet(nn.Module):
         enc2 = self.encode2(self.pool(enc1))
         enc3 = self.encode3(self.pool(enc2))
         bridge = self.bridge(self.pool(enc3))
+        if self.fourier_modes:
+            bridge = self.fourier(bridge)
         dec3 = self.decode3(torch.cat([self.up3(bridge), enc3], dim=1))
         dec2 = self.decode2(torch.cat([self.up2(dec3), enc2], dim=1))
         dec1 = self.decode1(torch.cat([self.up1(dec2), enc1], dim=1))

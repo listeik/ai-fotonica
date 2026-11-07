@@ -53,8 +53,8 @@ class TrainingConfig:
             raise ValueError("learning rate must be finite and positive")
         if type(self.overfit) is not bool:
             raise ValueError("overfit must be a boolean")
-        if type(self.projection_steps) is not int or not 0 <= self.projection_steps <= 8:
-            raise ValueError("projection_steps must be an integer in [0, 8]")
+        if type(self.projection_steps) is not int or not 0 <= self.projection_steps <= 9:
+            raise ValueError("projection_steps must be an integer in [0, 9]")
         weights = (self.background_weight, self.ssim_weight, self.worst_pcc_weight)
         if any(not math.isfinite(weight) or weight < 0 for weight in weights):
             raise ValueError("loss weights must be finite and nonnegative")

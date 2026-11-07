@@ -11,6 +11,7 @@ from .unet import (
     ARCHITECTURE,
     CARRIER_ARCHITECTURE,
     DEFAULT_AMPLITUDE_FLOOR,
+    FOURIER_UNET_ARCHITECTURE,
     PROJECTED_ARCHITECTURE,
     FresnelUNet,
 )
@@ -37,6 +38,7 @@ def load_model(
             FOURIER_ARCHITECTURE,
             COMPLEX_ARCHITECTURE,
             CARRIER_ARCHITECTURE,
+            FOURIER_UNET_ARCHITECTURE,
         )
         or not isinstance(data.get("step"), int)
         or data["step"] < 1
@@ -44,7 +46,23 @@ def load_model(
         raise ValueError("checkpoint is not a supported trained DOE model")
 
     try:
-        conditioned = data["architecture"] == CARRIER_ARCHITECTURE
+        spectral = data["architecture"] == FOURIER_UNET_ARCHITECTURE
+        modes = 0
+        if spectral:
+            bottleneck = data["fourier_bottleneck"]
+            if (
+                not isinstance(bottleneck, dict)
+                or set(bottleneck) != {"modes"}
+                or type(bottleneck["modes"]) is not int
+                or not 1 <= bottleneck["modes"] <= 7
+            ):
+                raise ValueError("checkpoint has invalid Fourier bottleneck metadata")
+            modes = bottleneck["modes"]
+        elif "fourier_bottleneck" in data:
+            raise ValueError("Fourier bottleneck requires the Fourier U-Net architecture")
+        conditioned = data["architecture"] == CARRIER_ARCHITECTURE or (
+            spectral and "carrier_conditioning" in data
+        )
         scale = 1
         if conditioned:
             conditioning = data["carrier_conditioning"]
@@ -72,6 +90,7 @@ def load_model(
                 amplitude_floor=data.get("amplitude_floor", DEFAULT_AMPLITUDE_FLOOR),
                 carrier_conditioning=conditioned,
                 carrier_scale=scale,
+                fourier_modes=modes,
             )
         if model.architecture != data["architecture"]:
             raise ValueError("checkpoint architecture and projection count disagree")
