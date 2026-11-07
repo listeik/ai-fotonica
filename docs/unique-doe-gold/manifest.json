@@ -1,0 +1,177 @@
+{
+  "version": "freeform-caustic-reference-v1",
+  "method": "forward_design_from_continuous_analytic_phase_then_8bit_DOE_export",
+  "target_origin": "numpy complex128 Fresnel FFT of the continuous analytic phase",
+  "independent_arbitrary_images": false,
+  "purpose": "physically realizable supervised reference and end-to-end optics sanity check",
+  "sets": 1,
+  "planes": 4,
+  "shape": [
+    4,
+    128,
+    128
+  ],
+  "png_mode": "L",
+  "bit_depth": 8,
+  "split": "standalone_reference_keep_out_of_existing_validation_test_and_OOD",
+  "target_quantity": "per_plane_peak_normalized_field_amplitude_abs_U",
+  "phase_mapping": "phase_radians = png_code * 2*pi/255 - pi",
+  "optics": {
+    "wavelength_m": 5.32e-07,
+    "input_pitch_m": 1e-05,
+    "distances_m": [
+      0.0241,
+      0.0253,
+      0.0265,
+      0.0277
+    ],
+    "output_pitch_m": [
+      1.00165625e-05,
+      1.05153125e-05,
+      1.1014062500000001e-05,
+      1.15128125e-05
+    ],
+    "illumination": "uniform amplitude one, normal plane wave",
+    "aperture": "128x128 square, no padding"
+  },
+  "seed": 20261107,
+  "candidates": 64,
+  "design": {
+    "index": 57,
+    "parameters": {
+      "focus_m": 0.025683352885684817,
+      "trefoil": 91.9871500554448,
+      "astigmatism": 19.07812360932707,
+      "grating_sin": 28.906520241742058,
+      "grating_cos": 27.954793797537093,
+      "tilt_x": 4.181447043853414,
+      "tilt_y": 2.0007185099532165
+    },
+    "eligible": true,
+    "score": -0.08213754942997495,
+    "maximum_pairwise_pcc": 0.22167715046291997,
+    "entropy_bits": [
+      6.983467621974761,
+      6.976980051647251,
+      7.050743539997817,
+      7.0473919115861925
+    ],
+    "contrast": [
+      33.33653963719447,
+      33.27564048992345,
+      34.954277847845624,
+      34.780516442774505
+    ],
+    "fill_gt_24": [
+      0.87176513671875,
+      0.86700439453125,
+      0.88470458984375,
+      0.88580322265625
+    ]
+  },
+  "pairwise_target_pcc": [
+    [
+      1.0,
+      0.21538885883874054,
+      0.19286040796795104,
+      0.14642149932466797
+    ],
+    [
+      0.21538885883874054,
+      1.0,
+      0.20954943053223316,
+      0.18632425191458588
+    ],
+    [
+      0.19286040796795104,
+      0.20954943053223316,
+      1.0,
+      0.22167715046291997
+    ],
+    [
+      0.14642149932466797,
+      0.18632425191458588,
+      0.22167715046292,
+      0.9999999999999998
+    ]
+  ],
+  "phase_label": "best available known analytic design, finite precision export",
+  "refinement": {
+    "steps": 1500,
+    "learning_rate": 0.001,
+    "accepted": false,
+    "selection": "maximize minimum of worst-plane exported PCC and global SSIM",
+    "before": {
+      "planes": [
+        {
+          "distance_mm": 24.1,
+          "pcc": 0.9998733760729765,
+          "ssim": 0.9998744878435422
+        },
+        {
+          "distance_mm": 25.3,
+          "pcc": 0.9998719409870699,
+          "ssim": 0.9998750310936547
+        },
+        {
+          "distance_mm": 26.5,
+          "pcc": 0.9998803306093009,
+          "ssim": 0.9998811912528319
+        },
+        {
+          "distance_mm": 27.7,
+          "pcc": 0.9998789220582571,
+          "ssim": 0.9998766074470059
+        }
+      ],
+      "mean_pcc": 0.9998761424319011,
+      "mean_ssim": 0.9998768294092587,
+      "worst_pcc": 0.9998719409870699,
+      "worst_ssim": 0.9998744878435422
+    },
+    "candidate_after": {
+      "planes": [
+        {
+          "distance_mm": 24.1,
+          "pcc": 0.9998733760729765,
+          "ssim": 0.9998744878435422
+        },
+        {
+          "distance_mm": 25.3,
+          "pcc": 0.9998719409870699,
+          "ssim": 0.9998750310936547
+        },
+        {
+          "distance_mm": 26.5,
+          "pcc": 0.9998803306093009,
+          "ssim": 0.9998811912528319
+        },
+        {
+          "distance_mm": 27.7,
+          "pcc": 0.9998789220582571,
+          "ssim": 0.9998766074470059
+        }
+      ],
+      "mean_pcc": 0.9998761424319011,
+      "mean_ssim": 0.9998768294092587,
+      "worst_pcc": 0.9998719409870699,
+      "worst_ssim": 0.9998744878435422
+    }
+  },
+  "runtime": {
+    "python": "3.11.2",
+    "numpy": "2.4.6",
+    "torch": "2.7.1+cpu"
+  },
+  "files_sha256": {
+    "doe.png": "89321e3e869d1a52de314fa7f5bbd63ec30eb165ea8ceeb7fbd814013e456e3f",
+    "target-1.png": "9f2e49c18c6913b1f398dee09936fcac3d86fd0a1700cb91f0c9a2283a83bbb0",
+    "target-2.png": "faa5dc898138bcd5ffd635b53e1cd201fac379314b5d3c99a92c8a32215bf19d",
+    "target-3.png": "0affd16b48d8c99c18aa4a794b527c1d80e8a19f0469c52e9dda55b1a302f7d8",
+    "target-4.png": "6dbb559ea4f0d83e44f3610cdc1830a9d399f793d5a94c2a6e4816926856156f",
+    "reconstruction-1.png": "b7fe2f5709fa3ab83f807d2aa70e712f2911720421a9cfa86c5c25b67b970e09",
+    "reconstruction-2.png": "461a1a64bcb2cdb43534c3af81d871d1ae68adead8fa945bc445cf11a5f0b38a",
+    "reconstruction-3.png": "fe6f2bf7e21007f46529226f68f8b75bcf62405cb14b7a214c17a64588458164",
+    "reconstruction-4.png": "ac7eeef3a051557ba01f2bc7c8a1be3e7cda0ba56a3cd186a2cdaf61e9effde5"
+  }
+}
