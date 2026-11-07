@@ -1,5 +1,5 @@
 import { useState } from 'react'
-import { ArrowRight, Focus, Grid3X3, Layers3, Waves } from 'lucide-react'
+import { ChevronDown, Focus, Grid3X3, Layers3, Waves } from 'lucide-react'
 import type { Health } from '../api'
 import { distances } from '../workspace'
 
@@ -53,14 +53,9 @@ export function Overview({ optics }: { optics?: Health['optics'] }) {
     { label: 'Фокальные плоскости', value: String(distances.length), icon: Layers3 },
   ]
 
-  return <div className="grid gap-5 sm:gap-6">
-    <section className="overview-hero panel">
-      <div className="hero-copy">
-        <span className="eyebrow"><i /> Вычислительная фотоника</span>
-        <h2>Многоплоскостной<br className="hidden xl:block" /> синтез <em>ДОЭ</em></h2>
-        <p>Синтезируйте одну фазовую карту для четырёх целевых изображений. Сравните качество и скорость восстановления разными методами.</p>
-        <a className="button primary" href="#targets">Подготовить цели <ArrowRight size={17} /></a>
-      </div>
+  return <details className="panel optics-details" id="overview">
+    <summary><Waves size={17} /> Оптическая схема и параметры <ChevronDown size={16} className="details-chevron" /></summary>
+    <div className="grid gap-3">
       <div className="optical-path">
         <div className="flex flex-wrap items-center justify-between gap-2">
           <h3>Оптическая схема</h3>
@@ -75,26 +70,12 @@ export function Overview({ optics }: { optics?: Health['optics'] }) {
         </div>
         <p className="optics-caption" aria-live="polite">Плоскость {plane + 1} · z = {distances[plane]?.toFixed(1)} мм</p>
       </div>
-    </section>
-    <section aria-label="Параметры оптики" className="stats-grid">
-      {values.map(({ label, value, icon: Icon }) => <article className="panel stat-card" key={label}>
-        <span className="icon-tile"><Icon size={19} strokeWidth={1.8} /></span>
-        <div><p>{label}</p><strong>{value}</strong></div>
-      </article>)}
-    </section>
-    <section className="panel workflow">
-      <h2>Рабочий процесс</h2>
-      <div className="workflow-grid">
-        {[
-          { id: 'targets', number: '01', name: 'Загрузите цели', detail: 'Четыре PNG или готовый демо-набор.' },
-          { id: 'settings', number: '02', name: 'Запустите расчёт', detail: 'Выберите метод и число итераций.' },
-          { id: 'comparison', number: '03', name: 'Сравните результаты', detail: 'Проверьте метрики и выгрузите архив.' },
-        ].map(step => <a key={step.id} href={'#' + step.id} className="workflow-link">
-          <span className="step-number">{step.number}</span>
-          <span><strong>{step.name}</strong><small>{step.detail}</small></span>
-          <ArrowRight size={15} />
-        </a>)}
+      <div aria-label="Параметры оптики" className="stats-grid">
+        {values.map(({ label, value, icon: Icon }) => <article className="panel stat-card" key={label}>
+          <span className="icon-tile"><Icon size={19} strokeWidth={1.8} /></span>
+          <div><p>{label}</p><strong>{value}</strong></div>
+        </article>)}
       </div>
-    </section>
-  </div>
+    </div>
+  </details>
 }

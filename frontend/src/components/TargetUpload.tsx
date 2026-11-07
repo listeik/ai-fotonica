@@ -1,5 +1,5 @@
 import { useState } from 'react'
-import { ArrowRight, Check, FileImage, FlaskConical, ImagePlus, LoaderCircle, X } from 'lucide-react'
+import { Check, FileImage, FlaskConical, ImagePlus, LoaderCircle, X } from 'lucide-react'
 import type { Demo } from '../api'
 import { useObjectUrl } from '../hooks/useObjectUrl'
 import { distances } from '../workspace'
@@ -14,7 +14,7 @@ function TargetCard({ index, distance, file, disabled, onChange }: {
   const url = useObjectUrl(file)
   const [dragging, setDragging] = useState(false)
 
-  return <article className="panel target-card">
+  return <article className="target-card">
     <div className="flex items-center justify-between gap-2">
       <span className="step-number">{String(index + 1).padStart(2, '0')}</span>
       <span className="plane-distance">{distance.toFixed(1)} мм</span>
@@ -52,7 +52,7 @@ function TargetCard({ index, distance, file, disabled, onChange }: {
     <div className="file-meta">
       <FileImage size={17} aria-hidden="true" />
       <div>
-        <strong title={file?.name}>{file?.name ?? 'Ожидает загрузки'}</strong>
+        <strong title={file?.name}>{file?.name ?? 'Нет файла'}</strong>
         <small>128 × 128 · {file ? `${(file.size / 1024).toFixed(1)} КиБ` : '8 бит'}</small>
       </div>
       {file && <button type="button" className="icon-button" disabled={disabled}
@@ -72,15 +72,15 @@ export function TargetUpload({ targets, demos, demoId, disabled, loadingDemo, on
 }) {
   const count = targets.filter(Boolean).length
 
-  return <div className="grid gap-5 sm:gap-6">
-    <section className="panel demo-panel">
-      <div className="flex items-start gap-3">
-        <span className="icon-tile"><FlaskConical size={19} /></span>
-        <div>
-          <h2>Демонстрационные наборы</h2>
-          <p className="muted mt-1 text-sm">Один набор заполняет все четыре плоскости.</p>
-        </div>
-      </div>
+  return <section className="panel target-panel" id="targets" aria-labelledby="targets-heading">
+    <div className="section-heading">
+      <h2 id="targets-heading">Целевые изображения</h2>
+      <span className={`progress-chip ${count === 4 ? 'complete' : ''}`}>
+        {count === 4 && <Check size={13} />}{count} / 4
+      </span>
+    </div>
+    <div className="demo-panel">
+      <span className="muted flex items-center gap-1.5 text-xs"><FlaskConical size={15} /> Демо-наборы</span>
       <div className="flex flex-wrap gap-2" aria-label="Демонстрационные наборы">
         {demos.map(demo => <button className="chip selectable" type="button" key={demo.id}
           disabled={disabled} aria-pressed={demoId === demo.id} onClick={() => onDemo(demo.id)}>
@@ -89,21 +89,11 @@ export function TargetUpload({ targets, demos, demoId, disabled, loadingDemo, on
         {loadingDemo && <LoaderCircle className="spin" size={19} aria-label="Загрузка демо-набора" />}
         {!demos.length && <span className="muted text-sm">Наборы доступны при подключении к API.</span>}
       </div>
-    </section>
+    </div>
     <div className="target-grid">
       {distances.map((distance, index) => <TargetCard key={distance} index={index} distance={distance}
         file={targets[index] ?? null} disabled={disabled} onChange={file => onChange(index, file)} />)}
     </div>
-    <div className="panel action-bar">
-      <div className="flex items-center gap-3">
-        <span className={`progress-chip ${count === 4 ? 'complete' : ''}`}>
-          {count === 4 && <Check size={13} />}{count} / 4
-        </span>
-        <div><strong>Целевые изображения</strong><p className="muted text-xs">PNG · 128 × 128 · 8 бит · один канал</p></div>
-      </div>
-      <a href="#settings" className={`button ${count === 4 ? 'primary' : 'secondary'}`}>
-        К настройкам <ArrowRight size={16} />
-      </a>
-    </div>
-  </div>
+    <p className="muted text-xs">PNG · 128 × 128 · 8 бит · один канал</p>
+  </section>
 }
