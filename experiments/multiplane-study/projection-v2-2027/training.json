@@ -1,0 +1,10 @@
+{
+  "architecture": "fresnel-unet-projection-v2",
+  "seed": 2027,
+  "parameters": 272123,
+  "best_epoch": 6,
+  "optimizer_steps": 192,
+  "samples_seen": 1536,
+  "train_seconds": 59.04786530000274,
+  "checkpoint_sha256": "ec3b76883a332a6562f34ded8943c9ea1b2e61edcf876be4944efc81d1bd670e"
+}

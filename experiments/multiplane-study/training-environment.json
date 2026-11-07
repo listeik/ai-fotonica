@@ -1,0 +1,14 @@
+{
+  "platform": "Windows-10-10.0.26200-SP0",
+  "processor": "Intel64 Family 6 Model 154 Stepping 3, GenuineIntel",
+  "python": "3.11.2",
+  "torch": "2.7.1+cpu",
+  "numpy": "2.4.6",
+  "pillow": "13.0.0",
+  "scikit_image": "0.26.0",
+  "device": "cpu",
+  "gpu": null,
+  "cuda": null,
+  "cudnn": null,
+  "threads": 4
+}

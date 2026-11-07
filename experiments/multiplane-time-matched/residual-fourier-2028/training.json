@@ -1,0 +1,10 @@
+{
+  "architecture": "physics-informed-multiplane-residual-fourier-unet-v1",
+  "seed": 2028,
+  "parameters": 292873,
+  "best_epoch": 8,
+  "optimizer_steps": 256,
+  "samples_seen": 2048,
+  "train_seconds": 113.24654599999485,
+  "checkpoint_sha256": "11236dc2e59b75ab1469960431624904c993c4d1b38af241db6f7884a87eafc6"
+}
