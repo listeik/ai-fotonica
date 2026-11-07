@@ -17,13 +17,13 @@ from torch.utils.data import DataLoader
 from doe.loss import background_power_fraction, reconstruction_loss
 from doe.models import CHECKPOINT_FORMAT, FresnelUNet, load_model
 from doe.models.residual_fourier import ARCHITECTURE, MultiPlaneResidualFourierUNet
-from doe.models.unet import PROJECTED_ARCHITECTURE
 from doe.physics import FresnelPropagator, quantize_phase
 
 from .dataset import DATASET_VERSION, SyntheticTargets
 
 BASELINE = "projection-v2"
 FOURIER = "residual-fourier"
+FOURIER_V2 = "residual-fourier-v2"
 MODELS = (BASELINE, FOURIER)
 
 
@@ -64,8 +64,10 @@ def make_model(name: str, settings: dict) -> torch.nn.Module:
     kwargs = {"width": settings["width"], "amplitude_floor": settings["amplitude_floor"]}
     if name == BASELINE:
         return FresnelUNet(projection_steps=settings["projection_steps"], **kwargs)
-    if name == FOURIER:
-        return MultiPlaneResidualFourierUNet(modes=settings["fourier_modes"], **kwargs)
+    if name in (FOURIER, FOURIER_V2):
+        return MultiPlaneResidualFourierUNet(
+            modes=settings["fourier_modes"], complex_correction=name == FOURIER_V2, **kwargs
+        )
     raise ValueError(f"Unknown study model {name!r}")
 
 
@@ -104,7 +106,7 @@ def train_one(name, seed, settings, output, device, train_targets, val_targets) 
     model = make_model(name, settings).to(device)
     physics = FresnelPropagator().to(device)
     optimizer = torch.optim.Adam(model.parameters(), lr=settings["learning_rate"])
-    architecture = PROJECTED_ARCHITECTURE if name == BASELINE else ARCHITECTURE
+    architecture = model.architecture
     validation = DataLoader(val_targets, batch_size=settings["batch_size"])
     history = [
         {
@@ -212,7 +214,9 @@ def main() -> None:
     train.add_argument("--config", required=True, type=Path)
     train.add_argument("--output", required=True, type=Path)
     train.add_argument("--device", choices=("cuda", "cpu"), required=True)
-    train.add_argument("--model", choices=MODELS, help="train only this architecture")
+    train.add_argument(
+        "--model", choices=(*MODELS, FOURIER_V2), help="train only this architecture"
+    )
     train.add_argument("--epochs", type=int, help="override the epoch count")
     args = parser.parse_args()
     device = torch.device(args.device)

@@ -6,7 +6,7 @@ from pathlib import Path
 import torch
 
 from .residual_fourier import ARCHITECTURE as FOURIER_ARCHITECTURE
-from .residual_fourier import MultiPlaneResidualFourierUNet
+from .residual_fourier import COMPLEX_ARCHITECTURE, MultiPlaneResidualFourierUNet
 from .unet import ARCHITECTURE, DEFAULT_AMPLITUDE_FLOOR, PROJECTED_ARCHITECTURE, FresnelUNet
 
 CHECKPOINT_FORMAT = 1
@@ -25,17 +25,18 @@ def load_model(
         not isinstance(data, dict)
         or data.get("format_version") != CHECKPOINT_FORMAT
         or data.get("architecture")
-        not in (ARCHITECTURE, PROJECTED_ARCHITECTURE, FOURIER_ARCHITECTURE)
+        not in (ARCHITECTURE, PROJECTED_ARCHITECTURE, FOURIER_ARCHITECTURE, COMPLEX_ARCHITECTURE)
         or not isinstance(data.get("step"), int)
         or data["step"] < 1
     ):
         raise ValueError("checkpoint is not a supported trained DOE model")
 
     try:
-        if data["architecture"] == FOURIER_ARCHITECTURE:
+        if data["architecture"] in (FOURIER_ARCHITECTURE, COMPLEX_ARCHITECTURE):
             model = MultiPlaneResidualFourierUNet(
                 width=data["width"],
                 modes=data["config"]["fourier_modes"],
+                complex_correction=data["architecture"] == COMPLEX_ARCHITECTURE,
                 amplitude_floor=data.get("amplitude_floor", DEFAULT_AMPLITUDE_FLOOR),
             )
         else:

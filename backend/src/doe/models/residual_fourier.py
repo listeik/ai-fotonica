@@ -10,6 +10,7 @@ from doe.physics import FresnelPropagator
 from .unet import DEFAULT_AMPLITUDE_FLOOR, _block, validate_amplitude_floor
 
 ARCHITECTURE = "physics-informed-multiplane-residual-fourier-unet-v1"
+COMPLEX_ARCHITECTURE = "physics-informed-multiplane-residual-fourier-unet-v2"
 
 
 def _unit(field: Tensor) -> Tensor:
@@ -52,6 +53,7 @@ class MultiPlaneResidualFourierUNet(nn.Module):
         modes: int = 5,
         *,
         amplitude_floor: float = DEFAULT_AMPLITUDE_FLOOR,
+        complex_correction: bool = False,
     ) -> None:
         super().__init__()
         self.propagator = FresnelPropagator()
@@ -72,8 +74,14 @@ class MultiPlaneResidualFourierUNet(nn.Module):
         self.up3 = nn.ConvTranspose2d(8 * width, 4 * width, 2, stride=2)
         self.up2 = nn.ConvTranspose2d(4 * width, 2 * width, 2, stride=2)
         self.up1 = nn.ConvTranspose2d(2 * width, width, 2, stride=2)
-        self.head = nn.Conv2d(width, 1, 1)
-        nn.init.normal_(self.head.weight, std=0.01)
+        if complex_correction:
+            self.architecture = COMPLEX_ARCHITECTURE
+            self.head = nn.Conv2d(width, 2, 1)
+            # Start from the physical reference field with no learned correction.
+            nn.init.zeros_(self.head.weight)
+        else:
+            self.head = nn.Conv2d(width, 1, 1)
+            nn.init.normal_(self.head.weight, std=0.01)
         nn.init.zeros_(self.head.bias)
         # Use the same deterministic plane carrier as the comparison model.
         rng = torch.Generator(device="cpu").manual_seed(1597334677)
@@ -109,5 +117,10 @@ class MultiPlaneResidualFourierUNet(nn.Module):
         dec3 = self.decode3(torch.cat((self.up3(bridge), enc3), dim=1))
         dec2 = self.decode2(torch.cat((self.up2(dec3), enc2), dim=1))
         dec1 = self.decode1(torch.cat((self.up1(dec2), enc1), dim=1))
-        delta = math.pi * self.head(dec1).float().tanh()
+        correction = self.head(dec1).float()
+        if self.architecture == COMPLEX_ARCHITECTURE:
+            real = reference.real + correction[:, 0]
+            imag = reference.imag + correction[:, 1]
+            return torch.atan2(imag, real + 1e-12)[:, None]
+        delta = math.pi * correction.tanh()
         return torch.angle(reference[:, None] * torch.polar(torch.ones_like(delta), delta))

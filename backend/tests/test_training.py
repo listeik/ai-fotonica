@@ -6,6 +6,7 @@ import torch
 
 from doe.loss import background_power_fraction, reconstruction_loss
 from doe.models import CHECKPOINT_FORMAT, FresnelUNet, load_model
+from doe.models.residual_fourier import COMPLEX_ARCHITECTURE, MultiPlaneResidualFourierUNet
 from doe.training.dataset import SyntheticTargets, synthetic_targets
 from doe.training.train import TrainingConfig, train
 
@@ -40,6 +41,37 @@ def test_zero_targets_have_finite_phase_gradient(projection_steps):
     phase.square().mean().backward()
     assert all(parameter.grad is not None for parameter in model.parameters())
     assert all(torch.isfinite(parameter.grad).all() for parameter in model.parameters())
+
+
+def test_complex_fourier_checkpoint_reloads_the_trained_head(tmp_path):
+    torch.set_num_threads(2)
+    model = MultiPlaneResidualFourierUNet(width=4, modes=3, complex_correction=True)
+    target = synthetic_targets(0, split="train").unsqueeze(0)
+    assert torch.count_nonzero(model.head.weight) == 0
+    optimizer = torch.optim.Adam(model.parameters(), lr=0.001)
+    model(target).square().mean().backward()
+    optimizer.step()
+    assert torch.count_nonzero(model.head.weight) > 0
+
+    checkpoint = tmp_path / "fourier-v2.pt"
+    torch.save(
+        {
+            "format_version": CHECKPOINT_FORMAT,
+            "architecture": model.architecture,
+            "width": 4,
+            "config": {"fourier_modes": 3},
+            "step": 1,
+            "model": model.state_dict(),
+        },
+        checkpoint,
+    )
+    restored, version = load_model(checkpoint)
+    assert version.startswith(f"{COMPLEX_ARCHITECTURE}:")
+    with torch.inference_mode():
+        phase = restored(target)
+        assert phase.shape == (1, 1, 128, 128)
+        assert torch.isfinite(phase).all()
+        torch.testing.assert_close(phase, model.eval()(target), rtol=0, atol=0)
 
 
 def test_cpu_checkpoint_resume_matches_continuous_training(tmp_path):
