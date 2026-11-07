@@ -7,7 +7,7 @@ import json
 import platform
 import statistics
 from dataclasses import dataclass
-from importlib.metadata import version
+from importlib.metadata import PackageNotFoundError, version
 from pathlib import Path
 from time import perf_counter
 from typing import Any
@@ -20,16 +20,10 @@ class Variant:
 
     @property
     def label(self) -> str:
-        return (
-            f"{self.method.title()} ({self.steps})"
-            if self.steps
-            else self.method.title()
-        )
+        return f"{self.method.title()} ({self.steps})" if self.steps else self.method.title()
 
 
-def _summarize(
-    rows: list[dict[str, Any]], variants: list[Variant]
-) -> list[dict[str, Any]]:
+def _summarize(rows: list[dict[str, Any]], variants: list[Variant]) -> list[dict[str, Any]]:
     summary = []
     for variant in variants:
         runs = [row for row in rows if row["configuration"] == variant.label]
@@ -72,9 +66,7 @@ def _plot(path: Path, summary: list[dict[str, Any]]) -> None:
         means = [row[f"mean_{metric}"] for row in summary]
         minima = [row[f"worst_{metric}"] for row in summary]
         axis.bar(x, means, color=row_colors, width=0.64, label="Mean")
-        axis.scatter(
-            x, minima, marker="D", s=20, color="#202123", zorder=3, label="Worst"
-        )
+        axis.scatter(x, minima, marker="D", s=20, color="#202123", zorder=3, label="Worst")
         axis.set(ylim=(-1.05, 1.05), title=metric.upper())
         axis.axhline(0, color="#808080", linewidth=0.6)
     axes[0].legend(loc="lower right", frameon=False)
@@ -163,36 +155,32 @@ def main(argv: list[str] | None = None) -> None:
         help="trained checkpoint (omit for classical-only runs)",
     )
     parser.add_argument("--device", choices=("cpu", "cuda"), default="cpu")
-    parser.add_argument(
-        "--threads", type=_positive, default=4, help="PyTorch CPU threads"
-    )
+    parser.add_argument("--threads", type=_positive, default=4, help="PyTorch CPU threads")
     parser.add_argument("--split", choices=("test", "val"), default="test")
     parser.add_argument("--samples", type=_positive, default=16)
-    parser.add_argument(
-        "--seed", type=_nonnegative, default=2026, help="target generator seed"
-    )
+    parser.add_argument("--seed", type=_nonnegative, default=2026, help="target generator seed")
     parser.add_argument("--optimizer-seed", type=_nonnegative, default=0)
-    parser.add_argument(
-        "--classical-steps", type=_positive, nargs="+", default=[20, 200]
-    )
+    parser.add_argument("--classical-steps", type=_positive, nargs="+", default=[20, 200])
     parser.add_argument("--hybrid-steps", type=_positive, nargs="+", default=[20])
     parser.add_argument("--output", type=Path, default=Path("experiments/comparison"))
     args = parser.parse_args(argv)
     if args.checkpoint is not None and not args.checkpoint.is_file():
         parser.error(f"checkpoint not found: {args.checkpoint}")
+    try:
+        matplotlib_version = version("matplotlib")
+    except PackageNotFoundError:
+        parser.error("install the backend's benchmark extra to generate reports")
 
     import torch
     from doe.physics import FresnelPropagator
     from doe.synthesis import synthesize
-    from doe.training.dataset import synthetic_targets
+    from doe.training.dataset import DATASET_VERSION, synthetic_targets
 
     if args.device == "cuda" and not torch.cuda.is_available():
         parser.error("CUDA was requested but PyTorch cannot access a CUDA device")
     device = torch.device(args.device)
     torch.set_num_threads(args.threads)
-    variants = [
-        Variant("classical", steps) for steps in dict.fromkeys(args.classical_steps)
-    ]
+    variants = [Variant("classical", steps) for steps in dict.fromkeys(args.classical_steps)]
     model = None
     checkpoint = None
     if args.checkpoint is not None:
@@ -211,9 +199,7 @@ def main(argv: list[str] | None = None) -> None:
             "load_seconds": perf_counter() - start,
         }
         variants += [Variant("neural", 0)]
-        variants += [
-            Variant("hybrid", steps) for steps in dict.fromkeys(args.hybrid_steps)
-        ]
+        variants += [Variant("hybrid", steps) for steps in dict.fromkeys(args.hybrid_steps)]
 
     def run(targets: torch.Tensor, variant: Variant, seed: int):
         return synthesize(
@@ -262,6 +248,7 @@ def main(argv: list[str] | None = None) -> None:
     metadata = {
         "split": args.split,
         "sample_count": args.samples,
+        "dataset_version": DATASET_VERSION,
         "dataset_seed": args.seed,
         "optimizer_seed_start": args.optimizer_seed,
         "checkpoint": checkpoint,
@@ -277,8 +264,8 @@ def main(argv: list[str] | None = None) -> None:
         "platform": platform.platform(),
         "python": platform.python_version(),
         "versions": {
-            name: version(name)
-            for name in ("torch", "numpy", "pillow", "scikit-image", "matplotlib")
+            **{name: version(name) for name in ("torch", "numpy", "pillow", "scikit-image")},
+            "matplotlib": matplotlib_version,
         },
         "distances_m": [float(distance) for distance in propagator.distances_m],
         "resolution_px": propagator.size,

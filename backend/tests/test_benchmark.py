@@ -1,10 +1,12 @@
 import csv
 import json
 
+import pytest
 from doe.benchmark import main
 
 
 def test_classical_benchmark_exports_case_metrics_and_provenance(tmp_path):
+    pytest.importorskip("matplotlib")
     main(
         [
             "--split",

@@ -1,6 +1,6 @@
 # Воспроизведение сравнения
 
-После установки backend и обучения модели запустите из корня проекта:
+После установки backend с дополнением `benchmark` и обучения модели запустите из корня проекта:
 
 ```shell
 python -m doe.benchmark --checkpoint artifacts/doe-unet.pt --device cpu --samples 16 --output experiments/comparison
