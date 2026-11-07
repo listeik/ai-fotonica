@@ -1,0 +1,3182 @@
+{
+  "date": "2026-11-07",
+  "selection": {
+    "selected": "carrier_guided",
+    "matched_control": "carrier_zero",
+    "selected_utc": "2026-11-07T18:30:58.267282+00:00",
+    "criterion": "0.5 people + 0.2 mixed + 0.3 broad validation; within each 0.6 mean(PCC,global SSIM) + 0.25 weakest of 8 + 0.15 local SSIM",
+    "test_used_for_selection": false,
+    "deployment_rule": "Promote only if the preselected candidate improves the weighted held-out score (0.5 people,0.2 mixed,0.3 fresh broad) against original and matched control, and no group mean PCC/global/local SSIM drops by more than 0.003. Otherwise retain original. Paired bootstrap is descriptive, not a significance claim.",
+    "post_test_training": "None in this experiment",
+    "models": {
+      "baseline": {
+        "validation": {
+          "people_val": {
+            "weight": 0.5,
+            "score": 0.43198323249816895,
+            "mean": {
+              "pcc": 0.577064573764801,
+              "global_ssim": 0.4656892418861389,
+              "windowed_ssim": 0.17176553606987
+            },
+            "mean_worst": {
+              "pcc": 0.46146392822265625,
+              "global_ssim": 0.37356895208358765,
+              "windowed_ssim": 0.144500732421875
+            },
+            "mean_weakest": 0.37356895208358765,
+            "p10_weakest": 0.2931289076805115,
+            "brightness_mae": 0.2624671161174774,
+            "peak_power_fraction": 0.0006592267891392112
+          },
+          "mixed_val": {
+            "weight": 0.2,
+            "score": 0.4522623121738434,
+            "mean": {
+              "pcc": 0.6408971548080444,
+              "global_ssim": 0.48208799958229065,
+              "windowed_ssim": 0.16882947087287903
+            },
+            "mean_worst": {
+              "pcc": 0.49584436416625977,
+              "global_ssim": 0.36016929149627686,
+              "windowed_ssim": 0.13787582516670227
+            },
+            "mean_weakest": 0.36016929149627686,
+            "p10_weakest": 0.2897736132144928,
+            "brightness_mae": 0.23462632298469543,
+            "peak_power_fraction": 0.0008892420446500182
+          },
+          "broad_val": {
+            "weight": 0.3,
+            "score": 0.2982996106147766,
+            "mean": {
+              "pcc": 0.454853892326355,
+              "global_ssim": 0.31283116340637207,
+              "windowed_ssim": 0.17423686385154724
+            },
+            "mean_worst": {
+              "pcc": 0.3091734051704407,
+              "global_ssim": 0.16750137507915497,
+              "windowed_ssim": 0.08769232034683228
+            },
+            "mean_weakest": 0.1674342006444931,
+            "p10_weakest": 0.06556685268878937,
+            "brightness_mae": 0.19026309251785278,
+            "peak_power_fraction": 0.0012460439465939999
+          },
+          "selection": 0.3959339618682861
+        },
+        "checkpoint": "artifacts/doe-photo-projection-v1.pt"
+      },
+      "control": {
+        "best_epoch": 7,
+        "validation": {
+          "people_val": {
+            "weight": 0.5,
+            "score": 0.43497952818870544,
+            "mean": {
+              "pcc": 0.575858473777771,
+              "global_ssim": 0.4660581946372986,
+              "windowed_ssim": 0.17148111760616302
+            },
+            "mean_worst": {
+              "pcc": 0.46494752168655396,
+              "global_ssim": 0.3867294490337372,
+              "windowed_ssim": 0.14442913234233856
+            },
+            "mean_weakest": 0.38672947883605957,
+            "p10_weakest": 0.32044175267219543,
+            "brightness_mae": 0.2616376280784607,
+            "peak_power_fraction": 0.0006541117327287793
+          },
+          "mixed_val": {
+            "weight": 0.2,
+            "score": 0.4602476954460144,
+            "mean": {
+              "pcc": 0.640917956829071,
+              "global_ssim": 0.4948202073574066,
+              "windowed_ssim": 0.16867314279079437
+            },
+            "mean_worst": {
+              "pcc": 0.48186564445495605,
+              "global_ssim": 0.37690097093582153,
+              "windowed_ssim": 0.13735564053058624
+            },
+            "mean_weakest": 0.37690097093582153,
+            "p10_weakest": 0.31449735164642334,
+            "brightness_mae": 0.22689461708068848,
+            "peak_power_fraction": 0.0008339465712197125
+          },
+          "broad_val": {
+            "weight": 0.3,
+            "score": 0.29740995168685913,
+            "mean": {
+              "pcc": 0.4550791382789612,
+              "global_ssim": 0.31225407123565674,
+              "windowed_ssim": 0.1745939552783966
+            },
+            "mean_worst": {
+              "pcc": 0.30108708143234253,
+              "global_ssim": 0.1641140878200531,
+              "windowed_ssim": 0.08721328526735306
+            },
+            "mean_weakest": 0.1640836000442505,
+            "p10_weakest": 0.05739341676235199,
+            "brightness_mae": 0.19131717085838318,
+            "peak_power_fraction": 0.0012463090242817998
+          },
+          "selection": 0.39876228868961333
+        },
+        "checkpoint": "runs/photo-quality-v2/pilot/control/best.pt",
+        "sha256": "abcb63a0ceb8cfaadc8a7a8c2cbb56a43713e305fd68d98b9efb351808d00885"
+      },
+      "teacher": {
+        "best_epoch": 3,
+        "validation": {
+          "people_val": {
+            "weight": 0.5,
+            "score": 0.43500667810440063,
+            "mean": {
+              "pcc": 0.5737248659133911,
+              "global_ssim": 0.46383628249168396,
+              "windowed_ssim": 0.17126038670539856
+            },
+            "mean_worst": {
+              "pcc": 0.46863794326782227,
+              "global_ssim": 0.3921969532966614,
+              "windowed_ssim": 0.14483031630516052
+            },
+            "mean_weakest": 0.3921969532966614,
+            "p10_weakest": 0.3286825716495514,
+            "brightness_mae": 0.26179710030555725,
+            "peak_power_fraction": 0.0006567435339093208
+          },
+          "mixed_val": {
+            "weight": 0.2,
+            "score": 0.45448237657546997,
+            "mean": {
+              "pcc": 0.6402522325515747,
+              "global_ssim": 0.4837431311607361,
+              "windowed_ssim": 0.16819597780704498
+            },
+            "mean_worst": {
+              "pcc": 0.4851297438144684,
+              "global_ssim": 0.36821749806404114,
+              "windowed_ssim": 0.13713695108890533
+            },
+            "mean_weakest": 0.36821749806404114,
+            "p10_weakest": 0.30732017755508423,
+            "brightness_mae": 0.23302344977855682,
+            "peak_power_fraction": 0.0008748299442231655
+          },
+          "broad_val": {
+            "weight": 0.3,
+            "score": 0.2974216341972351,
+            "mean": {
+              "pcc": 0.45347079634666443,
+              "global_ssim": 0.31169259548187256,
+              "windowed_ssim": 0.17320062220096588
+            },
+            "mean_worst": {
+              "pcc": 0.30492275953292847,
+              "global_ssim": 0.1675700843334198,
+              "windowed_ssim": 0.08693082630634308
+            },
+            "mean_weakest": 0.1675700843334198,
+            "p10_weakest": 0.06439289450645447,
+            "brightness_mae": 0.19007596373558044,
+            "peak_power_fraction": 0.001239926554262638
+          },
+          "selection": 0.3976263046264648
+        },
+        "checkpoint": "runs/photo-quality-v2/pilot/teacher/best.pt",
+        "sha256": "bbf89f0c137c3f2fb14c7b8c9ccdb8030b4d4372f0b9e6b8e6f86957cedb115a"
+      },
+      "tone": {
+        "best_epoch": 3,
+        "validation": {
+          "people_val": {
+            "weight": 0.5,
+            "score": 0.43508753180503845,
+            "mean": {
+              "pcc": 0.5668061971664429,
+              "global_ssim": 0.4682726263999939,
+              "windowed_ssim": 0.1710926741361618
+            },
+            "mean_worst": {
+              "pcc": 0.46068620681762695,
+              "global_ssim": 0.39559993147850037,
+              "windowed_ssim": 0.14473553001880646
+            },
+            "mean_weakest": 0.39559993147850037,
+            "p10_weakest": 0.314676970243454,
+            "brightness_mae": 0.25081753730773926,
+            "peak_power_fraction": 0.0006092315306887031
+          },
+          "mixed_val": {
+            "weight": 0.2,
+            "score": 0.4611097574234009,
+            "mean": {
+              "pcc": 0.6376746296882629,
+              "global_ssim": 0.49684199690818787,
+              "windowed_ssim": 0.16755470633506775
+            },
+            "mean_worst": {
+              "pcc": 0.4805155396461487,
+              "global_ssim": 0.3824862241744995,
+              "windowed_ssim": 0.13737605512142181
+            },
+            "mean_weakest": 0.3824862241744995,
+            "p10_weakest": 0.33774954080581665,
+            "brightness_mae": 0.2240597903728485,
+            "peak_power_fraction": 0.0008113542571663857
+          },
+          "broad_val": {
+            "weight": 0.3,
+            "score": 0.29708361625671387,
+            "mean": {
+              "pcc": 0.4529498517513275,
+              "global_ssim": 0.31158947944641113,
+              "windowed_ssim": 0.1732267439365387
+            },
+            "mean_worst": {
+              "pcc": 0.30327335000038147,
+              "global_ssim": 0.16702371835708618,
+              "windowed_ssim": 0.08644954860210419
+            },
+            "mean_weakest": 0.16695109009742737,
+            "p10_weakest": 0.05968516319990158,
+            "brightness_mae": 0.18972145020961761,
+            "peak_power_fraction": 0.001222230726853013
+          },
+          "selection": 0.39889080226421353
+        },
+        "checkpoint": "runs/photo-quality-v2/pilot/tone/best.pt",
+        "sha256": "c9e1a17ce786edb0b156ec126a68eb7ecc26dc3a5df95abfb4d6cfca74e6b778"
+      },
+      "combined": {
+        "best_epoch": 10,
+        "validation": {
+          "people_val": {
+            "weight": 0.5,
+            "score": 0.4316149950027466,
+            "mean": {
+              "pcc": 0.5642733573913574,
+              "global_ssim": 0.4680909514427185,
+              "windowed_ssim": 0.17087389528751373
+            },
+            "mean_worst": {
+              "pcc": 0.45098114013671875,
+              "global_ssim": 0.38509848713874817,
+              "windowed_ssim": 0.14509126543998718
+            },
+            "mean_weakest": 0.3850984573364258,
+            "p10_weakest": 0.3158319294452667,
+            "brightness_mae": 0.24896366894245148,
+            "peak_power_fraction": 0.0006062986212782562
+          },
+          "mixed_val": {
+            "weight": 0.2,
+            "score": 0.4587595462799072,
+            "mean": {
+              "pcc": 0.6339516639709473,
+              "global_ssim": 0.4968133568763733,
+              "windowed_ssim": 0.1654457151889801
+            },
+            "mean_worst": {
+              "pcc": 0.4797001779079437,
+              "global_ssim": 0.3788527846336365,
+              "windowed_ssim": 0.13690122961997986
+            },
+            "mean_weakest": 0.3788527846336365,
+            "p10_weakest": 0.3237936794757843,
+            "brightness_mae": 0.2217070609331131,
+            "peak_power_fraction": 0.0007995053892955184
+          },
+          "broad_val": {
+            "weight": 0.3,
+            "score": 0.2973056733608246,
+            "mean": {
+              "pcc": 0.45146074891090393,
+              "global_ssim": 0.3116475045681,
+              "windowed_ssim": 0.17281070351600647
+            },
+            "mean_worst": {
+              "pcc": 0.3078412413597107,
+              "global_ssim": 0.1698594093322754,
+              "windowed_ssim": 0.08591598272323608
+            },
+            "mean_weakest": 0.16980624198913574,
+            "p10_weakest": 0.0618765763938427,
+            "brightness_mae": 0.18796288967132568,
+            "peak_power_fraction": 0.0011906439904123545
+          },
+          "selection": 0.3967511087656021
+        },
+        "checkpoint": "runs/photo-quality-v2/pilot/combined/best.pt",
+        "sha256": "a6d84aaee3252cd2d664dccc38208e8be97fc2d8af7d1bb3242b7bc051bec2a9"
+      },
+      "replay_control": {
+        "best_epoch": 16,
+        "validation": {
+          "people_val": {
+            "weight": 0.5,
+            "score": 0.4353245496749878,
+            "mean": {
+              "pcc": 0.5767422914505005,
+              "global_ssim": 0.46664220094680786,
+              "windowed_ssim": 0.17076970636844635
+            },
+            "mean_worst": {
+              "pcc": 0.4650139808654785,
+              "global_ssim": 0.38677486777305603,
+              "windowed_ssim": 0.14410650730133057
+            },
+            "mean_weakest": 0.3867748975753784,
+            "p10_weakest": 0.33298447728157043,
+            "brightness_mae": 0.26069262623786926,
+            "peak_power_fraction": 0.0006456815171986818
+          },
+          "mixed_val": {
+            "weight": 0.2,
+            "score": 0.4566660225391388,
+            "mean": {
+              "pcc": 0.6413686871528625,
+              "global_ssim": 0.4952358603477478,
+              "windowed_ssim": 0.16831445693969727
+            },
+            "mean_worst": {
+              "pcc": 0.4689452052116394,
+              "global_ssim": 0.3617500066757202,
+              "windowed_ssim": 0.134795680642128
+            },
+            "mean_weakest": 0.3617500066757202,
+            "p10_weakest": 0.3012637794017792,
+            "brightness_mae": 0.22817492485046387,
+            "peak_power_fraction": 0.0008252119878306985
+          },
+          "broad_val": {
+            "weight": 0.3,
+            "score": 0.29909074306488037,
+            "mean": {
+              "pcc": 0.4562661647796631,
+              "global_ssim": 0.3146171271800995,
+              "windowed_ssim": 0.1750657558441162
+            },
+            "mean_worst": {
+              "pcc": 0.30568426847457886,
+              "global_ssim": 0.16626344621181488,
+              "windowed_ssim": 0.08780863881111145
+            },
+            "mean_weakest": 0.1662634313106537,
+            "p10_weakest": 0.057646140456199646,
+            "brightness_mae": 0.19027048349380493,
+            "peak_power_fraction": 0.0012410929193720222
+          },
+          "selection": 0.3987227022647858
+        },
+        "checkpoint": "runs/photo-quality-v2/phase-pilot/control/best.pt",
+        "sha256": "4e83a0437d3f642d08ec1246a06993159a64827b84ea5688a4aba5d2e6e2d2cb"
+      },
+      "phase_teacher": {
+        "best_epoch": 15,
+        "validation": {
+          "people_val": {
+            "weight": 0.5,
+            "score": 0.43366625905036926,
+            "mean": {
+              "pcc": 0.5777403712272644,
+              "global_ssim": 0.46725568175315857,
+              "windowed_ssim": 0.171864315867424
+            },
+            "mean_worst": {
+              "pcc": 0.46311482787132263,
+              "global_ssim": 0.37755125761032104,
+              "windowed_ssim": 0.14456576108932495
+            },
+            "mean_weakest": 0.37755125761032104,
+            "p10_weakest": 0.2952175736427307,
+            "brightness_mae": 0.2612912654876709,
+            "peak_power_fraction": 0.0006531296530738473
+          },
+          "mixed_val": {
+            "weight": 0.2,
+            "score": 0.45373743772506714,
+            "mean": {
+              "pcc": 0.6414944529533386,
+              "global_ssim": 0.4848341941833496,
+              "windowed_ssim": 0.16900847852230072
+            },
+            "mean_worst": {
+              "pcc": 0.49516183137893677,
+              "global_ssim": 0.36195021867752075,
+              "windowed_ssim": 0.13773171603679657
+            },
+            "mean_weakest": 0.36195021867752075,
+            "p10_weakest": 0.2917520999908447,
+            "brightness_mae": 0.23373854160308838,
+            "peak_power_fraction": 0.0008800827781669796
+          },
+          "broad_val": {
+            "weight": 0.3,
+            "score": 0.29891476035118103,
+            "mean": {
+              "pcc": 0.45532622933387756,
+              "global_ssim": 0.3133483827114105,
+              "windowed_ssim": 0.1746542602777481
+            },
+            "mean_worst": {
+              "pcc": 0.30915236473083496,
+              "global_ssim": 0.16849827766418457,
+              "windowed_ssim": 0.0880403071641922
+            },
+            "mean_weakest": 0.16845688223838806,
+            "p10_weakest": 0.0642162412405014,
+            "brightness_mae": 0.19027817249298096,
+            "peak_power_fraction": 0.0012536868453025818
+          },
+          "selection": 0.3972550451755524
+        },
+        "checkpoint": "runs/photo-quality-v2/phase-pilot/phase/best.pt",
+        "sha256": "0370e7a6d43bef513497123cad5dea8bd890ff9c75459ccc5b786670720241bf"
+      },
+      "wide_control": {
+        "best_epoch": 16,
+        "validation": {
+          "people_val": {
+            "weight": 0.5,
+            "score": 0.4298850893974304,
+            "mean": {
+              "pcc": 0.5772464275360107,
+              "global_ssim": 0.46231263875961304,
+              "windowed_ssim": 0.1705472618341446
+            },
+            "mean_worst": {
+              "pcc": 0.45972776412963867,
+              "global_ssim": 0.3697410523891449,
+              "windowed_ssim": 0.1438245177268982
+            },
+            "mean_weakest": 0.3697410523891449,
+            "p10_weakest": 0.30898144841194153,
+            "brightness_mae": 0.2650134563446045,
+            "peak_power_fraction": 0.0006666371482424438
+          },
+          "mixed_val": {
+            "weight": 0.2,
+            "score": 0.46289393305778503,
+            "mean": {
+              "pcc": 0.6423989534378052,
+              "global_ssim": 0.49519219994544983,
+              "windowed_ssim": 0.16881488263607025
+            },
+            "mean_worst": {
+              "pcc": 0.5029425621032715,
+              "global_ssim": 0.3851773738861084,
+              "windowed_ssim": 0.13920652866363525
+            },
+            "mean_weakest": 0.3851773738861084,
+            "p10_weakest": 0.31628942489624023,
+            "brightness_mae": 0.2274259626865387,
+            "peak_power_fraction": 0.0008246042998507619
+          },
+          "broad_val": {
+            "weight": 0.3,
+            "score": 0.29813650250434875,
+            "mean": {
+              "pcc": 0.45536988973617554,
+              "global_ssim": 0.3124113976955414,
+              "windowed_ssim": 0.1742101013660431
+            },
+            "mean_worst": {
+              "pcc": 0.3058694005012512,
+              "global_ssim": 0.16683842241764069,
+              "windowed_ssim": 0.0874495580792427
+            },
+            "mean_weakest": 0.1666824221611023,
+            "p10_weakest": 0.0657447874546051,
+            "brightness_mae": 0.1916397511959076,
+            "peak_power_fraction": 0.0012662605149671435
+          },
+          "selection": 0.3969622820615768
+        },
+        "checkpoint": "runs/photo-quality-v2/wide-pilot/control/best.pt",
+        "sha256": "94ed1cc92fc5738cdbb71a28a52d83be262b993748db7adc77b0f73e44dd209d"
+      },
+      "wide_phase": {
+        "best_epoch": 8,
+        "validation": {
+          "people_val": {
+            "weight": 0.5,
+            "score": 0.43271711468696594,
+            "mean": {
+              "pcc": 0.5774699449539185,
+              "global_ssim": 0.4656982421875,
+              "windowed_ssim": 0.17185381054878235
+            },
+            "mean_worst": {
+              "pcc": 0.4622463285923004,
+              "global_ssim": 0.3759543299674988,
+              "windowed_ssim": 0.1446007341146469
+            },
+            "mean_weakest": 0.3759543299674988,
+            "p10_weakest": 0.3024037778377533,
+            "brightness_mae": 0.2629035413265228,
+            "peak_power_fraction": 0.0006597141618840396
+          },
+          "mixed_val": {
+            "weight": 0.2,
+            "score": 0.4542975127696991,
+            "mean": {
+              "pcc": 0.6415244340896606,
+              "global_ssim": 0.4856511056423187,
+              "windowed_ssim": 0.16902507841587067
+            },
+            "mean_worst": {
+              "pcc": 0.49665388464927673,
+              "global_ssim": 0.36316436529159546,
+              "windowed_ssim": 0.1377541422843933
+            },
+            "mean_weakest": 0.36316436529159546,
+            "p10_weakest": 0.2936120629310608,
+            "brightness_mae": 0.23305349051952362,
+            "peak_power_fraction": 0.0008779276395216584
+          },
+          "broad_val": {
+            "weight": 0.3,
+            "score": 0.298284649848938,
+            "mean": {
+              "pcc": 0.4551737606525421,
+              "global_ssim": 0.31268423795700073,
+              "windowed_ssim": 0.17414501309394836
+            },
+            "mean_worst": {
+              "pcc": 0.30895382165908813,
+              "global_ssim": 0.16725069284439087,
+              "windowed_ssim": 0.08786683529615402
+            },
+            "mean_weakest": 0.16722185909748077,
+            "p10_weakest": 0.06481364369392395,
+            "brightness_mae": 0.19068285822868347,
+            "peak_power_fraction": 0.0012455182150006294
+          },
+          "selection": 0.3967034548521042
+        },
+        "checkpoint": "runs/photo-quality-v2/wide-pilot/phase/best.pt",
+        "sha256": "20486b22a61ca8bd3781f4b95b6186e4d4ffae3cb509c5c957bc69365f3eb167"
+      },
+      "carrier_zero": {
+        "best_epoch": 16,
+        "validation": {
+          "people_val": {
+            "weight": 0.5,
+            "score": 0.4332652986049652,
+            "mean": {
+              "pcc": 0.57764732837677,
+              "global_ssim": 0.4648849368095398,
+              "windowed_ssim": 0.17173278331756592
+            },
+            "mean_worst": {
+              "pcc": 0.46200093626976013,
+              "global_ssim": 0.3789828419685364,
+              "windowed_ssim": 0.14563623070716858
+            },
+            "mean_weakest": 0.3789828419685364,
+            "p10_weakest": 0.3082243800163269,
+            "brightness_mae": 0.2635757625102997,
+            "peak_power_fraction": 0.0006591639830730855
+          },
+          "mixed_val": {
+            "weight": 0.2,
+            "score": 0.4599750339984894,
+            "mean": {
+              "pcc": 0.6429336071014404,
+              "global_ssim": 0.48752492666244507,
+              "windowed_ssim": 0.16961199045181274
+            },
+            "mean_worst": {
+              "pcc": 0.496140718460083,
+              "global_ssim": 0.3815825879573822,
+              "windowed_ssim": 0.13848456740379333
+            },
+            "mean_weakest": 0.3815825879573822,
+            "p10_weakest": 0.3159221410751343,
+            "brightness_mae": 0.2311539649963379,
+            "peak_power_fraction": 0.0008562092552892864
+          },
+          "broad_val": {
+            "weight": 0.3,
+            "score": 0.29868587851524353,
+            "mean": {
+              "pcc": 0.4557935297489166,
+              "global_ssim": 0.3135252296924591,
+              "windowed_ssim": 0.17449283599853516
+            },
+            "mean_worst": {
+              "pcc": 0.30740290880203247,
+              "global_ssim": 0.166896253824234,
+              "windowed_ssim": 0.08793330937623978
+            },
+            "mean_weakest": 0.1668653041124344,
+            "p10_weakest": 0.06192711740732193,
+            "brightness_mae": 0.19025918841362,
+            "peak_power_fraction": 0.0012761609395965934
+          },
+          "selection": 0.3982334196567535
+        },
+        "checkpoint": "runs/photo-quality-v2/carrier-zero/control/best.pt",
+        "sha256": "33812fcc1a7dafd1987de7affc4d60fa788fb48f712776058c8742663383b802"
+      },
+      "carrier_guided": {
+        "best_epoch": 11,
+        "validation": {
+          "people_val": {
+            "weight": 0.5,
+            "score": 0.43498244881629944,
+            "mean": {
+              "pcc": 0.576587975025177,
+              "global_ssim": 0.46902376413345337,
+              "windowed_ssim": 0.17150549590587616
+            },
+            "mean_worst": {
+              "pcc": 0.464089572429657,
+              "global_ssim": 0.3822924494743347,
+              "windowed_ssim": 0.14458157122135162
+            },
+            "mean_weakest": 0.3822924494743347,
+            "p10_weakest": 0.3144126832485199,
+            "brightness_mae": 0.2587277293205261,
+            "peak_power_fraction": 0.000638913013972342
+          },
+          "mixed_val": {
+            "weight": 0.2,
+            "score": 0.4618763029575348,
+            "mean": {
+              "pcc": 0.6412615180015564,
+              "global_ssim": 0.49722275137901306,
+              "windowed_ssim": 0.16824376583099365
+            },
+            "mean_worst": {
+              "pcc": 0.49667224287986755,
+              "global_ssim": 0.38037770986557007,
+              "windowed_ssim": 0.1388709843158722
+            },
+            "mean_weakest": 0.38037770986557007,
+            "p10_weakest": 0.3195660412311554,
+            "brightness_mae": 0.22528314590454102,
+            "peak_power_fraction": 0.000819625158328563
+          },
+          "broad_val": {
+            "weight": 0.3,
+            "score": 0.29872334003448486,
+            "mean": {
+              "pcc": 0.4548598527908325,
+              "global_ssim": 0.3142259120941162,
+              "windowed_ssim": 0.17404943704605103
+            },
+            "mean_worst": {
+              "pcc": 0.3044916093349457,
+              "global_ssim": 0.16756804287433624,
+              "windowed_ssim": 0.08786632865667343
+            },
+            "mean_weakest": 0.1675606369972229,
+            "p10_weakest": 0.059410497546195984,
+            "brightness_mae": 0.19022606313228607,
+            "peak_power_fraction": 0.0012404920998960733
+          },
+          "selection": 0.39948348701000214
+        },
+        "checkpoint": "runs/photo-quality-v2/carrier-guided/control/best.pt",
+        "sha256": "597d44dfa8dd1bca0ee7fd95ce7146c9db088fbd5464a26a300c8580f01aac0d"
+      }
+    }
+  },
+  "export": {
+    "version": "fresnel-unet-carrier-v1:6d0a3dcefcf7",
+    "sha256": "6d0a3dcefcf7a4c87d014902f87f4e18a9109e3837a2c4f77542e3599a87ab1e",
+    "path": "artifacts/doe-photo-carrier-v1.pt",
+    "prototype_sha256": "597d44dfa8dd1bca0ee7fd95ce7146c9db088fbd5464a26a300c8580f01aac0d",
+    "parameters": 484182,
+    "cpu_phase_export_exact": true
+  },
+  "live_smoke": {
+    "info": {
+      "available": true,
+      "version": "fresnel-unet-carrier-v1:6d0a3dcefcf7",
+      "status": "ready",
+      "device": "cpu"
+    },
+    "iterations": 0,
+    "reconstructions": 4,
+    "seconds": 0.180890071002068,
+    "max_phase_code_difference_from_windows_cpu": 1.0,
+    "live_export_valid": true
+  },
+  "test": {
+    "path": "runs/photo-quality-v2/data/test.pt",
+    "sha256": "033d7b4fa9fc2a87eaaeb48cb4dea9b9010935ef2ffa9e4d21bc7b3c61229d0b",
+    "splits": {
+      "people_test": {
+        "samples": 10,
+        "ids": [
+          "test/000",
+          "test/001",
+          "test/002",
+          "test/003",
+          "test/004",
+          "test/005",
+          "test/006",
+          "test/007",
+          "test/008",
+          "test/009"
+        ],
+        "uint8_pixels_sha256": "9fbddd816fda24cad841fc2f773b9961f8dcc2eb12ae0938740c4c4e75de56d5"
+      },
+      "mixed_test": {
+        "samples": 5,
+        "ids": [
+          "test/000",
+          "test/001",
+          "test/002",
+          "test/003",
+          "test/004"
+        ],
+        "uint8_pixels_sha256": "df6a0c40beff7003df65aa56ec491f638c49127006052607a5ce0bd96d274372",
+        "face_mask": [
+          [
+            true,
+            false,
+            false,
+            false
+          ],
+          [
+            false,
+            false,
+            false,
+            true
+          ],
+          [
+            false,
+            false,
+            true,
+            false
+          ],
+          [
+            false,
+            false,
+            true,
+            false
+          ],
+          [
+            false,
+            false,
+            true,
+            false
+          ]
+        ]
+      },
+      "broad_test": {
+        "samples": 128,
+        "ids": [
+          "test/00012",
+          "test/00027",
+          "test/00028",
+          "test/00037",
+          "test/00049",
+          "test/00054",
+          "test/00066",
+          "test/00067",
+          "test/00076",
+          "test/00085",
+          "test/00088",
+          "test/00095",
+          "test/00109",
+          "test/00116",
+          "test/00130",
+          "test/00148",
+          "test/00208",
+          "test/00231",
+          "test/00244",
+          "test/00250",
+          "test/00260",
+          "test/00273",
+          "test/00301",
+          "test/00314",
+          "test/00386",
+          "test/00395",
+          "test/00408",
+          "test/00411",
+          "test/00455",
+          "test/00464",
+          "test/00467",
+          "test/00478",
+          "test/00481",
+          "test/00483",
+          "test/00486",
+          "test/00487",
+          "test/00517",
+          "test/00530",
+          "test/00538",
+          "test/00541",
+          "test/00566",
+          "test/00571",
+          "test/00573",
+          "test/00576",
+          "test/00593",
+          "test/00647",
+          "test/00650",
+          "test/00662",
+          "test/00663",
+          "test/00680",
+          "test/00713",
+          "test/00731",
+          "test/00768",
+          "test/00811",
+          "test/00816",
+          "test/00828",
+          "test/00835",
+          "test/00848",
+          "test/00862",
+          "test/00878",
+          "test/00881",
+          "test/00883",
+          "test/00894",
+          "test/00969",
+          "test/00991",
+          "test/00992",
+          "test/00998",
+          "test/01022",
+          "test/01042",
+          "test/01046",
+          "test/01071",
+          "test/01081",
+          "test/01135",
+          "test/01151",
+          "test/01192",
+          "test/01201",
+          "test/01212",
+          "test/01234",
+          "test/01249",
+          "test/01260",
+          "test/01283",
+          "test/01318",
+          "test/01329",
+          "test/01343",
+          "test/01344",
+          "test/01384",
+          "test/01396",
+          "test/01405",
+          "test/01431",
+          "test/01433",
+          "test/01439",
+          "test/01441",
+          "test/01497",
+          "test/01498",
+          "test/01511",
+          "test/01523",
+          "test/01544",
+          "test/01559",
+          "test/01566",
+          "test/01594",
+          "test/01626",
+          "test/01627",
+          "test/01630",
+          "test/01653",
+          "test/01669",
+          "test/01685",
+          "test/01690",
+          "test/01707",
+          "test/01712",
+          "test/01722",
+          "test/01767",
+          "test/01772",
+          "test/01785",
+          "test/01803",
+          "test/01819",
+          "test/01837",
+          "test/01846",
+          "test/01865",
+          "test/01870",
+          "test/01875",
+          "test/01895",
+          "test/01897",
+          "test/01910",
+          "test/01947",
+          "test/01952",
+          "test/01978",
+          "test/01982",
+          "test/01994"
+        ],
+        "uint8_pixels_sha256": "654e248909183ad47bb52d83cd7b0d1d8bda28659d69e5947c8067e31dc171d4"
+      },
+      "broad_ood": {
+        "samples": 64,
+        "ids": [
+          "ood/00001",
+          "ood/00003",
+          "ood/00004",
+          "ood/00007",
+          "ood/00014",
+          "ood/00016",
+          "ood/00017",
+          "ood/00024",
+          "ood/00026",
+          "ood/00028",
+          "ood/00029",
+          "ood/00037",
+          "ood/00038",
+          "ood/00039",
+          "ood/00051",
+          "ood/00054",
+          "ood/00056",
+          "ood/00071",
+          "ood/00072",
+          "ood/00077",
+          "ood/00084",
+          "ood/00091",
+          "ood/00094",
+          "ood/00095",
+          "ood/00106",
+          "ood/00109",
+          "ood/00111",
+          "ood/00116",
+          "ood/00119",
+          "ood/00129",
+          "ood/00130",
+          "ood/00135",
+          "ood/00142",
+          "ood/00148",
+          "ood/00163",
+          "ood/00165",
+          "ood/00173",
+          "ood/00174",
+          "ood/00184",
+          "ood/00186",
+          "ood/00188",
+          "ood/00191",
+          "ood/00192",
+          "ood/00197",
+          "ood/00198",
+          "ood/00208",
+          "ood/00209",
+          "ood/00210",
+          "ood/00216",
+          "ood/00219",
+          "ood/00221",
+          "ood/00222",
+          "ood/00229",
+          "ood/00231",
+          "ood/00235",
+          "ood/00239",
+          "ood/00241",
+          "ood/00242",
+          "ood/00243",
+          "ood/00245",
+          "ood/00246",
+          "ood/00248",
+          "ood/00250",
+          "ood/00252"
+        ],
+        "uint8_pixels_sha256": "f7ff9266b92ce726a2fa029730679f9525ee78c26f5d3fae3feff525ef43f96e"
+      },
+      "fresh_broad_test": {
+        "samples": 128,
+        "ids": [
+          "test/00029",
+          "test/00063",
+          "test/00083",
+          "test/00108",
+          "test/00122",
+          "test/00124",
+          "test/00133",
+          "test/00144",
+          "test/00147",
+          "test/00207",
+          "test/00209",
+          "test/00226",
+          "test/00252",
+          "test/00263",
+          "test/00278",
+          "test/00280",
+          "test/00287",
+          "test/00294",
+          "test/00309",
+          "test/00331",
+          "test/00334",
+          "test/00338",
+          "test/00346",
+          "test/00354",
+          "test/00366",
+          "test/00394",
+          "test/00399",
+          "test/00412",
+          "test/00496",
+          "test/00498",
+          "test/00500",
+          "test/00547",
+          "test/00553",
+          "test/00585",
+          "test/00603",
+          "test/00609",
+          "test/00633",
+          "test/00681",
+          "test/00687",
+          "test/00691",
+          "test/00694",
+          "test/00698",
+          "test/00705",
+          "test/00774",
+          "test/00781",
+          "test/00799",
+          "test/00800",
+          "test/00801",
+          "test/00805",
+          "test/00814",
+          "test/00819",
+          "test/00885",
+          "test/00888",
+          "test/00911",
+          "test/00914",
+          "test/00927",
+          "test/00948",
+          "test/00950",
+          "test/00985",
+          "test/00987",
+          "test/01044",
+          "test/01057",
+          "test/01097",
+          "test/01109",
+          "test/01117",
+          "test/01122",
+          "test/01196",
+          "test/01241",
+          "test/01242",
+          "test/01245",
+          "test/01252",
+          "test/01266",
+          "test/01269",
+          "test/01292",
+          "test/01293",
+          "test/01345",
+          "test/01351",
+          "test/01353",
+          "test/01369",
+          "test/01374",
+          "test/01378",
+          "test/01379",
+          "test/01395",
+          "test/01401",
+          "test/01418",
+          "test/01429",
+          "test/01430",
+          "test/01447",
+          "test/01449",
+          "test/01457",
+          "test/01479",
+          "test/01487",
+          "test/01491",
+          "test/01494",
+          "test/01502",
+          "test/01505",
+          "test/01506",
+          "test/01510",
+          "test/01520",
+          "test/01534",
+          "test/01556",
+          "test/01573",
+          "test/01579",
+          "test/01585",
+          "test/01592",
+          "test/01628",
+          "test/01646",
+          "test/01647",
+          "test/01648",
+          "test/01652",
+          "test/01705",
+          "test/01741",
+          "test/01789",
+          "test/01790",
+          "test/01795",
+          "test/01812",
+          "test/01814",
+          "test/01843",
+          "test/01857",
+          "test/01858",
+          "test/01861",
+          "test/01886",
+          "test/01888",
+          "test/01890",
+          "test/01893",
+          "test/01916",
+          "test/01967",
+          "test/01971"
+        ],
+        "uint8_pixels_sha256": "967e7ae510ad4882f352bbd7329096e385e9493c5b77719eb8a31d77e90f3633"
+      }
+    }
+  },
+  "protocol": {
+    "inference": "one model.forward per input, no optimizer or post-forward refinement; projection-v2 internally contains six fixed learned projection layers",
+    "input": "uint8 target amplitude / 255",
+    "export": "phase encoded as 8-bit PNG, decoded for CPU Fresnel propagation; peak-normalized amplitude encoded and decoded as uint8 reconstruction PNG",
+    "ssim": "ssim=global population moments; local_ssim=uniform scikit-image 7x7 windows",
+    "worst": "within each quartet, minimum of four planes per metric; joint additionally takes the minimum of PCC and global SSIM",
+    "p10": "linear quantile of the quartet minima",
+    "bootstrap": "2000 paired quartet resamples, seed 20261107; descriptive intervals, not adjusted for repeated model comparisons or shared face identities",
+    "distances_mm": [
+      24.1,
+      25.3,
+      26.5,
+      27.7
+    ],
+    "device": "cuda",
+    "batch_size": 4,
+    "threads": 2,
+    "torch": "2.7.1+cu128",
+    "scikit_image": "0.26.0"
+  },
+  "models": {
+    "baseline": {
+      "version": "fresnel-unet-projection-v2:527142714a0d",
+      "sha256": "527142714a0da4a92c3293e95f54846a6573fc0931a6335727ef6a6926cd1f2b",
+      "splits": {
+        "people_test": {
+          "samples": 10,
+          "planes": 40,
+          "mean_pcc": 0.5593409525853198,
+          "mean_worst_pcc": 0.4852298480504486,
+          "p10_worst_pcc": 0.4611019297340692,
+          "min_pcc": 0.43678607364044697,
+          "mean_ssim": 0.4611614888878853,
+          "mean_worst_ssim": 0.3799062758096906,
+          "p10_worst_ssim": 0.3575349362406779,
+          "min_ssim": 0.34849667680665297,
+          "mean_local_ssim": 0.16451120343693304,
+          "mean_worst_local_ssim": 0.1421686915024271,
+          "p10_worst_local_ssim": 0.1284713018236275,
+          "min_local_ssim": 0.12674650823724193,
+          "mean_worst_joint": 0.3799062758096906,
+          "p10_worst_joint": 0.3575349362406779,
+          "min_joint": 0.34849667680665297,
+          "quartets_all_pcc_and_global_ssim_above_0_9": 0
+        },
+        "mixed_test": {
+          "samples": 5,
+          "planes": 20,
+          "mean_pcc": 0.6455297092619091,
+          "mean_worst_pcc": 0.5481354503193833,
+          "p10_worst_pcc": 0.4608117225032109,
+          "min_pcc": 0.4520781500382256,
+          "mean_ssim": 0.4835624707582708,
+          "mean_worst_ssim": 0.40817260587082255,
+          "p10_worst_ssim": 0.368903385979001,
+          "min_ssim": 0.35766759381988356,
+          "mean_local_ssim": 0.18398081402634792,
+          "mean_worst_local_ssim": 0.15243036352210987,
+          "p10_worst_local_ssim": 0.14553615787399476,
+          "min_local_ssim": 0.14511646344061346,
+          "mean_worst_joint": 0.40817260587082255,
+          "p10_worst_joint": 0.368903385979001,
+          "min_joint": 0.35766759381988356,
+          "quartets_all_pcc_and_global_ssim_above_0_9": 0,
+          "faces_only": {
+            "planes": 5,
+            "mean_pcc": 0.7106325847002518,
+            "mean_ssim": 0.5075042505662953,
+            "mean_local_ssim": 0.17209110738017172
+          }
+        },
+        "broad_test": {
+          "samples": 128,
+          "planes": 512,
+          "mean_pcc": 0.44237503905541853,
+          "mean_worst_pcc": 0.28834225146422116,
+          "p10_worst_pcc": 0.15062846789742845,
+          "min_pcc": -0.048157989253070355,
+          "mean_ssim": 0.31784257255594817,
+          "mean_worst_ssim": 0.171222205666915,
+          "p10_worst_ssim": 0.07558694438756615,
+          "min_ssim": 0.019809538173333148,
+          "mean_local_ssim": 0.17501664321329297,
+          "mean_worst_local_ssim": 0.09504839698989856,
+          "p10_worst_local_ssim": 0.05249979039353969,
+          "min_local_ssim": 0.018093562783419153,
+          "mean_worst_joint": 0.17063820422092693,
+          "p10_worst_joint": 0.07558694438756615,
+          "min_joint": -0.048157989253070355,
+          "quartets_all_pcc_and_global_ssim_above_0_9": 0
+        },
+        "broad_ood": {
+          "samples": 64,
+          "planes": 256,
+          "mean_pcc": 0.47869846357466594,
+          "mean_worst_pcc": 0.3530691186652106,
+          "p10_worst_pcc": 0.24832840582704757,
+          "min_pcc": 0.0836018786862679,
+          "mean_ssim": 0.3508712167035144,
+          "mean_worst_ssim": 0.21582434217792737,
+          "p10_worst_ssim": 0.12018803491324258,
+          "min_ssim": 0.052973202815945135,
+          "mean_local_ssim": 0.2217168404681198,
+          "mean_worst_local_ssim": 0.11159779617883847,
+          "p10_worst_local_ssim": 0.07292618486955765,
+          "min_local_ssim": 0.05116221944734139,
+          "mean_worst_joint": 0.21582434217792737,
+          "p10_worst_joint": 0.12018803491324258,
+          "min_joint": 0.052973202815945135,
+          "quartets_all_pcc_and_global_ssim_above_0_9": 0
+        },
+        "fresh_broad_test": {
+          "samples": 128,
+          "planes": 512,
+          "mean_pcc": 0.4448590175777049,
+          "mean_worst_pcc": 0.3023549012403573,
+          "p10_worst_pcc": 0.17348425075266966,
+          "min_pcc": 0.02938350901398373,
+          "mean_ssim": 0.3132286147145469,
+          "mean_worst_ssim": 0.16943037713965448,
+          "p10_worst_ssim": 0.07856669991631086,
+          "min_ssim": 0.021848869806464354,
+          "mean_local_ssim": 0.17139915336099054,
+          "mean_worst_local_ssim": 0.09658884139729039,
+          "p10_worst_local_ssim": 0.058539148789913266,
+          "min_local_ssim": 0.019820257690311496,
+          "mean_worst_joint": 0.16923182042956303,
+          "p10_worst_joint": 0.07856669991631086,
+          "min_joint": 0.021848869806464354,
+          "quartets_all_pcc_and_global_ssim_above_0_9": 0
+        }
+      }
+    },
+    "control": {
+      "version": "fresnel-unet-projection-v2:abcb63a0ceb8",
+      "sha256": "abcb63a0ceb8cfaadc8a7a8c2cbb56a43713e305fd68d98b9efb351808d00885",
+      "splits": {
+        "people_test": {
+          "samples": 10,
+          "planes": 40,
+          "mean_pcc": 0.5594176492802827,
+          "mean_worst_pcc": 0.4816137230454743,
+          "p10_worst_pcc": 0.44431892692822994,
+          "min_pcc": 0.41216795897282754,
+          "mean_ssim": 0.46486958053442057,
+          "mean_worst_ssim": 0.38389912911329754,
+          "p10_worst_ssim": 0.349977842599688,
+          "min_ssim": 0.33960326166471727,
+          "mean_local_ssim": 0.16449854749632262,
+          "mean_worst_local_ssim": 0.14443630566728968,
+          "p10_worst_local_ssim": 0.12952960623277404,
+          "min_local_ssim": 0.12754257058153537,
+          "mean_worst_joint": 0.38389912911329754,
+          "p10_worst_joint": 0.349977842599688,
+          "min_joint": 0.33960326166471727,
+          "quartets_all_pcc_and_global_ssim_above_0_9": 0
+        },
+        "mixed_test": {
+          "samples": 5,
+          "planes": 20,
+          "mean_pcc": 0.6451008816809737,
+          "mean_worst_pcc": 0.546995080036227,
+          "p10_worst_pcc": 0.4667431622720715,
+          "min_pcc": 0.45489213477792373,
+          "mean_ssim": 0.48659701835959435,
+          "mean_worst_ssim": 0.4241564796656364,
+          "p10_worst_ssim": 0.36926411146280813,
+          "min_ssim": 0.3618964462674855,
+          "mean_local_ssim": 0.18287000016622218,
+          "mean_worst_local_ssim": 0.15329090903690795,
+          "p10_worst_local_ssim": 0.145688776331487,
+          "min_local_ssim": 0.14467327993084272,
+          "mean_worst_joint": 0.4241564796656364,
+          "p10_worst_joint": 0.36926411146280813,
+          "min_joint": 0.3618964462674855,
+          "quartets_all_pcc_and_global_ssim_above_0_9": 0,
+          "faces_only": {
+            "planes": 5,
+            "mean_pcc": 0.7106691192545663,
+            "mean_ssim": 0.5148409761237155,
+            "mean_local_ssim": 0.17125253267154023
+          }
+        },
+        "broad_test": {
+          "samples": 128,
+          "planes": 512,
+          "mean_pcc": 0.4426647591203076,
+          "mean_worst_pcc": 0.28382484547798315,
+          "p10_worst_pcc": 0.13831822103459704,
+          "min_pcc": -0.08378460936876832,
+          "mean_ssim": 0.3172660279608997,
+          "mean_worst_ssim": 0.16882790840637418,
+          "p10_worst_ssim": 0.07266161772502862,
+          "min_ssim": 0.00044503709683155825,
+          "mean_local_ssim": 0.17524510876788593,
+          "mean_worst_local_ssim": 0.09554237329008548,
+          "p10_worst_local_ssim": 0.051904514504662894,
+          "min_local_ssim": 0.0200909089661996,
+          "mean_worst_joint": 0.167840794827104,
+          "p10_worst_joint": 0.07171163398736072,
+          "min_joint": -0.08378460936876832,
+          "quartets_all_pcc_and_global_ssim_above_0_9": 0
+        },
+        "broad_ood": {
+          "samples": 64,
+          "planes": 256,
+          "mean_pcc": 0.4776220450731339,
+          "mean_worst_pcc": 0.34525083075337015,
+          "p10_worst_pcc": 0.23480667181300982,
+          "min_pcc": 0.04880804974349101,
+          "mean_ssim": 0.3498796324426756,
+          "mean_worst_ssim": 0.21461460251098208,
+          "p10_worst_ssim": 0.11406862724545963,
+          "min_ssim": 0.04706950965736504,
+          "mean_local_ssim": 0.2211784841066985,
+          "mean_worst_local_ssim": 0.10963391821626581,
+          "p10_worst_local_ssim": 0.06965453769464283,
+          "min_local_ssim": 0.049931893248563224,
+          "mean_worst_joint": 0.21436268217794963,
+          "p10_worst_joint": 0.11406862724545963,
+          "min_joint": 0.04706950965736504,
+          "quartets_all_pcc_and_global_ssim_above_0_9": 0
+        },
+        "fresh_broad_test": {
+          "samples": 128,
+          "planes": 512,
+          "mean_pcc": 0.4447654967415096,
+          "mean_worst_pcc": 0.29627952014469466,
+          "p10_worst_pcc": 0.15638436572115016,
+          "min_pcc": 0.03895287954666624,
+          "mean_ssim": 0.3136815970496156,
+          "mean_worst_ssim": 0.1665602052852097,
+          "p10_worst_ssim": 0.0777820650491668,
+          "min_ssim": 0.01919327645594272,
+          "mean_local_ssim": 0.17203845529461537,
+          "mean_worst_local_ssim": 0.09606416130139464,
+          "p10_worst_local_ssim": 0.05682906054077439,
+          "min_local_ssim": 0.01694883846949871,
+          "mean_worst_joint": 0.16622792749657167,
+          "p10_worst_joint": 0.0777820650491668,
+          "min_joint": 0.01919327645594272,
+          "quartets_all_pcc_and_global_ssim_above_0_9": 0
+        }
+      }
+    },
+    "teacher": {
+      "version": "fresnel-unet-projection-v2:bbf89f0c137c",
+      "sha256": "bbf89f0c137c3f2fb14c7b8c9ccdb8030b4d4372f0b9e6b8e6f86957cedb115a",
+      "splits": {
+        "people_test": {
+          "samples": 10,
+          "planes": 40,
+          "mean_pcc": 0.5584998455601491,
+          "mean_worst_pcc": 0.4842672842925372,
+          "p10_worst_pcc": 0.4470186050943627,
+          "min_pcc": 0.4111812637506296,
+          "mean_ssim": 0.4608185707438349,
+          "mean_worst_ssim": 0.38372669282145344,
+          "p10_worst_ssim": 0.35019074716251886,
+          "min_ssim": 0.33620632348511814,
+          "mean_local_ssim": 0.16467133465998457,
+          "mean_worst_local_ssim": 0.14426858143475194,
+          "p10_worst_local_ssim": 0.1313809352370875,
+          "min_local_ssim": 0.12741244440076385,
+          "mean_worst_joint": 0.38372669282145344,
+          "p10_worst_joint": 0.35019074716251886,
+          "min_joint": 0.33620632348511814,
+          "quartets_all_pcc_and_global_ssim_above_0_9": 0
+        },
+        "mixed_test": {
+          "samples": 5,
+          "planes": 20,
+          "mean_pcc": 0.642868801210394,
+          "mean_worst_pcc": 0.5442791170130069,
+          "p10_worst_pcc": 0.46428356516508673,
+          "min_pcc": 0.44906924329960257,
+          "mean_ssim": 0.49344242955524964,
+          "mean_worst_ssim": 0.4296910745417848,
+          "p10_worst_ssim": 0.38270933404426805,
+          "min_ssim": 0.373680015183764,
+          "mean_local_ssim": 0.182218974450969,
+          "mean_worst_local_ssim": 0.15387598486138257,
+          "p10_worst_local_ssim": 0.14331178281687465,
+          "min_local_ssim": 0.13866139640825384,
+          "mean_worst_joint": 0.4296910745417848,
+          "p10_worst_joint": 0.38270933404426805,
+          "min_joint": 0.373680015183764,
+          "quartets_all_pcc_and_global_ssim_above_0_9": 0,
+          "faces_only": {
+            "planes": 5,
+            "mean_pcc": 0.7048824108153982,
+            "mean_ssim": 0.5181820742993973,
+            "mean_local_ssim": 0.1689217446291667
+          }
+        },
+        "broad_test": {
+          "samples": 128,
+          "planes": 512,
+          "mean_pcc": 0.4407658540103779,
+          "mean_worst_pcc": 0.2878670018650574,
+          "p10_worst_pcc": 0.14160764039962384,
+          "min_pcc": -0.03953228133337114,
+          "mean_ssim": 0.316139613645066,
+          "mean_worst_ssim": 0.1678299826462582,
+          "p10_worst_ssim": 0.07322911388055894,
+          "min_ssim": 0.02334292743240605,
+          "mean_local_ssim": 0.1747850271821428,
+          "mean_worst_local_ssim": 0.09549500306475224,
+          "p10_worst_local_ssim": 0.050221515662514864,
+          "min_local_ssim": 0.017042621340783878,
+          "mean_worst_joint": 0.1671158524420483,
+          "p10_worst_joint": 0.07322911388055894,
+          "min_joint": -0.03953228133337114,
+          "quartets_all_pcc_and_global_ssim_above_0_9": 0
+        },
+        "broad_ood": {
+          "samples": 64,
+          "planes": 256,
+          "mean_pcc": 0.47767784194159213,
+          "mean_worst_pcc": 0.35133018210182976,
+          "p10_worst_pcc": 0.2370567715944732,
+          "min_pcc": 0.07952882078581278,
+          "mean_ssim": 0.34993100442600883,
+          "mean_worst_ssim": 0.2137746530459942,
+          "p10_worst_ssim": 0.12341873331152863,
+          "min_ssim": 0.061659295364531075,
+          "mean_local_ssim": 0.22111981603686692,
+          "mean_worst_local_ssim": 0.1099277373362151,
+          "p10_worst_local_ssim": 0.07188663618957643,
+          "min_local_ssim": 0.045637293516020416,
+          "mean_worst_joint": 0.21373441041012164,
+          "p10_worst_joint": 0.12341873331152863,
+          "min_joint": 0.061659295364531075,
+          "quartets_all_pcc_and_global_ssim_above_0_9": 0
+        },
+        "fresh_broad_test": {
+          "samples": 128,
+          "planes": 512,
+          "mean_pcc": 0.4433714054301487,
+          "mean_worst_pcc": 0.30227083615989125,
+          "p10_worst_pcc": 0.1638941283768747,
+          "min_pcc": 0.0660937491647872,
+          "mean_ssim": 0.311531075197033,
+          "mean_worst_ssim": 0.16951442211136414,
+          "p10_worst_ssim": 0.07868104637434856,
+          "min_ssim": 0.018549288600095144,
+          "mean_local_ssim": 0.17057799824196287,
+          "mean_worst_local_ssim": 0.09585460069925128,
+          "p10_worst_local_ssim": 0.05702988245219011,
+          "min_local_ssim": 0.016603815380544448,
+          "mean_worst_joint": 0.16920206691474451,
+          "p10_worst_joint": 0.07843315108611532,
+          "min_joint": 0.018549288600095144,
+          "quartets_all_pcc_and_global_ssim_above_0_9": 0
+        }
+      }
+    },
+    "tone": {
+      "version": "fresnel-unet-projection-v2:c9e1a17ce786",
+      "sha256": "c9e1a17ce786edb0b156ec126a68eb7ecc26dc3a5df95abfb4d6cfca74e6b778",
+      "splits": {
+        "people_test": {
+          "samples": 10,
+          "planes": 40,
+          "mean_pcc": 0.5549293177120398,
+          "mean_worst_pcc": 0.4843055150894064,
+          "p10_worst_pcc": 0.45760016840064527,
+          "min_pcc": 0.41745381973358764,
+          "mean_ssim": 0.46499351560710966,
+          "mean_worst_ssim": 0.391585335673871,
+          "p10_worst_ssim": 0.3656110464568986,
+          "min_ssim": 0.34359480124804237,
+          "mean_local_ssim": 0.16479293105396936,
+          "mean_worst_local_ssim": 0.14539435196608433,
+          "p10_worst_local_ssim": 0.13442614023022137,
+          "min_local_ssim": 0.12742631677475189,
+          "mean_worst_joint": 0.391585335673871,
+          "p10_worst_joint": 0.3656110464568986,
+          "min_joint": 0.34359480124804237,
+          "quartets_all_pcc_and_global_ssim_above_0_9": 0
+        },
+        "mixed_test": {
+          "samples": 5,
+          "planes": 20,
+          "mean_pcc": 0.6421490046092071,
+          "mean_worst_pcc": 0.5372326847273656,
+          "p10_worst_pcc": 0.4542143529528039,
+          "min_pcc": 0.43089729594437987,
+          "mean_ssim": 0.49146667878735906,
+          "mean_worst_ssim": 0.41984739091307394,
+          "p10_worst_ssim": 0.37353997685655954,
+          "min_ssim": 0.3694917143000232,
+          "mean_local_ssim": 0.182224368505782,
+          "mean_worst_local_ssim": 0.15348729669045796,
+          "p10_worst_local_ssim": 0.14423616153673982,
+          "min_local_ssim": 0.14099523698267538,
+          "mean_worst_joint": 0.41984739091307394,
+          "p10_worst_joint": 0.37353997685655954,
+          "min_joint": 0.3694917143000232,
+          "quartets_all_pcc_and_global_ssim_above_0_9": 0,
+          "faces_only": {
+            "planes": 5,
+            "mean_pcc": 0.7083947469996232,
+            "mean_ssim": 0.5200808278684892,
+            "mean_local_ssim": 0.1695108345186816
+          }
+        },
+        "broad_test": {
+          "samples": 128,
+          "planes": 512,
+          "mean_pcc": 0.44048286441821904,
+          "mean_worst_pcc": 0.28591762062975246,
+          "p10_worst_pcc": 0.14340604033881146,
+          "min_pcc": 0.00663957271073041,
+          "mean_ssim": 0.3162049868560238,
+          "mean_worst_ssim": 0.16989185429779183,
+          "p10_worst_ssim": 0.07043243043136517,
+          "min_ssim": 0.016920771361183144,
+          "mean_local_ssim": 0.174079150356464,
+          "mean_worst_local_ssim": 0.09575271258247994,
+          "p10_worst_local_ssim": 0.05270068183625102,
+          "min_local_ssim": 0.021631104218625692,
+          "mean_worst_joint": 0.16928110668625726,
+          "p10_worst_joint": 0.07043243043136517,
+          "min_joint": 0.00663957271073041,
+          "quartets_all_pcc_and_global_ssim_above_0_9": 0
+        },
+        "broad_ood": {
+          "samples": 64,
+          "planes": 256,
+          "mean_pcc": 0.477054701509527,
+          "mean_worst_pcc": 0.3506840306220815,
+          "p10_worst_pcc": 0.24432326931882148,
+          "min_pcc": 0.0741068383689812,
+          "mean_ssim": 0.35143034646955823,
+          "mean_worst_ssim": 0.2160728364463535,
+          "p10_worst_ssim": 0.1258592824565527,
+          "min_ssim": 0.05934410812169809,
+          "mean_local_ssim": 0.22270138914359583,
+          "mean_worst_local_ssim": 0.10961324193754979,
+          "p10_worst_local_ssim": 0.06915027196010919,
+          "min_local_ssim": 0.04790002188073301,
+          "mean_worst_joint": 0.21600698995639986,
+          "p10_worst_joint": 0.1258592824565527,
+          "min_joint": 0.05934410812169809,
+          "quartets_all_pcc_and_global_ssim_above_0_9": 0
+        },
+        "fresh_broad_test": {
+          "samples": 128,
+          "planes": 512,
+          "mean_pcc": 0.44254160566723244,
+          "mean_worst_pcc": 0.29799754965452796,
+          "p10_worst_pcc": 0.17118733444055825,
+          "min_pcc": 0.03007518408872531,
+          "mean_ssim": 0.3122014542488424,
+          "mean_worst_ssim": 0.16826226439342218,
+          "p10_worst_ssim": 0.07768905405893381,
+          "min_ssim": 0.017436679948300754,
+          "mean_local_ssim": 0.17098733746147896,
+          "mean_worst_local_ssim": 0.0957196732029755,
+          "p10_worst_local_ssim": 0.05373880251898532,
+          "min_local_ssim": 0.016162351685595606,
+          "mean_worst_joint": 0.16800633678483892,
+          "p10_worst_joint": 0.07768905405893381,
+          "min_joint": 0.017436679948300754,
+          "quartets_all_pcc_and_global_ssim_above_0_9": 0
+        }
+      }
+    },
+    "combined": {
+      "version": "fresnel-unet-projection-v2:a6d84aaee325",
+      "sha256": "a6d84aaee3252cd2d664dccc38208e8be97fc2d8af7d1bb3242b7bc051bec2a9",
+      "splits": {
+        "people_test": {
+          "samples": 10,
+          "planes": 40,
+          "mean_pcc": 0.5525814489214322,
+          "mean_worst_pcc": 0.4836109609682725,
+          "p10_worst_pcc": 0.4616079400144328,
+          "min_pcc": 0.43184551248773106,
+          "mean_ssim": 0.4689088619120364,
+          "mean_worst_ssim": 0.39035677151941517,
+          "p10_worst_ssim": 0.3706536756071195,
+          "min_ssim": 0.3474721921474861,
+          "mean_local_ssim": 0.16392250152556506,
+          "mean_worst_local_ssim": 0.14352067134977273,
+          "p10_worst_local_ssim": 0.13052596657767773,
+          "min_local_ssim": 0.12852937238233675,
+          "mean_worst_joint": 0.39035677151941517,
+          "p10_worst_joint": 0.3706536756071195,
+          "min_joint": 0.3474721921474861,
+          "quartets_all_pcc_and_global_ssim_above_0_9": 0
+        },
+        "mixed_test": {
+          "samples": 5,
+          "planes": 20,
+          "mean_pcc": 0.640082190161472,
+          "mean_worst_pcc": 0.5329847836754131,
+          "p10_worst_pcc": 0.4466592398203681,
+          "min_pcc": 0.4298802208505817,
+          "mean_ssim": 0.5030111125255736,
+          "mean_worst_ssim": 0.4305164685744033,
+          "p10_worst_ssim": 0.38118771889309166,
+          "min_ssim": 0.37957492180456165,
+          "mean_local_ssim": 0.1813615260682546,
+          "mean_worst_local_ssim": 0.15241404194456748,
+          "p10_worst_local_ssim": 0.14405996733741985,
+          "min_local_ssim": 0.141750239690918,
+          "mean_worst_joint": 0.4305164685744033,
+          "p10_worst_joint": 0.38118771889309166,
+          "min_joint": 0.37957492180456165,
+          "quartets_all_pcc_and_global_ssim_above_0_9": 0,
+          "faces_only": {
+            "planes": 5,
+            "mean_pcc": 0.7099267931178994,
+            "mean_ssim": 0.5396860656968739,
+            "mean_local_ssim": 0.1682090759122254
+          }
+        },
+        "broad_test": {
+          "samples": 128,
+          "planes": 512,
+          "mean_pcc": 0.4391649369438466,
+          "mean_worst_pcc": 0.28815773456797394,
+          "p10_worst_pcc": 0.16335280885871717,
+          "min_pcc": 0.005893912249683522,
+          "mean_ssim": 0.3169592401510922,
+          "mean_worst_ssim": 0.1737047745646574,
+          "p10_worst_ssim": 0.07376651319789698,
+          "min_ssim": 0.017273652273854228,
+          "mean_local_ssim": 0.17300450649351076,
+          "mean_worst_local_ssim": 0.09402693685272144,
+          "p10_worst_local_ssim": 0.052832075455748355,
+          "min_local_ssim": 0.02055084050245387,
+          "mean_worst_joint": 0.17339191318137626,
+          "p10_worst_joint": 0.07376651319789698,
+          "min_joint": 0.005893912249683522,
+          "quartets_all_pcc_and_global_ssim_above_0_9": 0
+        },
+        "broad_ood": {
+          "samples": 64,
+          "planes": 256,
+          "mean_pcc": 0.4768681402694,
+          "mean_worst_pcc": 0.35666422053075025,
+          "p10_worst_pcc": 0.2557327921809051,
+          "min_pcc": 0.09600468280690923,
+          "mean_ssim": 0.3517544827674487,
+          "mean_worst_ssim": 0.21886615365589432,
+          "p10_worst_ssim": 0.13317350923106452,
+          "min_ssim": 0.06386376868290225,
+          "mean_local_ssim": 0.22287450295628602,
+          "mean_worst_local_ssim": 0.10879986877229125,
+          "p10_worst_local_ssim": 0.06896336315906312,
+          "min_local_ssim": 0.04711857347501637,
+          "mean_worst_joint": 0.21886615365589432,
+          "p10_worst_joint": 0.13317350923106452,
+          "min_joint": 0.06386376868290225,
+          "quartets_all_pcc_and_global_ssim_above_0_9": 0
+        },
+        "fresh_broad_test": {
+          "samples": 128,
+          "planes": 512,
+          "mean_pcc": 0.441832757960156,
+          "mean_worst_pcc": 0.3042161352229474,
+          "p10_worst_pcc": 0.1726598108979801,
+          "min_pcc": 0.04357169048304327,
+          "mean_ssim": 0.31257927344620645,
+          "mean_worst_ssim": 0.17194646740592495,
+          "p10_worst_ssim": 0.07637064773399134,
+          "min_ssim": 0.01834345175965848,
+          "mean_local_ssim": 0.16991913194570235,
+          "mean_worst_local_ssim": 0.09426511206811317,
+          "p10_worst_local_ssim": 0.05590830165499993,
+          "min_local_ssim": 0.015851905874960957,
+          "mean_worst_joint": 0.17174553520240368,
+          "p10_worst_joint": 0.07637064773399134,
+          "min_joint": 0.01834345175965848,
+          "quartets_all_pcc_and_global_ssim_above_0_9": 0
+        }
+      }
+    },
+    "replay_control": {
+      "version": "fresnel-unet-projection-v2:4e83a0437d3f",
+      "sha256": "4e83a0437d3f642d08ec1246a06993159a64827b84ea5688a4aba5d2e6e2d2cb",
+      "splits": {
+        "people_test": {
+          "samples": 10,
+          "planes": 40,
+          "mean_pcc": 0.5607896776837232,
+          "mean_worst_pcc": 0.48035371864923426,
+          "p10_worst_pcc": 0.44972362770133073,
+          "min_pcc": 0.41022136130800496,
+          "mean_ssim": 0.4650229572179187,
+          "mean_worst_ssim": 0.3831817486062264,
+          "p10_worst_ssim": 0.3485643995197563,
+          "min_ssim": 0.32840924456057946,
+          "mean_local_ssim": 0.16479755935666493,
+          "mean_worst_local_ssim": 0.1436545064163854,
+          "p10_worst_local_ssim": 0.13059847521909138,
+          "min_local_ssim": 0.12554673494453686,
+          "mean_worst_joint": 0.3831817486062264,
+          "p10_worst_joint": 0.3485643995197563,
+          "min_joint": 0.32840924456057946,
+          "quartets_all_pcc_and_global_ssim_above_0_9": 0
+        },
+        "mixed_test": {
+          "samples": 5,
+          "planes": 20,
+          "mean_pcc": 0.6462035139664314,
+          "mean_worst_pcc": 0.543035433727858,
+          "p10_worst_pcc": 0.45723606932640476,
+          "min_pcc": 0.4495081277834608,
+          "mean_ssim": 0.4875219302504695,
+          "mean_worst_ssim": 0.4081722538598866,
+          "p10_worst_ssim": 0.3700084440394242,
+          "min_ssim": 0.357460112456561,
+          "mean_local_ssim": 0.18294378847539244,
+          "mean_worst_local_ssim": 0.153413020648774,
+          "p10_worst_local_ssim": 0.14552523913756088,
+          "min_local_ssim": 0.1427679366343721,
+          "mean_worst_joint": 0.4081722538598866,
+          "p10_worst_joint": 0.3700084440394242,
+          "min_joint": 0.357460112456561,
+          "quartets_all_pcc_and_global_ssim_above_0_9": 0,
+          "faces_only": {
+            "planes": 5,
+            "mean_pcc": 0.7078854610654378,
+            "mean_ssim": 0.5229393347339015,
+            "mean_local_ssim": 0.16838860699810274
+          }
+        },
+        "broad_test": {
+          "samples": 128,
+          "planes": 512,
+          "mean_pcc": 0.4433623953494566,
+          "mean_worst_pcc": 0.2880012552340959,
+          "p10_worst_pcc": 0.14959998102689365,
+          "min_pcc": -0.023383004191220434,
+          "mean_ssim": 0.31845750355030406,
+          "mean_worst_ssim": 0.16976213172587562,
+          "p10_worst_ssim": 0.07374430496229255,
+          "min_ssim": 0.02954423027210415,
+          "mean_local_ssim": 0.1755037894105362,
+          "mean_worst_local_ssim": 0.09632922680477067,
+          "p10_worst_local_ssim": 0.049898185270705955,
+          "min_local_ssim": 0.019503091284769042,
+          "mean_worst_joint": 0.16926162557685306,
+          "p10_worst_joint": 0.07374430496229255,
+          "min_joint": -0.023383004191220434,
+          "quartets_all_pcc_and_global_ssim_above_0_9": 0
+        },
+        "broad_ood": {
+          "samples": 64,
+          "planes": 256,
+          "mean_pcc": 0.47914091572192535,
+          "mean_worst_pcc": 0.3498115688885253,
+          "p10_worst_pcc": 0.23733674138396618,
+          "min_pcc": 0.07294444789619617,
+          "mean_ssim": 0.3514337029417021,
+          "mean_worst_ssim": 0.2143331550432666,
+          "p10_worst_ssim": 0.1206182157985515,
+          "min_ssim": 0.06241281421861242,
+          "mean_local_ssim": 0.22245400078018293,
+          "mean_worst_local_ssim": 0.11027666502345826,
+          "p10_worst_local_ssim": 0.07146383552227041,
+          "min_local_ssim": 0.046252876848321176,
+          "mean_worst_joint": 0.214301005348743,
+          "p10_worst_joint": 0.1206182157985515,
+          "min_joint": 0.06241281421861242,
+          "quartets_all_pcc_and_global_ssim_above_0_9": 0
+        },
+        "fresh_broad_test": {
+          "samples": 128,
+          "planes": 512,
+          "mean_pcc": 0.4459271779775102,
+          "mean_worst_pcc": 0.30275168216643283,
+          "p10_worst_pcc": 0.16666999412023478,
+          "min_pcc": 0.05822320785040747,
+          "mean_ssim": 0.3135917121732535,
+          "mean_worst_ssim": 0.1679922859907118,
+          "p10_worst_ssim": 0.07689301772122858,
+          "min_ssim": 0.020291461487737864,
+          "mean_local_ssim": 0.17219723951941704,
+          "mean_worst_local_ssim": 0.09707515964519343,
+          "p10_worst_local_ssim": 0.05572877307427733,
+          "min_local_ssim": 0.017361987767066635,
+          "mean_worst_joint": 0.16779987628491969,
+          "p10_worst_joint": 0.0766247041799053,
+          "min_joint": 0.020291461487737864,
+          "quartets_all_pcc_and_global_ssim_above_0_9": 0
+        }
+      }
+    },
+    "phase_teacher": {
+      "version": "fresnel-unet-projection-v2:0370e7a6d43b",
+      "sha256": "0370e7a6d43bef513497123cad5dea8bd890ff9c75459ccc5b786670720241bf",
+      "splits": {
+        "people_test": {
+          "samples": 10,
+          "planes": 40,
+          "mean_pcc": 0.5599483450907361,
+          "mean_worst_pcc": 0.48517553396263324,
+          "p10_worst_pcc": 0.45929097504384503,
+          "min_pcc": 0.4367145865316372,
+          "mean_ssim": 0.4616994898360612,
+          "mean_worst_ssim": 0.3797328899312159,
+          "p10_worst_ssim": 0.35740459602329067,
+          "min_ssim": 0.3496284507328927,
+          "mean_local_ssim": 0.16475432453735536,
+          "mean_worst_local_ssim": 0.14263134407200748,
+          "p10_worst_local_ssim": 0.12844079696617433,
+          "min_local_ssim": 0.12779097194278213,
+          "mean_worst_joint": 0.3797328899312159,
+          "p10_worst_joint": 0.35740459602329067,
+          "min_joint": 0.3496284507328927,
+          "quartets_all_pcc_and_global_ssim_above_0_9": 0
+        },
+        "mixed_test": {
+          "samples": 5,
+          "planes": 20,
+          "mean_pcc": 0.6461297614977631,
+          "mean_worst_pcc": 0.5496869227250445,
+          "p10_worst_pcc": 0.4645122707537617,
+          "min_pcc": 0.454026470834539,
+          "mean_ssim": 0.4844016034629182,
+          "mean_worst_ssim": 0.4130871748606392,
+          "p10_worst_ssim": 0.3712125475739511,
+          "min_ssim": 0.35998333406293254,
+          "mean_local_ssim": 0.1840531488722477,
+          "mean_worst_local_ssim": 0.15325152008982532,
+          "p10_worst_local_ssim": 0.14559347766110078,
+          "min_local_ssim": 0.14442094988163984,
+          "mean_worst_joint": 0.4130871748606392,
+          "p10_worst_joint": 0.3712125475739511,
+          "min_joint": 0.35998333406293254,
+          "quartets_all_pcc_and_global_ssim_above_0_9": 0,
+          "faces_only": {
+            "planes": 5,
+            "mean_pcc": 0.7103358165267626,
+            "mean_ssim": 0.5042699680167019,
+            "mean_local_ssim": 0.17174906608471346
+          }
+        },
+        "broad_test": {
+          "samples": 128,
+          "planes": 512,
+          "mean_pcc": 0.44284405492258366,
+          "mean_worst_pcc": 0.2888418780821474,
+          "p10_worst_pcc": 0.15224966022266176,
+          "min_pcc": -0.05478562861570019,
+          "mean_ssim": 0.31760373199673664,
+          "mean_worst_ssim": 0.17013302926746215,
+          "p10_worst_ssim": 0.07294909978723116,
+          "min_ssim": 0.01756716665021261,
+          "mean_local_ssim": 0.1750263497204697,
+          "mean_worst_local_ssim": 0.0953890030913358,
+          "p10_worst_local_ssim": 0.05057874327055042,
+          "min_local_ssim": 0.0178805764179129,
+          "mean_worst_joint": 0.1695023481902681,
+          "p10_worst_joint": 0.07294909978723116,
+          "min_joint": -0.05478562861570019,
+          "quartets_all_pcc_and_global_ssim_above_0_9": 0
+        },
+        "broad_ood": {
+          "samples": 64,
+          "planes": 256,
+          "mean_pcc": 0.4793796593619521,
+          "mean_worst_pcc": 0.35388370937537594,
+          "p10_worst_pcc": 0.25159297643235723,
+          "min_pcc": 0.09024177640665089,
+          "mean_ssim": 0.3515736544035612,
+          "mean_worst_ssim": 0.21677627166580973,
+          "p10_worst_ssim": 0.1176150808204573,
+          "min_ssim": 0.05716556599200319,
+          "mean_local_ssim": 0.22237195720973224,
+          "mean_worst_local_ssim": 0.11151412491558801,
+          "p10_worst_local_ssim": 0.07253174915998711,
+          "min_local_ssim": 0.05012853828618882,
+          "mean_worst_joint": 0.21677627166580973,
+          "p10_worst_joint": 0.1176150808204573,
+          "min_joint": 0.05716556599200319,
+          "quartets_all_pcc_and_global_ssim_above_0_9": 0
+        },
+        "fresh_broad_test": {
+          "samples": 128,
+          "planes": 512,
+          "mean_pcc": 0.44531478624618853,
+          "mean_worst_pcc": 0.303633081485635,
+          "p10_worst_pcc": 0.17367686198817223,
+          "min_pcc": 0.03360431140023297,
+          "mean_ssim": 0.3128008887024861,
+          "mean_worst_ssim": 0.16892373677384162,
+          "p10_worst_ssim": 0.07715474661964473,
+          "min_ssim": 0.020431570755490135,
+          "mean_local_ssim": 0.17132011012146872,
+          "mean_worst_local_ssim": 0.09637855502354815,
+          "p10_worst_local_ssim": 0.05810627653924226,
+          "min_local_ssim": 0.018438651610713706,
+          "mean_worst_joint": 0.16873357764077937,
+          "p10_worst_joint": 0.07715474661964473,
+          "min_joint": 0.020431570755490135,
+          "quartets_all_pcc_and_global_ssim_above_0_9": 0
+        }
+      }
+    },
+    "wide_control": {
+      "version": "fresnel-unet-projection-v2:94ed1cc92fc5",
+      "sha256": "94ed1cc92fc5738cdbb71a28a52d83be262b993748db7adc77b0f73e44dd209d",
+      "splits": {
+        "people_test": {
+          "samples": 10,
+          "planes": 40,
+          "mean_pcc": 0.5603777681370631,
+          "mean_worst_pcc": 0.49073915190592904,
+          "p10_worst_pcc": 0.45700449286721107,
+          "min_pcc": 0.42271165195331684,
+          "mean_ssim": 0.46462765878575196,
+          "mean_worst_ssim": 0.39022605518514103,
+          "p10_worst_ssim": 0.342400492468086,
+          "min_ssim": 0.3281179945272649,
+          "mean_local_ssim": 0.16427586201320482,
+          "mean_worst_local_ssim": 0.14502796080258376,
+          "p10_worst_local_ssim": 0.13077677613961874,
+          "min_local_ssim": 0.1292056966471304,
+          "mean_worst_joint": 0.39022605518514103,
+          "p10_worst_joint": 0.342400492468086,
+          "min_joint": 0.3281179945272649,
+          "quartets_all_pcc_and_global_ssim_above_0_9": 0
+        },
+        "mixed_test": {
+          "samples": 5,
+          "planes": 20,
+          "mean_pcc": 0.644888696213337,
+          "mean_worst_pcc": 0.5370827456349947,
+          "p10_worst_pcc": 0.4520390645063563,
+          "min_pcc": 0.42614821345930276,
+          "mean_ssim": 0.4731398353523069,
+          "mean_worst_ssim": 0.3990630309319603,
+          "p10_worst_ssim": 0.3583906618679878,
+          "min_ssim": 0.3571235098680765,
+          "mean_local_ssim": 0.18330589964926067,
+          "mean_worst_local_ssim": 0.15521477492833918,
+          "p10_worst_local_ssim": 0.14744816722961654,
+          "min_local_ssim": 0.14674783231248353,
+          "mean_worst_joint": 0.3990630309319603,
+          "p10_worst_joint": 0.3583906618679878,
+          "min_joint": 0.3571235098680765,
+          "quartets_all_pcc_and_global_ssim_above_0_9": 0,
+          "faces_only": {
+            "planes": 5,
+            "mean_pcc": 0.714137456203267,
+            "mean_ssim": 0.5005782312500403,
+            "mean_local_ssim": 0.1710288245777783
+          }
+        },
+        "broad_test": {
+          "samples": 128,
+          "planes": 512,
+          "mean_pcc": 0.44257959407616126,
+          "mean_worst_pcc": 0.289166149827285,
+          "p10_worst_pcc": 0.15383112027112442,
+          "min_pcc": 0.029162885770806567,
+          "mean_ssim": 0.31663752831044695,
+          "mean_worst_ssim": 0.17079170240036948,
+          "p10_worst_ssim": 0.07722956806370698,
+          "min_ssim": 0.029398045617199428,
+          "mean_local_ssim": 0.17540134103302274,
+          "mean_worst_local_ssim": 0.09616835680634524,
+          "p10_worst_local_ssim": 0.051785055530162494,
+          "min_local_ssim": 0.020510174436980267,
+          "mean_worst_joint": 0.17037223345296568,
+          "p10_worst_joint": 0.07722956806370698,
+          "min_joint": 0.029162885770806567,
+          "quartets_all_pcc_and_global_ssim_above_0_9": 0
+        },
+        "broad_ood": {
+          "samples": 64,
+          "planes": 256,
+          "mean_pcc": 0.4791078995501332,
+          "mean_worst_pcc": 0.3525278244804841,
+          "p10_worst_pcc": 0.2562122583392841,
+          "min_pcc": 0.07763676129188031,
+          "mean_ssim": 0.34834590903033136,
+          "mean_worst_ssim": 0.21371483155688104,
+          "p10_worst_ssim": 0.12204535040416536,
+          "min_ssim": 0.049871769036827183,
+          "mean_local_ssim": 0.22058255216103728,
+          "mean_worst_local_ssim": 0.11126907134093153,
+          "p10_worst_local_ssim": 0.0680854949145832,
+          "min_local_ssim": 0.05206662683440727,
+          "mean_worst_joint": 0.21371483155688104,
+          "p10_worst_joint": 0.12204535040416536,
+          "min_joint": 0.049871769036827183,
+          "quartets_all_pcc_and_global_ssim_above_0_9": 0
+        },
+        "fresh_broad_test": {
+          "samples": 128,
+          "planes": 512,
+          "mean_pcc": 0.4459150911427703,
+          "mean_worst_pcc": 0.29808719126398486,
+          "p10_worst_pcc": 0.16760814601943402,
+          "min_pcc": 0.021414300613970677,
+          "mean_ssim": 0.31339378735293477,
+          "mean_worst_ssim": 0.16751769691517893,
+          "p10_worst_ssim": 0.07590562854395413,
+          "min_ssim": 0.02054471385468238,
+          "mean_local_ssim": 0.1726863700347209,
+          "mean_worst_local_ssim": 0.09777853074868283,
+          "p10_worst_local_ssim": 0.06053030425431657,
+          "min_local_ssim": 0.01752994792294087,
+          "mean_worst_joint": 0.167292089938879,
+          "p10_worst_joint": 0.07590562854395413,
+          "min_joint": 0.02054471385468238,
+          "quartets_all_pcc_and_global_ssim_above_0_9": 0
+        }
+      }
+    },
+    "wide_phase": {
+      "version": "fresnel-unet-projection-v2:20486b22a61c",
+      "sha256": "20486b22a61ca8bd3781f4b95b6186e4d4ffae3cb509c5c957bc69365f3eb167",
+      "splits": {
+        "people_test": {
+          "samples": 10,
+          "planes": 40,
+          "mean_pcc": 0.5597385978842284,
+          "mean_worst_pcc": 0.485551929207757,
+          "p10_worst_pcc": 0.46021723667482656,
+          "min_pcc": 0.4386747763089189,
+          "mean_ssim": 0.460940545067363,
+          "mean_worst_ssim": 0.37851711582940817,
+          "p10_worst_ssim": 0.3567483364582499,
+          "min_ssim": 0.3459834782247741,
+          "mean_local_ssim": 0.16455745385466988,
+          "mean_worst_local_ssim": 0.14261964911550756,
+          "p10_worst_local_ssim": 0.12834731810678995,
+          "min_local_ssim": 0.12817856839959618,
+          "mean_worst_joint": 0.37851711582940817,
+          "p10_worst_joint": 0.3567483364582499,
+          "min_joint": 0.3459834782247741,
+          "quartets_all_pcc_and_global_ssim_above_0_9": 0
+        },
+        "mixed_test": {
+          "samples": 5,
+          "planes": 20,
+          "mean_pcc": 0.6460183601889907,
+          "mean_worst_pcc": 0.5475632208453327,
+          "p10_worst_pcc": 0.4607014488873891,
+          "min_pcc": 0.4484309456741509,
+          "mean_ssim": 0.4814538399020005,
+          "mean_worst_ssim": 0.40936735282161996,
+          "p10_worst_ssim": 0.36353231449894413,
+          "min_ssim": 0.3503939847621329,
+          "mean_local_ssim": 0.1839875661422742,
+          "mean_worst_local_ssim": 0.1529168499643548,
+          "p10_worst_local_ssim": 0.14620259367044625,
+          "min_local_ssim": 0.14612044205218033,
+          "mean_worst_joint": 0.40936735282161996,
+          "p10_worst_joint": 0.36353231449894413,
+          "min_joint": 0.3503939847621329,
+          "quartets_all_pcc_and_global_ssim_above_0_9": 0,
+          "faces_only": {
+            "planes": 5,
+            "mean_pcc": 0.7105006268223406,
+            "mean_ssim": 0.501859667707972,
+            "mean_local_ssim": 0.1719000101577245
+          }
+        },
+        "broad_test": {
+          "samples": 128,
+          "planes": 512,
+          "mean_pcc": 0.44278616299140433,
+          "mean_worst_pcc": 0.2889551189367074,
+          "p10_worst_pcc": 0.1485957829354763,
+          "min_pcc": -0.044719720355193726,
+          "mean_ssim": 0.31800632421514985,
+          "mean_worst_ssim": 0.1709017596413889,
+          "p10_worst_ssim": 0.07203792898581948,
+          "min_ssim": 0.021525507315550294,
+          "mean_local_ssim": 0.1752495574917186,
+          "mean_worst_local_ssim": 0.09550403982342552,
+          "p10_worst_local_ssim": 0.04772464269833068,
+          "min_local_ssim": 0.017699815073719007,
+          "mean_worst_joint": 0.17028024053672305,
+          "p10_worst_joint": 0.07203792898581948,
+          "min_joint": -0.044719720355193726,
+          "quartets_all_pcc_and_global_ssim_above_0_9": 0
+        },
+        "broad_ood": {
+          "samples": 64,
+          "planes": 256,
+          "mean_pcc": 0.4791250154987871,
+          "mean_worst_pcc": 0.3537328961251643,
+          "p10_worst_pcc": 0.2477484142653622,
+          "min_pcc": 0.08545189672315724,
+          "mean_ssim": 0.3510595302229042,
+          "mean_worst_ssim": 0.21719845075137867,
+          "p10_worst_ssim": 0.118072885256221,
+          "min_ssim": 0.053638734252978604,
+          "mean_local_ssim": 0.22185440393478892,
+          "mean_worst_local_ssim": 0.11173824640836963,
+          "p10_worst_local_ssim": 0.07223881934315547,
+          "min_local_ssim": 0.053006182545369394,
+          "mean_worst_joint": 0.21719845075137867,
+          "p10_worst_joint": 0.118072885256221,
+          "min_joint": 0.053638734252978604,
+          "quartets_all_pcc_and_global_ssim_above_0_9": 0
+        },
+        "fresh_broad_test": {
+          "samples": 128,
+          "planes": 512,
+          "mean_pcc": 0.44529327706320354,
+          "mean_worst_pcc": 0.30280843667999147,
+          "p10_worst_pcc": 0.17352849156198644,
+          "min_pcc": 0.033620515996547,
+          "mean_ssim": 0.3133860517345186,
+          "mean_worst_ssim": 0.16971928267421518,
+          "p10_worst_ssim": 0.07982516082136355,
+          "min_ssim": 0.020476556347976082,
+          "mean_local_ssim": 0.1716422266493418,
+          "mean_worst_local_ssim": 0.09669551059442995,
+          "p10_worst_local_ssim": 0.059006804255519164,
+          "min_local_ssim": 0.018423855851947182,
+          "mean_worst_joint": 0.1695302988173917,
+          "p10_worst_joint": 0.07982516082136355,
+          "min_joint": 0.020476556347976082,
+          "quartets_all_pcc_and_global_ssim_above_0_9": 0
+        }
+      }
+    },
+    "carrier_zero": {
+      "version": "fresnel-unet-projection-v2-carrier0:33812fcc1a7d",
+      "sha256": "33812fcc1a7dafd1987de7affc4d60fa788fb48f712776058c8742663383b802",
+      "splits": {
+        "people_test": {
+          "samples": 10,
+          "planes": 40,
+          "mean_pcc": 0.5599506315094754,
+          "mean_worst_pcc": 0.48756785155938376,
+          "p10_worst_pcc": 0.4701335055523326,
+          "min_pcc": 0.43245596633118294,
+          "mean_ssim": 0.46347387097275766,
+          "mean_worst_ssim": 0.38287030526948496,
+          "p10_worst_ssim": 0.35542470244285757,
+          "min_ssim": 0.3402835711899113,
+          "mean_local_ssim": 0.16446975708094344,
+          "mean_worst_local_ssim": 0.14348687903251175,
+          "p10_worst_local_ssim": 0.12877994099729387,
+          "min_local_ssim": 0.12633308666442125,
+          "mean_worst_joint": 0.38287030526948496,
+          "p10_worst_joint": 0.35542470244285757,
+          "min_joint": 0.3402835711899113,
+          "quartets_all_pcc_and_global_ssim_above_0_9": 0
+        },
+        "mixed_test": {
+          "samples": 5,
+          "planes": 20,
+          "mean_pcc": 0.646267749191456,
+          "mean_worst_pcc": 0.5412562115153481,
+          "p10_worst_pcc": 0.4547889111318509,
+          "min_pcc": 0.4349195261647078,
+          "mean_ssim": 0.4825245499453555,
+          "mean_worst_ssim": 0.3950589586778113,
+          "p10_worst_ssim": 0.3476327649539964,
+          "min_ssim": 0.3432622319300427,
+          "mean_local_ssim": 0.18348500777967913,
+          "mean_worst_local_ssim": 0.15318625451280754,
+          "p10_worst_local_ssim": 0.14479717046693902,
+          "min_local_ssim": 0.14288584243310604,
+          "mean_worst_joint": 0.3950589586778113,
+          "p10_worst_joint": 0.3476327649539964,
+          "min_joint": 0.3432622319300427,
+          "quartets_all_pcc_and_global_ssim_above_0_9": 0,
+          "faces_only": {
+            "planes": 5,
+            "mean_pcc": 0.7117841739967788,
+            "mean_ssim": 0.5229578955049348,
+            "mean_local_ssim": 0.1696793120365408
+          }
+        },
+        "broad_test": {
+          "samples": 128,
+          "planes": 512,
+          "mean_pcc": 0.44324415139937706,
+          "mean_worst_pcc": 0.286379609256878,
+          "p10_worst_pcc": 0.1398086856143226,
+          "min_pcc": -0.038870305566647154,
+          "mean_ssim": 0.3183494734643185,
+          "mean_worst_ssim": 0.16937957622341132,
+          "p10_worst_ssim": 0.07015610598069191,
+          "min_ssim": -0.005639232619142116,
+          "mean_local_ssim": 0.17563460790997318,
+          "mean_worst_local_ssim": 0.09538540154100368,
+          "p10_worst_local_ssim": 0.051786308259630466,
+          "min_local_ssim": 0.020039124842185677,
+          "mean_worst_joint": 0.1686801379356657,
+          "p10_worst_joint": 0.07015610598069191,
+          "min_joint": -0.038870305566647154,
+          "quartets_all_pcc_and_global_ssim_above_0_9": 0
+        },
+        "broad_ood": {
+          "samples": 64,
+          "planes": 256,
+          "mean_pcc": 0.47916585854202226,
+          "mean_worst_pcc": 0.34970670174588103,
+          "p10_worst_pcc": 0.24091110088941148,
+          "min_pcc": 0.0605624742032297,
+          "mean_ssim": 0.35079459815097663,
+          "mean_worst_ssim": 0.21228416686466955,
+          "p10_worst_ssim": 0.11201755156027757,
+          "min_ssim": 0.045265846738902285,
+          "mean_local_ssim": 0.22211499853067987,
+          "mean_worst_local_ssim": 0.11106421667484932,
+          "p10_worst_local_ssim": 0.07002737595725186,
+          "min_local_ssim": 0.0505274930194339,
+          "mean_worst_joint": 0.21228416686466955,
+          "p10_worst_joint": 0.11201755156027757,
+          "min_joint": 0.045265846738902285,
+          "quartets_all_pcc_and_global_ssim_above_0_9": 0
+        },
+        "fresh_broad_test": {
+          "samples": 128,
+          "planes": 512,
+          "mean_pcc": 0.44593303264577416,
+          "mean_worst_pcc": 0.2980502406328992,
+          "p10_worst_pcc": 0.16534237864500084,
+          "min_pcc": 0.0021046599003423762,
+          "mean_ssim": 0.3142454196856942,
+          "mean_worst_ssim": 0.1659663066911364,
+          "p10_worst_ssim": 0.07584436621898986,
+          "min_ssim": 0.023437344711176943,
+          "mean_local_ssim": 0.17236849811216354,
+          "mean_worst_local_ssim": 0.09657205955023941,
+          "p10_worst_local_ssim": 0.05664266606620303,
+          "min_local_ssim": 0.021528121282058617,
+          "mean_worst_joint": 0.16572475593359468,
+          "p10_worst_joint": 0.07584436621898986,
+          "min_joint": 0.0021046599003423762,
+          "quartets_all_pcc_and_global_ssim_above_0_9": 0
+        }
+      }
+    },
+    "carrier_guided": {
+      "version": "fresnel-unet-projection-v2-carrier1:597d44dfa8dd",
+      "sha256": "597d44dfa8dd1bca0ee7fd95ce7146c9db088fbd5464a26a300c8580f01aac0d",
+      "splits": {
+        "people_test": {
+          "samples": 10,
+          "planes": 40,
+          "mean_pcc": 0.5594531286972207,
+          "mean_worst_pcc": 0.4881898696055854,
+          "p10_worst_pcc": 0.45873972757228826,
+          "min_pcc": 0.418152113184035,
+          "mean_ssim": 0.4678784662255405,
+          "mean_worst_ssim": 0.39414263265378496,
+          "p10_worst_ssim": 0.3544092117018951,
+          "min_ssim": 0.34324973681595383,
+          "mean_local_ssim": 0.16502265893164542,
+          "mean_worst_local_ssim": 0.14384918803619157,
+          "p10_worst_local_ssim": 0.13034317663772407,
+          "min_local_ssim": 0.1284360726774939,
+          "mean_worst_joint": 0.39414263265378496,
+          "p10_worst_joint": 0.3544092117018951,
+          "min_joint": 0.34324973681595383,
+          "quartets_all_pcc_and_global_ssim_above_0_9": 0
+        },
+        "mixed_test": {
+          "samples": 5,
+          "planes": 20,
+          "mean_pcc": 0.6450544356365835,
+          "mean_worst_pcc": 0.5432365464372808,
+          "p10_worst_pcc": 0.4602118133093105,
+          "min_pcc": 0.44035929635358506,
+          "mean_ssim": 0.4847106743512873,
+          "mean_worst_ssim": 0.4135743785497584,
+          "p10_worst_ssim": 0.366440267698939,
+          "min_ssim": 0.3656374528995837,
+          "mean_local_ssim": 0.18342489013885904,
+          "mean_worst_local_ssim": 0.1538132765076843,
+          "p10_worst_local_ssim": 0.14496380427844924,
+          "min_local_ssim": 0.14389397950779595,
+          "mean_worst_joint": 0.4135743785497584,
+          "p10_worst_joint": 0.366440267698939,
+          "min_joint": 0.3656374528995837,
+          "quartets_all_pcc_and_global_ssim_above_0_9": 0,
+          "faces_only": {
+            "planes": 5,
+            "mean_pcc": 0.7097131490180255,
+            "mean_ssim": 0.5065804886061958,
+            "mean_local_ssim": 0.17106452380708964
+          }
+        },
+        "broad_test": {
+          "samples": 128,
+          "planes": 512,
+          "mean_pcc": 0.4416489980361678,
+          "mean_worst_pcc": 0.2851862592891829,
+          "p10_worst_pcc": 0.1455604085471714,
+          "min_pcc": -0.019805080899087626,
+          "mean_ssim": 0.31710523989582756,
+          "mean_worst_ssim": 0.17128704868478195,
+          "p10_worst_ssim": 0.06882584195753699,
+          "min_ssim": 0.026419379265285342,
+          "mean_local_ssim": 0.17420279577738243,
+          "mean_worst_local_ssim": 0.09605142836966013,
+          "p10_worst_local_ssim": 0.05090247491120786,
+          "min_local_ssim": 0.01890932712791896,
+          "mean_worst_joint": 0.1706709764981689,
+          "p10_worst_joint": 0.06882584195753699,
+          "min_joint": -0.019805080899087626,
+          "quartets_all_pcc_and_global_ssim_above_0_9": 0
+        },
+        "broad_ood": {
+          "samples": 64,
+          "planes": 256,
+          "mean_pcc": 0.47850980841635365,
+          "mean_worst_pcc": 0.34798692982701235,
+          "p10_worst_pcc": 0.23689176775306797,
+          "min_pcc": 0.08248552751000518,
+          "mean_ssim": 0.3519357886694529,
+          "mean_worst_ssim": 0.21559738551500895,
+          "p10_worst_ssim": 0.11669078871608285,
+          "min_ssim": 0.056992664050656824,
+          "mean_local_ssim": 0.22278552736182744,
+          "mean_worst_local_ssim": 0.10989572968677767,
+          "p10_worst_local_ssim": 0.0675105039754545,
+          "min_local_ssim": 0.050168921516140746,
+          "mean_worst_joint": 0.21559738551500895,
+          "p10_worst_joint": 0.11669078871608285,
+          "min_joint": 0.056992664050656824,
+          "quartets_all_pcc_and_global_ssim_above_0_9": 0
+        },
+        "fresh_broad_test": {
+          "samples": 128,
+          "planes": 512,
+          "mean_pcc": 0.44464452500852364,
+          "mean_worst_pcc": 0.2968183794650769,
+          "p10_worst_pcc": 0.15680979994606078,
+          "min_pcc": 0.044657111156407615,
+          "mean_ssim": 0.31381690271904056,
+          "mean_worst_ssim": 0.16728007205261222,
+          "p10_worst_ssim": 0.07787964969992889,
+          "min_ssim": 0.01862455448487659,
+          "mean_local_ssim": 0.1712195580744356,
+          "mean_worst_local_ssim": 0.09556514121908477,
+          "p10_worst_local_ssim": 0.0577242605712609,
+          "min_local_ssim": 0.016299285952741428,
+          "mean_worst_joint": 0.16706764037553942,
+          "p10_worst_joint": 0.07787964969992889,
+          "min_joint": 0.01862455448487659,
+          "quartets_all_pcc_and_global_ssim_above_0_9": 0
+        }
+      }
+    }
+  },
+  "candidate_paired_differences": {
+    "baseline": {
+      "people_test": {
+        "mean_pcc": {
+          "mean_delta": 0.00011217611190103005,
+          "paired_bootstrap_95": [
+            -0.000818750619576083,
+            0.0008119765500006443
+          ],
+          "quartet_win_fraction": 0.7,
+          "quartet_tie_fraction": 0.0
+        },
+        "worst_pcc": {
+          "mean_delta": 0.0029600215551368325,
+          "paired_bootstrap_95": [
+            -0.003841611040088401,
+            0.00858102343037847
+          ],
+          "quartet_win_fraction": 0.7,
+          "quartet_tie_fraction": 0.0
+        },
+        "mean_ssim": {
+          "mean_delta": 0.006716977337655328,
+          "paired_bootstrap_95": [
+            0.00046110802953474726,
+            0.012107220505330113
+          ],
+          "quartet_win_fraction": 0.9,
+          "quartet_tie_fraction": 0.0
+        },
+        "worst_ssim": {
+          "mean_delta": 0.014236356844094323,
+          "paired_bootstrap_95": [
+            0.005547472131499287,
+            0.02166529660805823
+          ],
+          "quartet_win_fraction": 0.8,
+          "quartet_tie_fraction": 0.0
+        },
+        "mean_local_ssim": {
+          "mean_delta": 0.0005114554947123512,
+          "paired_bootstrap_95": [
+            -0.00016924175726158356,
+            0.0011959566341597089
+          ],
+          "quartet_win_fraction": 0.7,
+          "quartet_tie_fraction": 0.0
+        },
+        "worst_local_ssim": {
+          "mean_delta": 0.0016804965337644585,
+          "paired_bootstrap_95": [
+            -0.0002575017946884503,
+            0.0032253722359677256
+          ],
+          "quartet_win_fraction": 0.8,
+          "quartet_tie_fraction": 0.0
+        }
+      },
+      "mixed_test": {
+        "mean_pcc": {
+          "mean_delta": -0.0004752736253256673,
+          "paired_bootstrap_95": [
+            -0.0010644397940294593,
+            7.083060895907156e-05
+          ],
+          "quartet_win_fraction": 0.4,
+          "quartet_tie_fraction": 0.0
+        },
+        "worst_pcc": {
+          "mean_delta": -0.004898903882102579,
+          "paired_bootstrap_95": [
+            -0.011637091528771615,
+            0.005872408466526713
+          ],
+          "quartet_win_fraction": 0.2,
+          "quartet_tie_fraction": 0.0
+        },
+        "mean_ssim": {
+          "mean_delta": 0.0011482035930164614,
+          "paired_bootstrap_95": [
+            -0.009330837899742917,
+            0.01162724508577584
+          ],
+          "quartet_win_fraction": 0.6,
+          "quartet_tie_fraction": 0.0
+        },
+        "worst_ssim": {
+          "mean_delta": 0.005401772678935801,
+          "paired_bootstrap_95": [
+            -0.016306535154886205,
+            0.0283391868902786
+          ],
+          "quartet_win_fraction": 0.6,
+          "quartet_tie_fraction": 0.0
+        },
+        "mean_local_ssim": {
+          "mean_delta": -0.0005559238874888572,
+          "paired_bootstrap_95": [
+            -0.0012096053321025424,
+            0.0002657743978144833
+          ],
+          "quartet_win_fraction": 0.2,
+          "quartet_tie_fraction": 0.0
+        },
+        "worst_local_ssim": {
+          "mean_delta": 0.0013829129855744472,
+          "paired_bootstrap_95": [
+            -0.0003559193528402449,
+            0.003631398394076091
+          ],
+          "quartet_win_fraction": 0.8,
+          "quartet_tie_fraction": 0.0
+        }
+      },
+      "broad_test": {
+        "mean_pcc": {
+          "mean_delta": -0.0007260410192506759,
+          "paired_bootstrap_95": [
+            -0.00123267369502808,
+            -0.0001911019782173679
+          ],
+          "quartet_win_fraction": 0.4375,
+          "quartet_tie_fraction": 0.0
+        },
+        "worst_pcc": {
+          "mean_delta": -0.00315599217503827,
+          "paired_bootstrap_95": [
+            -0.007070661850637745,
+            0.0010024377502359139
+          ],
+          "quartet_win_fraction": 0.40625,
+          "quartet_tie_fraction": 0.0
+        },
+        "mean_ssim": {
+          "mean_delta": -0.0007373326601205869,
+          "paired_bootstrap_95": [
+            -0.002464818348443282,
+            0.0008868508844699289
+          ],
+          "quartet_win_fraction": 0.453125,
+          "quartet_tie_fraction": 0.0
+        },
+        "worst_ssim": {
+          "mean_delta": 6.484301786693902e-05,
+          "paired_bootstrap_95": [
+            -0.002934552994589805,
+            0.0031644473557608226
+          ],
+          "quartet_win_fraction": 0.5078125,
+          "quartet_tie_fraction": 0.0
+        },
+        "mean_local_ssim": {
+          "mean_delta": -0.0008138474359105459,
+          "paired_bootstrap_95": [
+            -0.0017707568697230077,
+            0.00021702874086241322
+          ],
+          "quartet_win_fraction": 0.4296875,
+          "quartet_tie_fraction": 0.0
+        },
+        "worst_local_ssim": {
+          "mean_delta": 0.0010030313797615756,
+          "paired_bootstrap_95": [
+            -0.00018377922711380204,
+            0.002247065531187225
+          ],
+          "quartet_win_fraction": 0.5546875,
+          "quartet_tie_fraction": 0.0
+        }
+      },
+      "broad_ood": {
+        "mean_pcc": {
+          "mean_delta": -0.00018865515831234438,
+          "paired_bootstrap_95": [
+            -0.0009259204878153507,
+            0.0005459655465373938
+          ],
+          "quartet_win_fraction": 0.453125,
+          "quartet_tie_fraction": 0.0
+        },
+        "worst_pcc": {
+          "mean_delta": -0.005082188838198278,
+          "paired_bootstrap_95": [
+            -0.010382070303270421,
+            -0.0003195581830269472
+          ],
+          "quartet_win_fraction": 0.46875,
+          "quartet_tie_fraction": 0.0
+        },
+        "mean_ssim": {
+          "mean_delta": 0.0010645719659385326,
+          "paired_bootstrap_95": [
+            -0.0010229433952453563,
+            0.003175592450642151
+          ],
+          "quartet_win_fraction": 0.5,
+          "quartet_tie_fraction": 0.0
+        },
+        "worst_ssim": {
+          "mean_delta": -0.00022695666291842106,
+          "paired_bootstrap_95": [
+            -0.005159064263756633,
+            0.004789842724538627
+          ],
+          "quartet_win_fraction": 0.453125,
+          "quartet_tie_fraction": 0.0
+        },
+        "mean_local_ssim": {
+          "mean_delta": 0.0010686868937076466,
+          "paired_bootstrap_95": [
+            -0.0004451305121861238,
+            0.002619382918935958
+          ],
+          "quartet_win_fraction": 0.5625,
+          "quartet_tie_fraction": 0.0
+        },
+        "worst_local_ssim": {
+          "mean_delta": -0.0017020664920607866,
+          "paired_bootstrap_95": [
+            -0.003856295369520448,
+            0.00043893341281416975
+          ],
+          "quartet_win_fraction": 0.484375,
+          "quartet_tie_fraction": 0.0
+        }
+      },
+      "fresh_broad_test": {
+        "mean_pcc": {
+          "mean_delta": -0.00021449256918127301,
+          "paired_bootstrap_95": [
+            -0.0008160405394077076,
+            0.00042204928343498265
+          ],
+          "quartet_win_fraction": 0.5,
+          "quartet_tie_fraction": 0.0
+        },
+        "worst_pcc": {
+          "mean_delta": -0.005536521775280404,
+          "paired_bootstrap_95": [
+            -0.009058950054012702,
+            -0.0020257724520903676
+          ],
+          "quartet_win_fraction": 0.390625,
+          "quartet_tie_fraction": 0.0
+        },
+        "mean_ssim": {
+          "mean_delta": 0.0005882880044936402,
+          "paired_bootstrap_95": [
+            -0.0009472085335510039,
+            0.0022474526716052576
+          ],
+          "quartet_win_fraction": 0.5234375,
+          "quartet_tie_fraction": 0.0
+        },
+        "worst_ssim": {
+          "mean_delta": -0.002150305087042256,
+          "paired_bootstrap_95": [
+            -0.004995050138545124,
+            0.0004922446289044422
+          ],
+          "quartet_win_fraction": 0.4453125,
+          "quartet_tie_fraction": 0.0
+        },
+        "mean_local_ssim": {
+          "mean_delta": -0.00017959528655493902,
+          "paired_bootstrap_95": [
+            -0.0009715713423062864,
+            0.0006539540590721398
+          ],
+          "quartet_win_fraction": 0.4765625,
+          "quartet_tie_fraction": 0.0
+        },
+        "worst_local_ssim": {
+          "mean_delta": -0.0010237001782056193,
+          "paired_bootstrap_95": [
+            -0.002151068921754709,
+            0.00014052266419424409
+          ],
+          "quartet_win_fraction": 0.4296875,
+          "quartet_tie_fraction": 0.0
+        }
+      }
+    },
+    "carrier_zero": {
+      "people_test": {
+        "mean_pcc": {
+          "mean_delta": -0.0004975028122546244,
+          "paired_bootstrap_95": [
+            -0.0015316644378848578,
+            0.0005639159169026894
+          ],
+          "quartet_win_fraction": 0.4,
+          "quartet_tie_fraction": 0.0
+        },
+        "worst_pcc": {
+          "mean_delta": 0.0006220180462016333,
+          "paired_bootstrap_95": [
+            -0.005701404687441758,
+            0.006711868473559105
+          ],
+          "quartet_win_fraction": 0.5,
+          "quartet_tie_fraction": 0.0
+        },
+        "mean_ssim": {
+          "mean_delta": 0.004404595252782861,
+          "paired_bootstrap_95": [
+            -0.0029312935711512137,
+            0.01152637476710929
+          ],
+          "quartet_win_fraction": 0.6,
+          "quartet_tie_fraction": 0.0
+        },
+        "worst_ssim": {
+          "mean_delta": 0.01127232738429999,
+          "paired_bootstrap_95": [
+            0.0011551743683359311,
+            0.02027308280717134
+          ],
+          "quartet_win_fraction": 0.8,
+          "quartet_tie_fraction": 0.0
+        },
+        "mean_local_ssim": {
+          "mean_delta": 0.0005529018507019617,
+          "paired_bootstrap_95": [
+            -0.000536625041750869,
+            0.0016262167023216418
+          ],
+          "quartet_win_fraction": 0.6,
+          "quartet_tie_fraction": 0.0
+        },
+        "worst_local_ssim": {
+          "mean_delta": 0.00036230900367980045,
+          "paired_bootstrap_95": [
+            -0.0007867050536925391,
+            0.0014466951685228851
+          ],
+          "quartet_win_fraction": 0.6,
+          "quartet_tie_fraction": 0.0
+        }
+      },
+      "mixed_test": {
+        "mean_pcc": {
+          "mean_delta": -0.0012133135548725083,
+          "paired_bootstrap_95": [
+            -0.0016942182137148541,
+            -0.0007329174139814043
+          ],
+          "quartet_win_fraction": 0.0,
+          "quartet_tie_fraction": 0.0
+        },
+        "worst_pcc": {
+          "mean_delta": 0.001980334921932636,
+          "paired_bootstrap_95": [
+            -0.0024525569545962187,
+            0.005687927252517178
+          ],
+          "quartet_win_fraction": 0.6,
+          "quartet_tie_fraction": 0.0
+        },
+        "mean_ssim": {
+          "mean_delta": 0.002186124405931822,
+          "paired_bootstrap_95": [
+            -0.008369282689091284,
+            0.013382095214867152
+          ],
+          "quartet_win_fraction": 0.6,
+          "quartet_tie_fraction": 0.0
+        },
+        "worst_ssim": {
+          "mean_delta": 0.018515419871947082,
+          "paired_bootstrap_95": [
+            0.004834006800592272,
+            0.0359148402648922
+          ],
+          "quartet_win_fraction": 0.8,
+          "quartet_tie_fraction": 0.0
+        },
+        "mean_local_ssim": {
+          "mean_delta": -6.011764082006765e-05,
+          "paired_bootstrap_95": [
+            -0.0007289234948479994,
+            0.0007143902238874233
+          ],
+          "quartet_win_fraction": 0.4,
+          "quartet_tie_fraction": 0.0
+        },
+        "worst_local_ssim": {
+          "mean_delta": 0.0006270219948767807,
+          "paired_bootstrap_95": [
+            -0.0008379195951090268,
+            0.0020984442460171893
+          ],
+          "quartet_win_fraction": 0.6,
+          "quartet_tie_fraction": 0.0
+        }
+      },
+      "broad_test": {
+        "mean_pcc": {
+          "mean_delta": -0.0015951533632092363,
+          "paired_bootstrap_95": [
+            -0.0022390778201881473,
+            -0.0009645255357477152
+          ],
+          "quartet_win_fraction": 0.328125,
+          "quartet_tie_fraction": 0.0
+        },
+        "worst_pcc": {
+          "mean_delta": -0.001193349967695091,
+          "paired_bootstrap_95": [
+            -0.00553657370904268,
+            0.0032437803485035107
+          ],
+          "quartet_win_fraction": 0.453125,
+          "quartet_tie_fraction": 0.0
+        },
+        "mean_ssim": {
+          "mean_delta": -0.0012442335684909262,
+          "paired_bootstrap_95": [
+            -0.002904933009511573,
+            0.0005871767899585486
+          ],
+          "quartet_win_fraction": 0.40625,
+          "quartet_tie_fraction": 0.0
+        },
+        "worst_ssim": {
+          "mean_delta": 0.0019074724613706389,
+          "paired_bootstrap_95": [
+            -0.001194923086096646,
+            0.00529757926874869
+          ],
+          "quartet_win_fraction": 0.5625,
+          "quartet_tie_fraction": 0.0
+        },
+        "mean_local_ssim": {
+          "mean_delta": -0.0014318121325907476,
+          "paired_bootstrap_95": [
+            -0.0024250787397633116,
+            -0.00034188619272427167
+          ],
+          "quartet_win_fraction": 0.375,
+          "quartet_tie_fraction": 0.0
+        },
+        "worst_local_ssim": {
+          "mean_delta": 0.0006660268286564527,
+          "paired_bootstrap_95": [
+            -0.0004264463853846044,
+            0.0018440446350751847
+          ],
+          "quartet_win_fraction": 0.4609375,
+          "quartet_tie_fraction": 0.0
+        }
+      },
+      "broad_ood": {
+        "mean_pcc": {
+          "mean_delta": -0.0006560501256686266,
+          "paired_bootstrap_95": [
+            -0.0015927486669951017,
+            0.00026600565966716116
+          ],
+          "quartet_win_fraction": 0.40625,
+          "quartet_tie_fraction": 0.0
+        },
+        "worst_pcc": {
+          "mean_delta": -0.0017197719188686475,
+          "paired_bootstrap_95": [
+            -0.006215853531407252,
+            0.0027978134925357822
+          ],
+          "quartet_win_fraction": 0.421875,
+          "quartet_tie_fraction": 0.0
+        },
+        "mean_ssim": {
+          "mean_delta": 0.0011411905184762847,
+          "paired_bootstrap_95": [
+            -0.0014396318574976627,
+            0.003685853302770627
+          ],
+          "quartet_win_fraction": 0.5,
+          "quartet_tie_fraction": 0.0
+        },
+        "worst_ssim": {
+          "mean_delta": 0.0033132186503394014,
+          "paired_bootstrap_95": [
+            -0.0016767322561862573,
+            0.008407189444362898
+          ],
+          "quartet_win_fraction": 0.53125,
+          "quartet_tie_fraction": 0.0
+        },
+        "mean_local_ssim": {
+          "mean_delta": 0.000670528831147581,
+          "paired_bootstrap_95": [
+            -0.0011246400830818384,
+            0.0023594961618898275
+          ],
+          "quartet_win_fraction": 0.515625,
+          "quartet_tie_fraction": 0.0
+        },
+        "worst_local_ssim": {
+          "mean_delta": -0.001168486988071646,
+          "paired_bootstrap_95": [
+            -0.0032935425687460793,
+            0.0008510318519181977
+          ],
+          "quartet_win_fraction": 0.5,
+          "quartet_tie_fraction": 0.0
+        }
+      },
+      "fresh_broad_test": {
+        "mean_pcc": {
+          "mean_delta": -0.0012885076372505257,
+          "paired_bootstrap_95": [
+            -0.001878326603565643,
+            -0.000703192194682193
+          ],
+          "quartet_win_fraction": 0.34375,
+          "quartet_tie_fraction": 0.0
+        },
+        "worst_pcc": {
+          "mean_delta": -0.0012318611678222976,
+          "paired_bootstrap_95": [
+            -0.004416446951815128,
+            0.0018963128085928186
+          ],
+          "quartet_win_fraction": 0.4921875,
+          "quartet_tie_fraction": 0.0
+        },
+        "mean_ssim": {
+          "mean_delta": -0.0004285169666536602,
+          "paired_bootstrap_95": [
+            -0.002166377161262725,
+            0.0013308113584425852
+          ],
+          "quartet_win_fraction": 0.453125,
+          "quartet_tie_fraction": 0.0
+        },
+        "worst_ssim": {
+          "mean_delta": 0.0013137653614758073,
+          "paired_bootstrap_95": [
+            -0.0013612672648761564,
+            0.004135496538537881
+          ],
+          "quartet_win_fraction": 0.5078125,
+          "quartet_tie_fraction": 0.0
+        },
+        "mean_local_ssim": {
+          "mean_delta": -0.0011489400377279453,
+          "paired_bootstrap_95": [
+            -0.0021465459727508,
+            -0.00020416611357454488
+          ],
+          "quartet_win_fraction": 0.453125,
+          "quartet_tie_fraction": 0.0
+        },
+        "worst_local_ssim": {
+          "mean_delta": -0.0010069183311546348,
+          "paired_bootstrap_95": [
+            -0.002350884657901718,
+            0.0002505299928594216
+          ],
+          "quartet_win_fraction": 0.46875,
+          "quartet_tie_fraction": 0.0
+        }
+      }
+    }
+  },
+  "checks": {
+    "focused_tests_passed": 35,
+    "tracked_source_ruff": "passed",
+    "carrier_initial_phase_exact": true,
+    "trained_prototype_to_standard_loader_exact": true
+  },
+  "limitations": [
+    "One training seed, adaptive experiments on small validation groups.",
+    "Portrait test has 10 quartets but only four shared identities; quartet bootstrap is descriptive.",
+    "Mixed reuses portrait/broad sources within its split; group scores are not independent cohorts.",
+    "Fresh broad is unseen prior-evaluation sources within the existing test distribution, not external data.",
+    "Candidate lowers p10 weakest PCC/global SSIM in all five groups versus original.",
+    "One forward contains six learned physical projection layers; stricter bans on unrolled iterative structure require clarification."
+  ],
+  "production_cpu_verification": {
+    "device": "cpu",
+    "models": {
+      "baseline": {
+        "version": "fresnel-unet-projection-v2:527142714a0d",
+        "sha256": "527142714a0da4a92c3293e95f54846a6573fc0931a6335727ef6a6926cd1f2b",
+        "splits": {
+          "people_test": {
+            "samples": 10,
+            "planes": 40,
+            "mean_pcc": 0.5593423339518887,
+            "mean_worst_pcc": 0.4852400408794365,
+            "p10_worst_pcc": 0.4611108548882957,
+            "min_pcc": 0.436879288913106,
+            "mean_ssim": 0.4611619660372077,
+            "mean_worst_ssim": 0.3799156380792781,
+            "p10_worst_ssim": 0.35756606552820636,
+            "min_ssim": 0.3485492396618482,
+            "mean_local_ssim": 0.16451160967777306,
+            "mean_worst_local_ssim": 0.14216983853919576,
+            "p10_worst_local_ssim": 0.12848810218735812,
+            "min_local_ssim": 0.1267666755975305,
+            "mean_worst_joint": 0.3799156380792781,
+            "p10_worst_joint": 0.35756606552820636,
+            "min_joint": 0.3485492396618482,
+            "quartets_all_pcc_and_global_ssim_above_0_9": 0
+          },
+          "mixed_test": {
+            "samples": 5,
+            "planes": 20,
+            "mean_pcc": 0.6455284917526714,
+            "mean_worst_pcc": 0.5481413305315102,
+            "p10_worst_pcc": 0.4608143220261805,
+            "min_pcc": 0.4521024791790179,
+            "mean_ssim": 0.48357366551575626,
+            "mean_worst_ssim": 0.4081949681215346,
+            "p10_worst_ssim": 0.36889270859001694,
+            "min_ssim": 0.35765809661465786,
+            "mean_local_ssim": 0.18397656465299753,
+            "mean_worst_local_ssim": 0.15242018231414306,
+            "p10_worst_local_ssim": 0.14552878138377015,
+            "min_local_ssim": 0.14512235617421299,
+            "mean_worst_joint": 0.4081949681215346,
+            "p10_worst_joint": 0.36889270859001694,
+            "min_joint": 0.35765809661465786,
+            "quartets_all_pcc_and_global_ssim_above_0_9": 0,
+            "faces_only": {
+              "planes": 5,
+              "mean_pcc": 0.7106339876191381,
+              "mean_ssim": 0.5075381457025248,
+              "mean_local_ssim": 0.17208505163965393
+            }
+          },
+          "broad_test": {
+            "samples": 128,
+            "planes": 512,
+            "mean_pcc": 0.4423742266488617,
+            "mean_worst_pcc": 0.28834564653467987,
+            "p10_worst_pcc": 0.15061366884099886,
+            "min_pcc": -0.0481533789361336,
+            "mean_ssim": 0.31784247672550986,
+            "mean_worst_ssim": 0.17122565891469532,
+            "p10_worst_ssim": 0.07559179745790741,
+            "min_ssim": 0.019811649554707277,
+            "mean_local_ssim": 0.1750166239862548,
+            "mean_worst_local_ssim": 0.09504784035840028,
+            "p10_worst_local_ssim": 0.05249880767200084,
+            "min_local_ssim": 0.018095724969083623,
+            "mean_worst_joint": 0.17064183030107516,
+            "p10_worst_joint": 0.07559179745790741,
+            "min_joint": -0.0481533789361336,
+            "quartets_all_pcc_and_global_ssim_above_0_9": 0
+          },
+          "broad_ood": {
+            "samples": 64,
+            "planes": 256,
+            "mean_pcc": 0.47869744443606527,
+            "mean_worst_pcc": 0.35306891212307834,
+            "p10_worst_pcc": 0.2483577261915477,
+            "min_pcc": 0.08364520310943555,
+            "mean_ssim": 0.3508703216369637,
+            "mean_worst_ssim": 0.21582403918122903,
+            "p10_worst_ssim": 0.1201842761368371,
+            "min_ssim": 0.05298988132676528,
+            "mean_local_ssim": 0.22171698099392917,
+            "mean_worst_local_ssim": 0.1115990723473553,
+            "p10_worst_local_ssim": 0.07295152072280853,
+            "min_local_ssim": 0.05116764326247859,
+            "mean_worst_joint": 0.21582403918122903,
+            "p10_worst_joint": 0.1201842761368371,
+            "min_joint": 0.05298988132676528,
+            "quartets_all_pcc_and_global_ssim_above_0_9": 0
+          },
+          "fresh_broad_test": {
+            "samples": 128,
+            "planes": 512,
+            "mean_pcc": 0.4448582731577151,
+            "mean_worst_pcc": 0.3023573752738227,
+            "p10_worst_pcc": 0.17349674610431035,
+            "min_pcc": 0.02935166965704288,
+            "mean_ssim": 0.3132269153183425,
+            "mean_worst_ssim": 0.16943254217770415,
+            "p10_worst_ssim": 0.07856622772352638,
+            "min_ssim": 0.021847942572452435,
+            "mean_local_ssim": 0.1713990687222218,
+            "mean_worst_local_ssim": 0.09658743109375244,
+            "p10_worst_local_ssim": 0.058532132139004024,
+            "min_local_ssim": 0.01982203828418907,
+            "mean_worst_joint": 0.1692339227885285,
+            "p10_worst_joint": 0.07856622772352638,
+            "min_joint": 0.021847942572452435,
+            "quartets_all_pcc_and_global_ssim_above_0_9": 0
+          }
+        }
+      },
+      "candidate": {
+        "version": "fresnel-unet-carrier-v1:6d0a3dcefcf7",
+        "sha256": "6d0a3dcefcf7a4c87d014902f87f4e18a9109e3837a2c4f77542e3599a87ab1e",
+        "splits": {
+          "people_test": {
+            "samples": 10,
+            "planes": 40,
+            "mean_pcc": 0.5594538699460632,
+            "mean_worst_pcc": 0.48819081759784577,
+            "p10_worst_pcc": 0.4587323210841398,
+            "min_pcc": 0.41811708733633773,
+            "mean_ssim": 0.4678768939658152,
+            "mean_worst_ssim": 0.39413773886712333,
+            "p10_worst_ssim": 0.3543952930748359,
+            "min_ssim": 0.3432319045531873,
+            "mean_local_ssim": 0.16502125560331732,
+            "mean_worst_local_ssim": 0.14385263618499372,
+            "p10_worst_local_ssim": 0.13035680819128534,
+            "min_local_ssim": 0.12844574324123498,
+            "mean_worst_joint": 0.39413773886712333,
+            "p10_worst_joint": 0.3543952930748359,
+            "min_joint": 0.3432319045531873,
+            "quartets_all_pcc_and_global_ssim_above_0_9": 0
+          },
+          "mixed_test": {
+            "samples": 5,
+            "planes": 20,
+            "mean_pcc": 0.6450535525906533,
+            "mean_worst_pcc": 0.5432311965014366,
+            "p10_worst_pcc": 0.46022820824543986,
+            "min_pcc": 0.44038067435309913,
+            "mean_ssim": 0.484712357366604,
+            "mean_worst_ssim": 0.41358050093669113,
+            "p10_worst_ssim": 0.36646396149514565,
+            "min_ssim": 0.36564676565342874,
+            "mean_local_ssim": 0.1834229844899533,
+            "mean_worst_local_ssim": 0.15380918352652856,
+            "p10_worst_local_ssim": 0.1449622113284832,
+            "min_local_ssim": 0.14388521107591012,
+            "mean_worst_joint": 0.41358050093669113,
+            "p10_worst_joint": 0.36646396149514565,
+            "min_joint": 0.36564676565342874,
+            "quartets_all_pcc_and_global_ssim_above_0_9": 0,
+            "faces_only": {
+              "planes": 5,
+              "mean_pcc": 0.7097073646658263,
+              "mean_ssim": 0.5065791435541381,
+              "mean_local_ssim": 0.17106279808663807
+            }
+          },
+          "broad_test": {
+            "samples": 128,
+            "planes": 512,
+            "mean_pcc": 0.44164861558133456,
+            "mean_worst_pcc": 0.2851857048627742,
+            "p10_worst_pcc": 0.14564120869530153,
+            "min_pcc": -0.01978830919426816,
+            "mean_ssim": 0.3171070530404973,
+            "mean_worst_ssim": 0.1712880181558899,
+            "p10_worst_ssim": 0.06883315703052742,
+            "min_ssim": 0.026430255337684467,
+            "mean_local_ssim": 0.17420391176157465,
+            "mean_worst_local_ssim": 0.09605061733702594,
+            "p10_worst_local_ssim": 0.050898459141359355,
+            "min_local_ssim": 0.018912001184356313,
+            "mean_worst_joint": 0.17067193793761734,
+            "p10_worst_joint": 0.06883315703052742,
+            "min_joint": -0.01978830919426816,
+            "quartets_all_pcc_and_global_ssim_above_0_9": 0
+          },
+          "broad_ood": {
+            "samples": 64,
+            "planes": 256,
+            "mean_pcc": 0.47850874755282136,
+            "mean_worst_pcc": 0.34798546017609,
+            "p10_worst_pcc": 0.2368957501802418,
+            "min_pcc": 0.08251164941280933,
+            "mean_ssim": 0.35193533545833217,
+            "mean_worst_ssim": 0.21559483917498568,
+            "p10_worst_ssim": 0.11668149888105353,
+            "min_ssim": 0.057013451303350365,
+            "mean_local_ssim": 0.222785098691396,
+            "mean_worst_local_ssim": 0.10989339540230142,
+            "p10_worst_local_ssim": 0.06750615934430845,
+            "min_local_ssim": 0.050163564533691245,
+            "mean_worst_joint": 0.21559483917498568,
+            "p10_worst_joint": 0.11668149888105353,
+            "min_joint": 0.057013451303350365,
+            "quartets_all_pcc_and_global_ssim_above_0_9": 0
+          },
+          "fresh_broad_test": {
+            "samples": 128,
+            "planes": 512,
+            "mean_pcc": 0.4446455869030758,
+            "mean_worst_pcc": 0.29681650217689115,
+            "p10_worst_pcc": 0.15681153191657557,
+            "min_pcc": 0.044563812027480276,
+            "mean_ssim": 0.31381937877483707,
+            "mean_worst_ssim": 0.1672792009199237,
+            "p10_worst_ssim": 0.0778756883387642,
+            "min_ssim": 0.01862852457309748,
+            "mean_local_ssim": 0.17122043202209228,
+            "mean_worst_local_ssim": 0.09556477460011535,
+            "p10_worst_local_ssim": 0.05772604030049549,
+            "min_local_ssim": 0.0163032267087873,
+            "mean_worst_joint": 0.16706660671410198,
+            "p10_worst_joint": 0.0778756883387642,
+            "min_joint": 0.01862852457309748,
+            "quartets_all_pcc_and_global_ssim_above_0_9": 0
+          }
+        }
+      }
+    },
+    "max_cuda_cpu_mean_metric_difference": 2.476055796507559e-06
+  }
+}

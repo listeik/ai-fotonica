@@ -9,6 +9,7 @@ from doe.physics import FresnelPropagator
 
 ARCHITECTURE = "fresnel-unet-v1"
 PROJECTED_ARCHITECTURE = "fresnel-unet-projection-v2"
+CARRIER_ARCHITECTURE = "fresnel-unet-carrier-v1"
 DEFAULT_AMPLITUDE_FLOOR = 0.03
 
 
@@ -38,22 +39,35 @@ class FresnelUNet(nn.Module):
         projection_steps: int = 0,
         *,
         amplitude_floor: float = DEFAULT_AMPLITUDE_FLOOR,
+        carrier_conditioning: bool = False,
+        carrier_scale: int = 1,
     ) -> None:
         super().__init__()
         if not 4 <= width <= 64:
             raise ValueError("U-Net width must be between 4 and 64")
         validate_amplitude_floor(amplitude_floor)
+        if type(carrier_conditioning) is not bool:
+            raise ValueError("carrier_conditioning must be a boolean")
+        if type(carrier_scale) is not int or carrier_scale not in (0, 1):
+            raise ValueError("carrier_scale must be 0 or 1")
         self.width = width
         self.amplitude_floor = amplitude_floor
+        self.carrier_conditioning = carrier_conditioning
+        self.carrier_scale = carrier_scale
         if type(projection_steps) is not int or not 0 <= projection_steps <= 8:
             raise ValueError("Expected an integer projection count in [0, 8]")
         self.projection_steps = projection_steps
         self.architecture = PROJECTED_ARCHITECTURE if projection_steps else ARCHITECTURE
+        if carrier_conditioning:
+            self.architecture = CARRIER_ARCHITECTURE
         if projection_steps:
             self.plane_logits = nn.Parameter(torch.zeros(projection_steps, 4))
             self.relaxation_logits = nn.Parameter(torch.ones(projection_steps) * 2)
         self.propagator = FresnelPropagator()
-        self.encode1 = _block(4, width)
+        self.encode1 = _block(12 if carrier_conditioning else 4, width)
+        if carrier_conditioning:
+            # Additional context starts as a zero contribution to the encoder.
+            nn.init.zeros_(self.encode1[0].weight[:, 4:])
         self.encode2 = _block(width, 2 * width)
         self.encode3 = _block(2 * width, 4 * width)
         self.bridge = _block(4 * width, 8 * width)
@@ -75,7 +89,14 @@ class FresnelUNet(nn.Module):
         self.register_buffer("phase_code", phase_code)
 
     def forward(self, target: Tensor) -> Tensor:
-        enc1 = self.encode1(target)
+        features = target
+        if self.carrier_conditioning:
+            carrier = torch.cat((self.phase_code.sin(), self.phase_code.cos()), dim=0)
+            carrier = (
+                carrier.mul(self.carrier_scale).unsqueeze(0).expand(target.shape[0], -1, -1, -1)
+            )
+            features = torch.cat((target, carrier), dim=1)
+        enc1 = self.encode1(features)
         enc2 = self.encode2(self.pool(enc1))
         enc3 = self.encode3(self.pool(enc2))
         bridge = self.bridge(self.pool(enc3))

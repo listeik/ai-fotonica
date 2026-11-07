@@ -7,7 +7,13 @@ import torch
 
 from .residual_fourier import ARCHITECTURE as FOURIER_ARCHITECTURE
 from .residual_fourier import COMPLEX_ARCHITECTURE, MultiPlaneResidualFourierUNet
-from .unet import ARCHITECTURE, DEFAULT_AMPLITUDE_FLOOR, PROJECTED_ARCHITECTURE, FresnelUNet
+from .unet import (
+    ARCHITECTURE,
+    CARRIER_ARCHITECTURE,
+    DEFAULT_AMPLITUDE_FLOOR,
+    PROJECTED_ARCHITECTURE,
+    FresnelUNet,
+)
 
 CHECKPOINT_FORMAT = 1
 DEFAULT_CHECKPOINT = Path("artifacts/doe-residual-fourier.pt")
@@ -25,13 +31,33 @@ def load_model(
         not isinstance(data, dict)
         or data.get("format_version") != CHECKPOINT_FORMAT
         or data.get("architecture")
-        not in (ARCHITECTURE, PROJECTED_ARCHITECTURE, FOURIER_ARCHITECTURE, COMPLEX_ARCHITECTURE)
+        not in (
+            ARCHITECTURE,
+            PROJECTED_ARCHITECTURE,
+            FOURIER_ARCHITECTURE,
+            COMPLEX_ARCHITECTURE,
+            CARRIER_ARCHITECTURE,
+        )
         or not isinstance(data.get("step"), int)
         or data["step"] < 1
     ):
         raise ValueError("checkpoint is not a supported trained DOE model")
 
     try:
+        conditioned = data["architecture"] == CARRIER_ARCHITECTURE
+        scale = 1
+        if conditioned:
+            conditioning = data["carrier_conditioning"]
+            if (
+                not isinstance(conditioning, dict)
+                or set(conditioning) != {"scale"}
+                or type(conditioning["scale"]) is not int
+                or conditioning["scale"] not in (0, 1)
+            ):
+                raise ValueError("checkpoint has invalid carrier conditioning metadata")
+            scale = conditioning["scale"]
+        elif "carrier_conditioning" in data:
+            raise ValueError("carrier conditioning requires the carrier architecture")
         if data["architecture"] in (FOURIER_ARCHITECTURE, COMPLEX_ARCHITECTURE):
             model = MultiPlaneResidualFourierUNet(
                 width=data["width"],
@@ -44,6 +70,8 @@ def load_model(
                 width=data["width"],
                 projection_steps=data.get("projection_steps", 0),
                 amplitude_floor=data.get("amplitude_floor", DEFAULT_AMPLITUDE_FLOOR),
+                carrier_conditioning=conditioned,
+                carrier_scale=scale,
             )
         if model.architecture != data["architecture"]:
             raise ValueError("checkpoint architecture and projection count disagree")
