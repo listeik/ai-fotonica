@@ -49,6 +49,7 @@ pnpm --dir frontend dev
 ```powershell
 & $python -m doe --demo 0 --method classical --output runs/example
 & $python -m doe --method hybrid --output runs/example-hybrid plane1.png plane2.png plane3.png plane4.png
+& $python -m doe.quality plane1.png plane2.png plane3.png plane4.png --phase runs/example-hybrid/doe.png --output runs/quality
 & $python -m pytest backend
 & $python -m doe.training.train --config configs/projected.json --device auto --output runs/training
 & $python -m doe.benchmark --checkpoint artifacts/doe-unet.pt --device cpu --samples 32 --output runs/comparison
@@ -57,3 +58,5 @@ pnpm --dir frontend dev
 Файлы целей перечисляются в порядке роста расстояния. Обучение использует воспроизводимые синтетические наборы: геометрические фигуры, контуры, символы и полутоновые цели. Потери объединяют MSE амплитуды, PCC и локальный SSIM; градиент проходит через квантование с прямой оценкой производной и через модель Френеля. Разбиения для обучения, валидации, тестирования и демонстрации используют разные потоки генератора. Веса выбираются по валидации и сохраняются в `best.pt`; `last.pt` позволяет продолжить обучение с `--resume`. Для установки своих весов скопируйте `best.pt` в `artifacts/doe-unet.pt`.
 
 [Протокол бенчмарка](docs/benchmark.md) фиксирует одинаковые цели, нормировку и измерение времени для всех методов. См. [результаты экспериментов](docs/results.md) и [пример выходных PNG](experiments/example). Примеры и результаты моделирования не заменяют оптическую проверку на реальном модуляторе.
+
+Для длительного итеративного поиска используйте [`doe.quality`](docs/quality.md). Он пробует несколько стартовых фаз и сохраняет лучший проверенный 8-битный ДОЭ, а при заданном эталоне — также лучший вариант, сохраняющий средний и худший PCC эталона. Передавайте только фазовые PNG, рассчитанные для тех же четырёх целей.
