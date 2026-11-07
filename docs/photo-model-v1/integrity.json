@@ -1,0 +1,8 @@
+{
+  "portrait_sets_verified": 30,
+  "png_verified": 150,
+  "metric_mismatches": 0,
+  "reconstruction_mismatches": 0,
+  "code_checksums": "passed",
+  "checkpoint_sha256": "527142714a0da4a92c3293e95f54846a6573fc0931a6335727ef6a6926cd1f2b"
+}

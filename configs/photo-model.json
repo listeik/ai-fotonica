@@ -1,0 +1,18 @@
+{
+  "seed": 20261107,
+  "width": 16,
+  "projection_steps": 6,
+  "amplitude_floor": 0.01,
+  "batch_size": 16,
+  "threads": 2,
+  "broad_train_count": 16000,
+  "broad_validation_count": 128,
+  "broad_test_count": 128,
+  "ood_count": 64,
+  "pretrain_epochs": 4,
+  "pretrain_lr": 0.001,
+  "finetune_epochs": 20,
+  "finetune_samples": 1280,
+  "finetune_lr": 0.0002,
+  "patience": 7
+}

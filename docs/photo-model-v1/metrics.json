@@ -1,0 +1,113 @@
+{
+  "protocol": "all models infer on CUDA; phase and reconstructions round-trip through uint8 PNG, then metrics on CPU; SSIM is global plus separate 7x7 local SSIM",
+  "models": {
+    "new": {
+      "sha256": "527142714a0da4a92c3293e95f54846a6573fc0931a6335727ef6a6926cd1f2b",
+      "version": "fresnel-unet-projection-v2:527142714a0d",
+      "results": {
+        "people_test": {
+          "mean_pcc": 0.5593430825131767,
+          "mean_ssim": 0.46115825862476456,
+          "worst_pcc": 0.4852425621134997,
+          "worst_ssim": 0.37990766893276323,
+          "mean_local_ssim": 0.164509097249747,
+          "worst_local_ssim": 0.14217140067747072,
+          "samples": 10,
+          "all_four_planes_pcc_and_global_ssim_above_0_9": 0
+        },
+        "broad_test": {
+          "mean_pcc": 0.44237476203775106,
+          "mean_ssim": 0.31784151526310944,
+          "worst_pcc": 0.28834121957690984,
+          "worst_ssim": 0.17122066207081188,
+          "mean_local_ssim": 0.17501713000759356,
+          "worst_local_ssim": 0.0950496829794096,
+          "samples": 128,
+          "all_four_planes_pcc_and_global_ssim_above_0_9": 0
+        },
+        "broad_ood": {
+          "mean_pcc": 0.4786989788809732,
+          "mean_ssim": 0.3508705459134135,
+          "worst_pcc": 0.35307285431651303,
+          "worst_ssim": 0.21582705076165687,
+          "mean_local_ssim": 0.22171689232333766,
+          "worst_local_ssim": 0.11159950727025215,
+          "samples": 64,
+          "all_four_planes_pcc_and_global_ssim_above_0_9": 0
+        }
+      }
+    },
+    "previous_fourier": {
+      "sha256": "38cf98d0ceb539d8ca27498f83e81be9b90b04bce1c287bb47b02b6d09a1f630",
+      "version": "physics-informed-multiplane-residual-fourier-unet-v1:38cf98d0ceb5",
+      "results": {
+        "people_test": {
+          "mean_pcc": 0.31624000895037546,
+          "mean_ssim": 0.2817425759710508,
+          "worst_pcc": 0.26694271783767964,
+          "worst_ssim": 0.23525362041239775,
+          "mean_local_ssim": 0.09401532525407644,
+          "worst_local_ssim": 0.0868012051915963,
+          "samples": 10,
+          "all_four_planes_pcc_and_global_ssim_above_0_9": 0
+        },
+        "broad_test": {
+          "mean_pcc": 0.2826002861523664,
+          "mean_ssim": 0.20794258933505969,
+          "worst_pcc": 0.10346501523843954,
+          "worst_ssim": 0.08402717109998073,
+          "mean_local_ssim": 0.10936714464506309,
+          "worst_local_ssim": 0.06110200439414302,
+          "samples": 128,
+          "all_four_planes_pcc_and_global_ssim_above_0_9": 0
+        },
+        "broad_ood": {
+          "mean_pcc": 0.29999712325346584,
+          "mean_ssim": 0.22969026945952872,
+          "worst_pcc": 0.1400903966751172,
+          "worst_ssim": 0.11853967079339908,
+          "mean_local_ssim": 0.15088450728062364,
+          "worst_local_ssim": 0.07409868680291146,
+          "samples": 64,
+          "all_four_planes_pcc_and_global_ssim_above_0_9": 0
+        }
+      }
+    },
+    "previous_projection": {
+      "sha256": "695e8ba932927602c0f3968a78391bcbd77c79f0c8c23671583fc4a41636587f",
+      "version": "fresnel-unet-projection-v2:695e8ba93292",
+      "results": {
+        "people_test": {
+          "mean_pcc": 0.4286991821371052,
+          "mean_ssim": 0.37242231201505294,
+          "worst_pcc": 0.34373129868889823,
+          "worst_ssim": 0.29507459906658,
+          "mean_local_ssim": 0.12468348489823518,
+          "worst_local_ssim": 0.11006787319551048,
+          "samples": 10,
+          "all_four_planes_pcc_and_global_ssim_above_0_9": 0
+        },
+        "broad_test": {
+          "mean_pcc": 0.349491859214626,
+          "mean_ssim": 0.25642926650948195,
+          "worst_pcc": 0.1420736933306353,
+          "worst_ssim": 0.10204802085665812,
+          "mean_local_ssim": 0.1382434495782512,
+          "worst_local_ssim": 0.07718471862295913,
+          "samples": 128,
+          "all_four_planes_pcc_and_global_ssim_above_0_9": 0
+        },
+        "broad_ood": {
+          "mean_pcc": 0.3741743749697827,
+          "mean_ssim": 0.2853529327572909,
+          "worst_pcc": 0.1863974741748746,
+          "worst_ssim": 0.1435864023016123,
+          "mean_local_ssim": 0.18409713415442347,
+          "worst_local_ssim": 0.09318109746112527,
+          "samples": 64,
+          "all_four_planes_pcc_and_global_ssim_above_0_9": 0
+        }
+      }
+    }
+  }
+}

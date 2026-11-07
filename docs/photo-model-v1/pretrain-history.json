@@ -1,0 +1,90 @@
+[
+  {
+    "stage": "pretrain",
+    "epoch": 1,
+    "step": 1000,
+    "train_loss": 1.699060791015625,
+    "seconds": 100.87337279999338,
+    "validation": {
+      "broad_validation": {
+        "mean_pcc": 0.4408079981803894,
+        "mean_global_ssim": 0.30399027466773987,
+        "mean_worst_pcc": 0.2782358229160309,
+        "mean_worst_global_ssim": 0.15206065773963928
+      },
+      "people_validation": {
+        "mean_pcc": 0.568151593208313,
+        "mean_global_ssim": 0.43405023217201233,
+        "mean_worst_pcc": 0.45150691270828247,
+        "mean_worst_global_ssim": 0.3551989197731018
+      },
+      "selection": 0.9249807596206664
+    }
+  },
+  {
+    "stage": "pretrain",
+    "epoch": 2,
+    "step": 2000,
+    "train_loss": 1.660852294921875,
+    "seconds": 101.14019130000088,
+    "validation": {
+      "broad_validation": {
+        "mean_pcc": 0.4483916759490967,
+        "mean_global_ssim": 0.3064374625682831,
+        "mean_worst_pcc": 0.2808886468410492,
+        "mean_worst_global_ssim": 0.15169261395931244
+      },
+      "people_validation": {
+        "mean_pcc": 0.5772336721420288,
+        "mean_global_ssim": 0.4388972222805023,
+        "mean_worst_pcc": 0.44842514395713806,
+        "mean_worst_global_ssim": 0.33939772844314575
+      },
+      "selection": 0.9377403676509857
+    }
+  },
+  {
+    "stage": "pretrain",
+    "epoch": 3,
+    "step": 3000,
+    "train_loss": 1.6486756591796874,
+    "seconds": 100.61568370000168,
+    "validation": {
+      "broad_validation": {
+        "mean_pcc": 0.4513505697250366,
+        "mean_global_ssim": 0.310067355632782,
+        "mean_worst_pcc": 0.2953587472438812,
+        "mean_worst_global_ssim": 0.16252703964710236
+      },
+      "people_validation": {
+        "mean_pcc": 0.5777353644371033,
+        "mean_global_ssim": 0.44511327147483826,
+        "mean_worst_pcc": 0.46447259187698364,
+        "mean_worst_global_ssim": 0.3595625162124634
+      },
+      "selection": 0.9444194227457047
+    }
+  },
+  {
+    "stage": "pretrain",
+    "epoch": 4,
+    "step": 4000,
+    "train_loss": 1.6386361083984375,
+    "seconds": 100.92215899999428,
+    "validation": {
+      "broad_validation": {
+        "mean_pcc": 0.45542752742767334,
+        "mean_global_ssim": 0.31168001890182495,
+        "mean_worst_pcc": 0.30835580825805664,
+        "mean_worst_global_ssim": 0.16521596908569336
+      },
+      "people_validation": {
+        "mean_pcc": 0.5797573328018188,
+        "mean_global_ssim": 0.4512867331504822,
+        "mean_worst_pcc": 0.4534088969230652,
+        "mean_worst_global_ssim": 0.3513748049736023
+      },
+      "selection": 0.9518631100654601
+    }
+  }
+]

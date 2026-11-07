@@ -1,0 +1,7 @@
+{
+  "torch": "2.7.1+cu128",
+  "cuda": "12.8",
+  "device": "cuda",
+  "gpu": "NVIDIA GeForce RTX 3050 Ti Laptop GPU",
+  "selection": "0.7 portrait validation PCC+global SSIM + 0.3 broad validation PCC+global SSIM"
+}
