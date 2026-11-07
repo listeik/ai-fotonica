@@ -1,5 +1,6 @@
 """Classical, neural and hybrid synthesis using one export and scoring path."""
 
+from collections.abc import Callable
 from dataclasses import dataclass
 from math import isfinite, pi
 from time import perf_counter
@@ -41,6 +42,7 @@ def optimize_phase(
     restarts: int = 1,
     patience: int | None = None,
     initial_phase: Tensor | None = None,
+    objective: Callable[[Tensor, Tensor], Tensor] = reconstruction_loss,
 ) -> Optimization:
     """Optimize phase with Adam; rank candidates at their exported phase levels."""
     if iterations < 0 or restarts < 1 or not isfinite(lr) or lr <= 0:
@@ -67,7 +69,7 @@ def optimize_phase(
             # Straight-through derivative of export quantization.
             quantized = quantize_phase(phase.detach())
             candidate = quantized + (phase - phase.detach())
-            loss = reconstruction_loss(propagator.amplitude(candidate), target)
+            loss = objective(propagator.amplitude(candidate), target)
             detached = loss.detach()
             losses.append(detached)
             better = detached < best_loss
@@ -97,6 +99,19 @@ class Synthesis:
     metrics: dict
     seconds: float
     iterations: int
+
+
+@torch.no_grad()
+def export_phase(
+    phase: Tensor, target: Tensor, propagator: FresnelPropagator
+) -> tuple[bytes, tuple[bytes, ...], dict]:
+    phase_png = phase_to_png(phase)
+    decoded = png_to_phase(phase_png, propagator.size).to(propagator.input_axis_m.device)
+    amplitude = normalize_amplitude(propagator.amplitude(decoded)).cpu()
+    reconstructions = tuple(gray_to_png(plane) for plane in amplitude)
+    pixels = torch.stack([png_to_gray(png, propagator.size) for png in reconstructions])
+    metrics = evaluate(pixels, target, propagator.distances_m)
+    return phase_png, reconstructions, metrics
 
 
 def synthesize(
@@ -137,11 +152,4 @@ def synthesize(
     if device.type == "cuda":
         torch.cuda.synchronize(device)
     seconds = perf_counter() - start
-    phase_png = phase_to_png(phase)
-    with torch.no_grad():
-        decoded = png_to_phase(phase_png, propagator.size).to(device)
-        amplitude = normalize_amplitude(propagator.amplitude(decoded)).cpu()
-    reconstructions = tuple(gray_to_png(plane) for plane in amplitude)
-    pixels = torch.stack([png_to_gray(png, propagator.size) for png in reconstructions])
-    metrics = evaluate(pixels, target, propagator.distances_m)
-    return Synthesis(phase_png, reconstructions, metrics, seconds, iterations)
+    return Synthesis(*export_phase(phase, target, propagator), seconds, iterations)

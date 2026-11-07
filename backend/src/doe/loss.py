@@ -10,7 +10,7 @@ def normalize_amplitude(amplitude: Tensor) -> Tensor:
     return amplitude / amplitude.amax(dim=(-2, -1), keepdim=True).clamp_min(1e-8)
 
 
-def reconstruction_loss(amplitude: Tensor, target: Tensor) -> Tensor:
+def reconstruction_loss(amplitude: Tensor, target: Tensor, *, pcc_weight: float = 0.4) -> Tensor:
     """Combine amplitude MSE, PCC loss and local SSIM loss across planes."""
     if amplitude.shape != target.shape:
         raise ValueError("Amplitude and target shapes must match")
@@ -31,4 +31,4 @@ def reconstruction_loss(amplitude: Tensor, target: Tensor) -> Tensor:
     ssim = ((2 * mx * my + 0.01**2) * (2 * cov + 0.03**2)) / (
         (mx.square() + my.square() + 0.01**2) * (vx + vy + 0.03**2)
     )
-    return (x - y).square().mean() + 0.4 * (1 - pcc.mean()) + 0.2 * (1 - ssim.mean())
+    return (x - y).square().mean() + pcc_weight * (1 - pcc.mean()) + 0.2 * (1 - ssim.mean())
