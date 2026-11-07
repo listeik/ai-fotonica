@@ -25,37 +25,37 @@ function OpticalDiagram() {
   return <svg className="optical-diagram" viewBox="0 0 610 235" aria-hidden="true">
     <defs>
       <linearGradient id="beam" x2="100%" y2="0%">
-        <stop stopColor="#ee92ff" stopOpacity=".8" />
-        <stop offset=".47" stopColor="#a184ff" stopOpacity=".65" />
-        <stop offset="1" stopColor="#7aa2ff" stopOpacity=".2" />
+        <stop stopColor="#9a43bc" stopOpacity=".8" />
+        <stop offset=".47" stopColor="#7650b5" stopOpacity=".65" />
+        <stop offset="1" stopColor="#3c68b8" stopOpacity=".2" />
       </linearGradient>
       <linearGradient id="glass" x2="100%" y2="100%">
-        <stop stopColor="#8f65e8" stopOpacity=".2" />
-        <stop offset="1" stopColor="#7258c7" stopOpacity="0" />
+        <stop stopColor="#9164c9" stopOpacity=".2" />
+        <stop offset="1" stopColor="#7761ab" stopOpacity="0" />
       </linearGradient>
       <pattern id="glassGrid" width="11" height="11" patternUnits="userSpaceOnUse">
-        <path d="M 0 0 L 11 0 M 0 0 L 0 11" fill="none" stroke="#baa4ff" strokeOpacity=".25" />
+        <path d="M 0 0 L 11 0 M 0 0 L 0 11" fill="none" stroke="#8870b9" strokeOpacity=".25" />
       </pattern>
     </defs>
-    <path d="M 24 117 H 585" stroke="#7a68ac" strokeDasharray="3 5" opacity=".6" />
+    <path d="M 24 117 H 585" stroke="#715897" strokeDasharray="3 5" opacity=".6" />
     {[0, 1, 2, 3].map(plane => {
       const x = 295 + plane * 69
       return <g key={plane} opacity={1 - plane * .12}>
-        <path d={'M ' + x + ' 56 l 48 -22 v 125 l -48 22 z'} fill="url(#glass)" stroke="#8d76c9" strokeWidth=".8" />
-        <path d={'M ' + (x + 24) + ' 45 v 125 M ' + x + ' 118 l 48 -22'} stroke="#8d76c9" strokeWidth=".6" opacity=".5" />
-        <circle cx={x + 24} cy="107" r="13" stroke="#b198ff" fill="none" opacity=".65" />
-        <circle cx={x + 24} cy="107" r="5" fill="#bdabff" opacity=".8" />
-        <text x={x + 5} y={203 + plane * 3} fill="#a59ac0" fontSize="10" fontFamily="monospace">z{plane + 1}</text>
+        <path d={'M ' + x + ' 56 l 48 -22 v 125 l -48 22 z'} fill="url(#glass)" stroke="#72559d" strokeWidth=".8" />
+        <path d={'M ' + (x + 24) + ' 45 v 125 M ' + x + ' 118 l 48 -22'} stroke="#72559d" strokeWidth=".6" opacity=".5" />
+        <circle cx={x + 24} cy="107" r="13" stroke="#7a53b2" fill="none" opacity=".65" />
+        <circle cx={x + 24} cy="107" r="5" fill="#7a52b7" opacity=".8" />
+        <text x={x + 5} y={203 + plane * 3} fill="#655476" fontSize="10" fontFamily="monospace">z{plane + 1}</text>
       </g>
     })}
     {Array.from({ length: 11 }, (_, index) => {
       const offset = (index - 5) * 6.4
       return <path key={index} d={'M 34 ' + (117 + offset * .39) + ' C 100 ' + (117 + offset * .39) + ', 131 ' + (117 + offset) + ', 170 ' + (117 + offset) + ' S 302 ' + (105 + offset * 1.18) + ', 557 ' + (95 + offset * 1.65)} stroke="url(#beam)" fill="none" />
     })}
-    <path d="M 140 69 l 53 -25 v 116 l -53 25 z" fill="url(#glass)" stroke="#c4a4ff" />
+    <path d="M 140 69 l 53 -25 v 116 l -53 25 z" fill="url(#glass)" stroke="#8255bd" />
     <path d="M 140 69 l 53 -25 v 116 l -53 25 z" fill="url(#glassGrid)" />
-    <circle cx="34" cy="117" r="4" fill="#efbbff" />
-    <text x="131" y="211" fill="#bdabe2" fontSize="10" fontFamily="monospace">DOE / φ</text>
+    <circle cx="34" cy="117" r="4" fill="#9a51b5" />
+    <text x="131" y="211" fill="#694884" fontSize="10" fontFamily="monospace">DOE / φ</text>
   </svg>
 }
 
