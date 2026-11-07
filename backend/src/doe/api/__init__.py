@@ -15,7 +15,7 @@ from starlette.concurrency import run_in_threadpool
 from starlette.responses import JSONResponse
 from starlette.types import ASGIApp, Message, Receive, Scope, Send
 
-from doe.models import load_model
+from doe.models import DEFAULT_CHECKPOINT, load_model
 from doe.physics import FresnelPropagator, gray_to_png, png_to_gray
 from doe.synthesis import synthesize
 from doe.training.dataset import DEMO_NAMES, synthetic_targets
@@ -102,7 +102,7 @@ def create_app(
         app.state.model = None
         app.state.model_version = None
         app.state.model_status = "missing"
-        weights = Path(checkpoint or os.getenv("DOE_CHECKPOINT", "artifacts/doe-unet.pt"))
+        weights = Path(checkpoint or os.getenv("DOE_CHECKPOINT", str(DEFAULT_CHECKPOINT)))
         if weights.is_file():
             try:
                 app.state.model, app.state.model_version = load_model(weights, app.state.device)

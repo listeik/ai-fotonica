@@ -5,12 +5,17 @@ from pathlib import Path
 
 import torch
 
+from .residual_fourier import ARCHITECTURE as FOURIER_ARCHITECTURE
+from .residual_fourier import MultiPlaneResidualFourierUNet
 from .unet import ARCHITECTURE, DEFAULT_AMPLITUDE_FLOOR, PROJECTED_ARCHITECTURE, FresnelUNet
 
 CHECKPOINT_FORMAT = 1
+DEFAULT_CHECKPOINT = Path("artifacts/doe-residual-fourier.pt")
 
 
-def load_model(path: str | Path, device: str | torch.device = "cpu") -> tuple[FresnelUNet, str]:
+def load_model(
+    path: str | Path, device: str | torch.device = "cpu"
+) -> tuple[FresnelUNet | MultiPlaneResidualFourierUNet, str]:
     """Load a trained model and return its content-based version identifier."""
     with Path(path).open("rb") as stream:
         version = file_digest(stream, "sha256").hexdigest()[:12]
@@ -19,18 +24,26 @@ def load_model(path: str | Path, device: str | torch.device = "cpu") -> tuple[Fr
     if (
         not isinstance(data, dict)
         or data.get("format_version") != CHECKPOINT_FORMAT
-        or data.get("architecture") not in (ARCHITECTURE, PROJECTED_ARCHITECTURE)
+        or data.get("architecture")
+        not in (ARCHITECTURE, PROJECTED_ARCHITECTURE, FOURIER_ARCHITECTURE)
         or not isinstance(data.get("step"), int)
         or data["step"] < 1
     ):
         raise ValueError("checkpoint is not a supported trained DOE model")
 
     try:
-        model = FresnelUNet(
-            width=data["width"],
-            projection_steps=data.get("projection_steps", 0),
-            amplitude_floor=data.get("amplitude_floor", DEFAULT_AMPLITUDE_FLOOR),
-        )
+        if data["architecture"] == FOURIER_ARCHITECTURE:
+            model = MultiPlaneResidualFourierUNet(
+                width=data["width"],
+                modes=data["config"]["fourier_modes"],
+                amplitude_floor=data.get("amplitude_floor", DEFAULT_AMPLITUDE_FLOOR),
+            )
+        else:
+            model = FresnelUNet(
+                width=data["width"],
+                projection_steps=data.get("projection_steps", 0),
+                amplitude_floor=data.get("amplitude_floor", DEFAULT_AMPLITUDE_FLOOR),
+            )
         if model.architecture != data["architecture"]:
             raise ValueError("checkpoint architecture and projection count disagree")
         model.load_state_dict(data["model"], strict=True)

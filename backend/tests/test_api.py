@@ -1,6 +1,7 @@
 import base64
 from concurrent.futures import ThreadPoolExecutor
 from io import BytesIO
+from pathlib import Path
 from threading import Event
 
 import pytest
@@ -8,6 +9,7 @@ from fastapi.testclient import TestClient
 from PIL import Image
 
 from doe import api
+from doe.models.residual_fourier import ARCHITECTURE as FOURIER_ARCHITECTURE
 
 
 @pytest.fixture
@@ -24,6 +26,35 @@ def _upload(size=128, mode="L"):
 
 def _uploads(count=4):
     return [("images", _upload()) for _ in range(count)]
+
+
+def test_default_fourier_checkpoint_synthesizes_with_one_forward(monkeypatch):
+    monkeypatch.chdir(Path(__file__).resolve().parents[2])
+    monkeypatch.delenv("DOE_CHECKPOINT", raising=False)
+    app = api.create_app(device="cpu")
+    with TestClient(app) as client:
+        info = client.get("/api/model/info").json()
+        assert info["available"] and info["status"] == "ready"
+        assert info["version"] == f"{FOURIER_ARCHITECTURE}:38cf98d0ceb5"
+        calls = []
+        hook = app.state.model.register_forward_hook(lambda *_: calls.append(1))
+        try:
+            demo = client.get("/api/demo/0").json()["images"]
+            files = [
+                ("images", ("demo.png", base64.b64decode(image), "image/png")) for image in demo
+            ]
+            response = client.post("/api/synthesize", files=files, data={"method": "neural"})
+        finally:
+            hook.remove()
+        assert response.status_code == 200, response.text
+        result = response.json()
+        assert result["model_version"] == info["version"]
+        assert result["iterations"] == 0
+        assert calls == [1]
+        assert len(result["reconstruction_pngs"]) == 4
+        for encoded in (result["phase_png"], *result["reconstruction_pngs"]):
+            with Image.open(BytesIO(base64.b64decode(encoded, validate=True))) as image:
+                assert (image.format, image.mode, image.size) == ("PNG", "L", (128, 128))
 
 
 def test_api_synthesizes_an_exportable_phase_and_four_reconstructions(client):

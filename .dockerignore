@@ -7,6 +7,7 @@ backend/src/**/__pycache__/
 backend/src/**/*.pyc
 !artifacts/
 !artifacts/doe-unet.pt
+!artifacts/doe-residual-fourier.pt
 !frontend/
 !frontend/index.html
 !frontend/package.json
