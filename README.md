@@ -46,6 +46,8 @@ Backend и CLI по умолчанию используют `artifacts/doe-resid
 
 Дополнительная модель, обученная на GPU на разнообразных изображениях и портретах, сохранена в [`artifacts/doe-photo-projection-v1.pt`](artifacts/doe-photo-projection-v1.pt). Это Projection U-Net ширины 16 с шестью слоями проекции. Для API укажите `DOE_CHECKPOINT=artifacts/doe-photo-projection-v1.pt`, для CLI — `--checkpoint artifacts/doe-photo-projection-v1.pt`. Она работает на CPU и CUDA. [Метрики, конфигурация и протокол обучения](docs/photo-model-v1/README.md).
 
+После 18 контролируемых прогонов выбран [`artifacts/doe-carrier-study-v1.pt`](artifacts/doe-carrier-study-v1.pt): Carrier U-Net ширины 16 с девятью физическими слоями и оконным SSIM 7×7 в обучении. Прирост проверен на новых широких и внешних естественных изображениях до замены работающего Compose. Для запуска используйте `docker compose -f compose.yaml -f compose.carrier.yaml up --build`, для локального API — `DOE_CHECKPOINT=artifacts/doe-carrier-study-v1.pt`. [Результаты, сравнение окон 7×7/11×11 и задержка](docs/carrier-study-v1.md).
+
 ## Командная строка и эксперименты
 
 ```powershell

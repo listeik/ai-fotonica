@@ -1,0 +1,9 @@
+services:
+  backend:
+    environment:
+      DOE_CHECKPOINT: /app/artifacts/doe-carrier-study-v1.pt
+    volumes:
+      - type: bind
+        source: ./artifacts/doe-carrier-study-v1.pt
+        target: /app/artifacts/doe-carrier-study-v1.pt
+        read_only: true
