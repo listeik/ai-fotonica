@@ -5,6 +5,7 @@ import base64
 import json
 import time
 import urllib.error
+import urllib.parse
 import urllib.request
 
 
@@ -20,7 +21,10 @@ def main():
     parser.add_argument("--timeout", type=float, default=120)
     args = parser.parse_args()
     origin = args.url.rstrip("/")
-    opener = urllib.request.build_opener(urllib.request.ProxyHandler({}))
+    if urllib.parse.urlsplit(origin).hostname in {"localhost", "127.0.0.1", "::1"}:
+        opener = urllib.request.build_opener(urllib.request.ProxyHandler({}))
+    else:
+        opener = urllib.request.build_opener()
     deadline = time.monotonic() + args.timeout
     while True:
         try:

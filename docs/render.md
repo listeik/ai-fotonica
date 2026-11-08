@@ -2,6 +2,8 @@
 
 Один Docker Web Service обслуживает собранный React-интерфейс и FastAPI на общем HTTPS-адресе. Модель `fresnel-unet-carrier-v1:d4176bb99d8c` включена в образ как `artifacts/doe-carrier-study-v1.pt`; скачивание весов при запуске не требуется. Изображения обрабатываются в памяти, постоянный диск не нужен.
 
+Адрес приложения: [ai-fotonica.onrender.com](https://ai-fotonica.onrender.com/). История сборок и логи доступны в [Render Dashboard](https://dashboard.render.com/web/srv-dbnrofrrjlhs739mehng/deploys).
+
 ## Первое подключение Render
 
 1. Авторизуйтесь в Render и подключите GitHub с доступом к приватному репозиторию `listeik/ai-fotonica`.
@@ -49,6 +51,10 @@ python backend/scripts/smoke_deployment.py --url http://127.0.0.1:10000 --timeou
 ```
 
 Тот же smoke-тест можно запустить против реального HTTPS-адреса Render. Он проверяет готовность модели, HTML-интерфейс, совпадение версии нейросети и нейрорежим с нулём внешних итераций, фазовым PNG и четырьмя 128×128 8-битными реконструкциями.
+
+```sh
+python backend/scripts/smoke_deployment.py --url https://ai-fotonica.onrender.com --timeout 120
+```
 
 Для отката откройте Deploys в Render и выберите предыдущий успешный deploy. При повторяющейся ошибке новой версии сначала отключите Auto-Deploy, затем верните рабочий commit в `master` обычным revert-коммитом.
 
