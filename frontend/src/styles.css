@@ -253,3 +253,8 @@ tbody tr:last-child > * { border-bottom: 0; }
 .architecture-controls .chip:has(input:checked) { border-color: var(--line-strong); background: var(--tint); color: var(--accent-strong); }
 .power-track { height: 7px; border-radius: 10px; overflow: hidden; background: #eee7f5; }
 .power-track span { display: block; height: 100%; background: var(--accent); }
+
+.smart-panel { margin-bottom: 20px; }
+.smart-previews { display: grid; grid-template-columns: repeat(auto-fit, minmax(min(100%, 230px), 1fr)); gap: 12px; }
+.smart-phase-pair { max-width: 400px; }
+.smart-original { width: 128px; height: 128px; object-fit: contain; margin-inline: auto; background: #000; }

@@ -1,5 +1,5 @@
 import { useEffect, useMemo, useRef, useState } from 'react'
-import { CircleAlert, LoaderCircle } from 'lucide-react'
+import { CircleAlert, LoaderCircle, Sparkles } from 'lucide-react'
 import { decodeBase64, request, targetForm, type Analysis, type Demo, type Health, type Method, type Methods, type Model, type Run } from './api'
 import { AnalysisView } from './components/AnalysisView'
 import { ComparisonTable } from './components/ComparisonTable'
@@ -8,6 +8,7 @@ import { PassportView } from './components/PassportView'
 import { ResearchView } from './components/ResearchView'
 import { ResultsView } from './components/ResultsView'
 import { SettingsPanel } from './components/SettingsPanel'
+import { SmartPanel } from './components/SmartPanel'
 import { Sidebar } from './components/Sidebar'
 import { TargetUpload } from './components/TargetUpload'
 import { exportComparison } from './export'
@@ -17,7 +18,7 @@ const headings = {
   workspace: ['Многоплоскостной синтез ДОЭ', 'Загрузите четыре цели, выберите метод и сравните восстановленные изображения.'],
   analysis: ['Анализ целей', 'Откройте этот раздел после синтеза, чтобы рассчитать характеристики текущих целей.'],
   passports: ['Паспорта синтеза', 'Технические отчёты с параметрами расчёта, фазовой картой и метриками по плоскостям.'],
-  research: ['Научный режим', 'Сравните архитектуры на одном наборе и изучите поле, восстановленное из фазового ДОЭ.'],
+  research: ['Научный режим', 'Изучите ошибки восстановления и распределение оптической мощности для полученного ДОЭ.'],
 }
 
 export function App() {
@@ -32,7 +33,8 @@ export function App() {
   const [model, setModel] = useState<Model | null>(null)
   const [demos, setDemos] = useState<Demo[]>([])
   const [demoId, setDemoId] = useState<number | null>(null)
-  const [busy, setBusy] = useState<'upload' | 'demo' | 'synthesis' | 'export' | 'research' | null>(null)
+  const [busy, setBusy] = useState<'upload' | 'demo' | 'synthesis' | 'export' | 'research' | 'smart' | null>(null)
+  const [smartOpen, setSmartOpen] = useState(false)
   const [analysis, setAnalysis] = useState<{ targets: File[]; result: Analysis | null; error: string } | null>(null)
   const [passports, setPassports] = useState<Passport[]>([])
   const [selectedPassport, setSelectedPassport] = useState('')
@@ -221,9 +223,22 @@ export function App() {
           hasSynthesis={hasSynthesis} waiting={!!busy} error={currentAnalysis?.error ?? ''} onRetry={() => setAnalysis(null)} />}
         {view === 'passports' && <PassportView entries={passports} selected={currentPassport} onSelect={setSelectedPassport} />}
         <div hidden={view !== 'research'}>
-          <ResearchView targets={validTargets} entries={passports} active={view === 'research'} disabled={!!busy}
-            onBusy={pending => setBusy(pending ? 'research' : null)} onRuns={addPassports} />
+          <ResearchView entries={passports} disabled={!!busy}
+            onBusy={pending => setBusy(pending ? 'research' : null)} />
         </div>
+        <SmartPanel open={smartOpen && view === 'workspace'} baseline={runs.neural} targets={validTargets} disabled={!!busy}
+          onBusy={pending => setBusy(pending ? 'smart' : null)} onClose={() => setSmartOpen(false)}
+          onAccept={(run, nextTargets) => {
+            if (nextTargets !== validTargets) {
+              setTargets(nextTargets)
+              setDemoId(null)
+              setRuns({ neural: run })
+            } else {
+              setRuns(previous => ({ ...previous, neural: run }))
+            }
+            addPassports([run], nextTargets)
+            setActive('neural')
+          }} />
         {view === 'workspace' && <div className="synthesis-workspace">
           {error && <div className="banner error" role="alert"><CircleAlert size={18} />{error}</div>}
           <div className="workbench" id="input">
@@ -240,6 +255,10 @@ export function App() {
             <div className="section-heading">
               <h2 id="restoration-heading">Восстановление</h2>
               <div className="flex flex-wrap gap-3">
+                {runs.neural && <button className="button secondary" type="button" disabled={!!busy && busy !== 'smart'}
+                  onClick={() => { setSmartOpen(true); window.scrollTo({ top: 0, behavior: 'smooth' }) }}>
+                  <Sparkles size={16} /> Улучшить качество
+                </button>}
                 {activePassport && <a className="text-link text-xs" href="#passports" onClick={() => setSelectedPassport(activePassport.id)}>Паспорт расчёта</a>}
                 {completed.length > 0 && <a className="text-link text-xs" href="#settings">К настройкам</a>}
               </div>

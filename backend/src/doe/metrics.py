@@ -6,6 +6,26 @@ from torch import Tensor
 from doe.physics import DISTANCES_M
 
 
+def windowed_ssim(reconstruction: Tensor, target: Tensor) -> list[float]:
+    """Gaussian 11×11 SSIM, sigma 1.5, population moments, valid image region."""
+    import torch
+    from torch.nn.functional import conv2d
+
+    axis = torch.arange(-5, 6, dtype=torch.float64)
+    gaussian = torch.exp(-axis.square() / (2 * 1.5**2))
+    kernel = gaussian[:, None] * gaussian[None, :]
+    kernel = (kernel / kernel.sum())[None, None]
+    x, y = [image.detach().cpu().double().unsqueeze(1) for image in (reconstruction, target)]
+    mx, my = conv2d(x, kernel), conv2d(y, kernel)
+    vx = (conv2d(x.square(), kernel) - mx.square()).clamp_min(0)
+    vy = (conv2d(y.square(), kernel) - my.square()).clamp_min(0)
+    covariance = conv2d(x * y, kernel) - mx * my
+    score = ((2 * mx * my + 0.01**2) * (2 * covariance + 0.03**2)) / (
+        (mx.square() + my.square() + 0.01**2) * (vx + vy + 0.03**2)
+    )
+    return score.mean((-3, -2, -1)).tolist()
+
+
 def evaluate(
     reconstruction: Tensor, target: Tensor, distances_m: tuple[float, ...] = DISTANCES_M
 ) -> dict:

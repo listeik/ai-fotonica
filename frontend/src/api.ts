@@ -13,6 +13,17 @@ export interface Checkpoint {
 }
 
 export interface Run {
+  smart?: {
+    job_id: string
+    mode: 'preserve' | 'adapt'
+    config: SmartCandidate['config']
+    forward_count: number
+    total_seconds: number
+    original_metrics: Run['metrics']
+    adapted_metrics: Run['metrics']
+    originals: string[]
+    inputs: string[]
+  }
   id: string
   created_at: string
   method: Method
@@ -94,9 +105,41 @@ export interface Diagnostics {
   }[]
 }
 
-export interface ResearchOption {
+export interface SmartStatus {
   id: string
-  name: string
+  status: 'analysis' | 'search' | 'completed' | 'cancelled' | 'error'
+  mode: 'preserve' | 'adapt'
+  checked: number
+  total: number
+  cancel_requested: boolean
+  forward_count: number
+  total_seconds: number
+  best_index: number
+  improved: boolean
+  error: string | null
+}
+
+export interface SmartCandidate {
+  index: number
+  config: { operations: { method: string; value?: number; gain?: number; strength?: number; cutoff?: number }[] }
+  run: Run
+  windowed_ssim: number[]
+  background_power: number[]
+  adapted_metrics: Run['metrics']
+  input_mae: number[]
+  inputs: string[]
+  eligible: boolean
+}
+
+export interface SmartResult extends SmartStatus {
+  candidates: SmartCandidate[]
+  originals: string[]
+  selection_policy: { plane_tolerance: number; mean_tolerance: number; minimum_gain: number }
+  analysis: Omit<Analysis, 'planes'> & {
+    planes: (ImageDescriptors & { brightness: number; active_fraction: number })[]
+    similarity: number[]
+    similarity_pairs: number[][]
+  }
 }
 
 export function targetForm(targets: File[]): FormData {

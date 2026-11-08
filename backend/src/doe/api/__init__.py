@@ -19,9 +19,10 @@ from starlette.staticfiles import StaticFiles
 from starlette.types import ASGIApp, Message, Receive, Scope, Send
 
 from doe.api.preprocess import MAX_IMAGE_BYTES, MAX_TARGET_BYTES, convert_image
-from doe.api.research import analyze_targets, compare_checkpoint, diagnose_phase, research_options
 from doe.models import DEFAULT_CHECKPOINT, load_model
-from doe.physics import FresnelPropagator, gray_to_png, png_to_gray
+from doe.physics import FresnelPropagator, gray_to_png, png_to_gray, png_to_phase
+from doe.research import analyze_targets, compare_checkpoint, diagnose_phase, research_options
+from doe.smart import TERMINAL, SmartJobs
 from doe.synthesis import LEARNING_RATE, Synthesis, synthesize
 from doe.training.dataset import DEMO_NAMES, synthetic_targets
 
@@ -46,6 +47,7 @@ class LimitSynthesisBody:
             "/api/analysis": MAX_BODY_BYTES,
             "/api/research/compare": MAX_BODY_BYTES,
             "/api/research/diagnostics": MAX_BODY_BYTES + MAX_FILE_BYTES,
+            "/api/smart": MAX_BODY_BYTES + MAX_FILE_BYTES,
         }
         limit = limits.get(scope.get("path", "").rstrip("/"))
         if scope["type"] != "http" or scope["method"] != "POST" or limit is None:
@@ -120,7 +122,13 @@ def create_app(
             except Exception:
                 LOGGER.exception("Could not load the configured model checkpoint")
                 app.state.model_status = "load_error"
-        yield
+        app.state.smart = SmartJobs(
+            app.state, lambda result: run_response(result, "neural", 0, checkpoint_info())
+        )
+        try:
+            yield
+        finally:
+            await app.state.smart.close()
 
     app = FastAPI(
         title="AI Photonica · DOE synthesis",
@@ -295,6 +303,64 @@ def create_app(
     ) -> dict:
         targets = await read_targets(images)
         return await run_in_threadpool(analyze_targets, targets)
+
+    @app.post("/api/smart", status_code=202)
+    async def start_smart(
+        images: Annotated[list[UploadFile], File(min_length=4, max_length=4)],
+        phase: Annotated[UploadFile, File()],
+        model_version: Annotated[str, Form(max_length=256)],
+        baseline_seconds: Annotated[float, Form(ge=0, le=86400)],
+        mode: Annotated[Literal["preserve", "adapt"], Form()] = "preserve",
+    ) -> dict:
+        if app.state.model is None:
+            raise HTTPException(503, "Для поиска нужен загруженный Neural checkpoint.")
+        if model_version != app.state.model_version:
+            raise HTTPException(409, "Checkpoint изменился. Повторите Neural-синтез.")
+        targets = await read_targets(images)
+        phase_png = await phase.read(MAX_FILE_BYTES + 1)
+        if len(phase_png) > MAX_FILE_BYTES:
+            raise HTTPException(413, "Phase exceeds the PNG upload limit.")
+        try:
+            png_to_phase(phase_png, app.state.propagator.size)
+        except ValueError as exc:
+            raise HTTPException(422, str(exc)) from exc
+        try:
+            job = app.state.smart.start(targets, phase_png, baseline_seconds, mode)
+        except anyio.WouldBlock as exc:
+            raise HTTPException(429, "Расчёт уже выполняется. Дождитесь его завершения.") from exc
+        return app.state.smart.snapshot(job["id"])
+
+    def smart_job(identifier: str, full: bool = False):
+        try:
+            return app.state.smart.snapshot(identifier, full)
+        except KeyError as exc:
+            raise HTTPException(404, "Задача истекла или сервер был перезапущен.") from exc
+
+    @app.get("/api/smart/{identifier}")
+    async def smart_status(identifier: str) -> dict:
+        return smart_job(identifier)
+
+    @app.get("/api/smart/{identifier}/result")
+    async def smart_result(identifier: str) -> dict:
+        status = smart_job(identifier)
+        if status["status"] not in TERMINAL:
+            raise HTTPException(409, "Поиск ещё выполняется.")
+        return smart_job(identifier, True)
+
+    @app.get("/api/smart/{identifier}/candidates/{index}")
+    async def smart_candidate(identifier: str, index: int) -> dict:
+        job = smart_job(identifier, True)
+        if not 0 <= index < len(job["candidates"]):
+            raise HTTPException(404, "Вариант ещё не рассчитан.")
+        return job["candidates"][index]
+
+    @app.post("/api/smart/{identifier}/cancel")
+    async def cancel_smart(identifier: str) -> dict:
+        smart_job(identifier)
+        job = app.state.smart.jobs[identifier]
+        if job["status"] not in TERMINAL:
+            job["cancel_requested"] = True
+        return smart_job(identifier)
 
     @app.get("/api/research/options")
     def options() -> list[dict]:

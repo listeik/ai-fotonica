@@ -44,7 +44,7 @@ export function ComparisonTable({ runs, active, busy, exporting, onSelect, onExp
         </tr></thead>
         <tbody>{runs.map(run => <tr key={run.method} className={active === run.method ? 'selected-row' : ''}>
           <th scope="row"><button className="chip selectable" type="button" aria-pressed={active === run.method}
-            onClick={() => onSelect(run.method)}>{methods[run.method].name}</button></th>
+            onClick={() => onSelect(run.method)}>{run.smart ? 'Smart · ' : ''}{methods[run.method].name}</button></th>
           <td><Meter value={run.metrics.mean_pcc} /></td><td><Meter value={run.metrics.mean_ssim} /></td>
           <td>{format(run.metrics.worst_pcc)}</td><td>{format(run.metrics.worst_ssim)}</td>
           <td>{run.iterations}</td><td>{formatTime(run.seconds)}</td>

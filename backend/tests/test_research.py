@@ -10,9 +10,9 @@ from fastapi.testclient import TestClient
 from PIL import Image
 
 from doe.api import create_app
-from doe.api.research import descriptors
 from doe.models import CHECKPOINT_FORMAT, DEFAULT_CHECKPOINT, FresnelUNet
 from doe.physics import png_to_gray
+from doe.research import descriptors
 
 
 @pytest.fixture

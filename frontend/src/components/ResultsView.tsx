@@ -50,6 +50,11 @@ export function ResultsView({ run, runs, targets, running, onSelect }: {
     ['Итерации', run.iterations],
   ]
   return <div className="grid gap-5 sm:gap-6">
+    {run.smart && <div className="banner" role="status">
+      Smart Optimization · {run.smart.forward_count} дополнительных запусков · поиск {formatTime(run.smart.total_seconds)}.
+      Метрики рассчитаны относительно {run.smart.mode === 'adapt' ? 'адаптированных целей' : 'оригиналов'}.
+      {run.smart.mode === 'adapt' && ` По оригиналам PCC ${format(run.smart.original_metrics.mean_pcc)}, Global SSIM ${format(run.smart.original_metrics.mean_ssim)}.`}
+    </div>}
     <div className="flex flex-wrap items-center justify-between gap-3">
       <div className="flex flex-wrap gap-2" role="group" aria-label="Показать результат метода">
         {runs.map(item => <button key={item.method} className="chip selectable" type="button"

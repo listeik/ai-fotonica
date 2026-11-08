@@ -25,6 +25,7 @@ export function PassportView({ entries, selected, onSelect }: {
   const { run } = selected
   const parameters = run.parameters
   const summary = [
+    ['Сценарий', run.smart ? 'Smart Optimization · эксперимент' : 'Обычный синтез'],
     ['Метод', methods[run.method].name],
     ['Модель', run.checkpoint?.id ?? 'Classical · Adam'],
     ['Архитектура', run.checkpoint?.architecture ?? '—'],
@@ -42,6 +43,15 @@ export function PassportView({ entries, selected, onSelect }: {
     ['PCC средняя / мин.', `${format(run.metrics.mean_pcc)} / ${format(run.metrics.worst_pcc)}`],
     ['SSIM средняя / мин.', `${format(run.metrics.mean_ssim)} / ${format(run.metrics.worst_ssim)}`],
   ]
+  if (run.smart) {
+    summary.push(
+      ['Дополнительные Neural-запуски', run.smart.forward_count],
+      ['Время поиска', formatTime(run.smart.total_seconds)],
+      ['Цели для метрик', run.smart.mode === 'adapt' ? 'Адаптированные' : 'Оригинальные'],
+      ['PCC по оригиналам', format(run.smart.original_metrics.mean_pcc)],
+      ['Global SSIM по оригиналам', format(run.smart.original_metrics.mean_ssim)],
+    )
+  }
 
   async function download(entry: Passport) {
     setExporting(true)

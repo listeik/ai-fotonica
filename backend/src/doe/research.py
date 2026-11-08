@@ -1,4 +1,4 @@
-"""Image descriptors and diagnostics for reproducible local experiments."""
+"""Image descriptors and diagnostics shared by the API and smart experiments."""
 
 from functools import lru_cache
 from pathlib import Path

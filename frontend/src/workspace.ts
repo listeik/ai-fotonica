@@ -26,7 +26,7 @@ export const methodIds = ['classical', 'neural', 'hybrid'] as const
 
 export function passportLabel({ number, run }: Passport) {
   const model = run.checkpoint ? ` · ${run.checkpoint.architecture}` : ''
-  return `№${number} · ${methods[run.method].name}${model} · ${new Date(run.created_at).toLocaleString('ru-RU')}`
+  return `№${number} · ${run.smart ? 'Smart · ' : ''}${methods[run.method].name}${model} · ${new Date(run.created_at).toLocaleString('ru-RU')}`
 }
 
 export const format = (value: number) => value.toFixed(3)
