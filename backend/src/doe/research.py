@@ -21,7 +21,6 @@ SUPPORT_THRESHOLD = 2 / 255
 POWER_DB_RANGE = (-50, 30)
 CHECKPOINTS = {
     "unet": ("Projection U-Net", "doe-unet.pt"),
-    "fourier": ("Residual Fourier U-Net", "doe-residual-fourier.pt"),
     "carrier": ("Carrier U-Net", "doe-carrier-physics-teacher-v1.pt"),
 }
 
