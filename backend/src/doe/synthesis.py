@@ -101,19 +101,6 @@ class Synthesis:
     iterations: int
 
 
-@torch.no_grad()
-def export_phase(
-    phase: Tensor, target: Tensor, propagator: FresnelPropagator
-) -> tuple[bytes, tuple[bytes, ...], dict]:
-    phase_png = phase_to_png(phase)
-    decoded = png_to_phase(phase_png, propagator.size).to(propagator.input_axis_m.device)
-    amplitude = normalize_amplitude(propagator.amplitude(decoded)).cpu()
-    reconstructions = tuple(gray_to_png(plane) for plane in amplitude)
-    pixels = torch.stack([png_to_gray(png, propagator.size) for png in reconstructions])
-    metrics = evaluate(pixels, target, propagator.distances_m)
-    return phase_png, reconstructions, metrics
-
-
 def synthesize(
     targets: Tensor,
     method: str,
@@ -151,5 +138,18 @@ def synthesize(
         ).phase
     if device.type == "cuda":
         torch.cuda.synchronize(device)
-    seconds = perf_counter() - start
-    return Synthesis(*export_phase(phase, target, propagator), seconds, iterations)
+    phase_seconds = perf_counter() - start
+
+    # Reconstruct from the exported phase levels. Keep the PNG round trip outside
+    # the timing so that the reported time measures the two computations.
+    phase_png = phase_to_png(phase)
+    decoded = png_to_phase(phase_png, propagator.size).to(device)
+    start = perf_counter()
+    with torch.no_grad():
+        amplitude = normalize_amplitude(propagator.amplitude(decoded)).cpu()
+    seconds = phase_seconds + (perf_counter() - start)
+
+    reconstructions = tuple(gray_to_png(plane) for plane in amplitude)
+    pixels = torch.stack([png_to_gray(png, propagator.size) for png in reconstructions])
+    metrics = evaluate(pixels, target, propagator.distances_m)
+    return Synthesis(phase_png, reconstructions, metrics, seconds, iterations)

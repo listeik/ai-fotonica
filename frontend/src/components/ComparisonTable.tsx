@@ -40,7 +40,7 @@ export function ComparisonTable({ runs, active, busy, exporting, onSelect, onExp
         <thead><tr>
           <th scope="col">Метод</th><th scope="col">PCC, средняя</th><th scope="col">SSIM, средняя</th>
           <th scope="col">PCC, мин.</th><th scope="col">SSIM, мин.</th>
-          <th scope="col">Итерации</th><th scope="col">Время</th>
+          <th scope="col">Итерации</th><th scope="col">Синтез и восстановление</th>
         </tr></thead>
         <tbody>{runs.map(run => <tr key={run.method} className={active === run.method ? 'selected-row' : ''}>
           <th scope="row"><button className="chip selectable" type="button" aria-pressed={active === run.method}

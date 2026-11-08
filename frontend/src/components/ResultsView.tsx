@@ -46,7 +46,7 @@ export function ResultsView({ run, runs, targets, running, onSelect }: {
     ['Средняя SSIM', format(run.metrics.mean_ssim)],
     ['Минимальная PCC', format(run.metrics.worst_pcc)],
     ['Минимальная SSIM', format(run.metrics.worst_ssim)],
-    ['Время синтеза', formatTime(run.seconds)],
+    ['Синтез и восстановление', formatTime(run.seconds)],
     ['Итерации', run.iterations],
   ]
   return <div className="grid gap-5 sm:gap-6">

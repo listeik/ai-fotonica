@@ -15,7 +15,7 @@ import { currentView, methodIds, type Passport } from './workspace'
 
 const headings = {
   workspace: ['Многоплоскостной синтез ДОЭ', 'Загрузите четыре цели, выберите метод и сравните восстановленные изображения.'],
-  analysis: ['Анализ целей', 'Характеристики изображений рассчитываются автоматически после загрузки всех четырёх целей.'],
+  analysis: ['Анализ целей', 'Откройте этот раздел после синтеза, чтобы рассчитать характеристики текущих целей.'],
   passports: ['Паспорта синтеза', 'Технические отчёты с параметрами расчёта, фазовой картой и метриками по плоскостям.'],
   research: ['Научный режим', 'Сравните архитектуры на одном наборе и изучите поле, восстановленное из фазового ДОЭ.'],
 }
@@ -34,7 +34,6 @@ export function App() {
   const [demoId, setDemoId] = useState<number | null>(null)
   const [busy, setBusy] = useState<'upload' | 'demo' | 'synthesis' | 'export' | 'research' | null>(null)
   const [analysis, setAnalysis] = useState<{ targets: File[]; result: Analysis | null; error: string } | null>(null)
-  const [analysisRetry, setAnalysisRetry] = useState(0)
   const [passports, setPassports] = useState<Passport[]>([])
   const [selectedPassport, setSelectedPassport] = useState('')
   const nextPassportNumber = useRef(1)
@@ -43,6 +42,8 @@ export function App() {
   const validTargets = useMemo(() => targets.filter((file): file is File => file !== null), [targets])
   const completed = methodIds.flatMap(id => runs[id] ? [runs[id]] : [])
   const currentAnalysis = analysis?.targets === validTargets ? analysis : null
+  const hasSynthesis = passports.some(entry => entry.targets === validTargets)
+  const shouldAnalyze = view === 'analysis' && hasSynthesis && !busy && !currentAnalysis
   const currentPassport = passports.find(entry => entry.id === selectedPassport) ?? passports[0]
   const activeRun = active ? runs[active] : undefined
   const activePassport = passports.find(entry => entry.run === activeRun)
@@ -96,16 +97,19 @@ export function App() {
   }, [view])
 
   useEffect(() => {
-    if (validTargets.length !== 4) return
+    if (!shouldAnalyze) return
     const controller = new AbortController()
     request<Analysis>('/api/analysis', { method: 'POST', body: targetForm(validTargets), signal: controller.signal })
       .then(result => {
         if (!controller.signal.aborted) setAnalysis({ targets: validTargets, result, error: '' })
       }).catch(failure => {
-        if (!controller.signal.aborted) setAnalysis({ targets: validTargets, result: null, error: failure.message })
+        if (!controller.signal.aborted) {
+          const error = failure instanceof Error ? failure.message : 'Не удалось рассчитать характеристики целей.'
+          setAnalysis({ targets: validTargets, result: null, error })
+        }
       })
     return () => controller.abort()
-  }, [validTargets, analysisRetry])
+  }, [validTargets, shouldAnalyze])
 
   function addPassports(results: Run[], source: File[]) {
     const entries = results.map(run => ({
@@ -214,7 +218,7 @@ export function App() {
           <button className="text-link" type="button" onClick={() => void connect()}>Повторить</button>
         </div>}
         {view === 'analysis' && <AnalysisView result={currentAnalysis?.result ?? null} targetCount={validTargets.length}
-          error={currentAnalysis?.error ?? ''} onRetry={() => { setAnalysis(null); setAnalysisRetry(value => value + 1) }} />}
+          hasSynthesis={hasSynthesis} waiting={!!busy} error={currentAnalysis?.error ?? ''} onRetry={() => setAnalysis(null)} />}
         {view === 'passports' && <PassportView entries={passports} selected={currentPassport} onSelect={setSelectedPassport} />}
         <div hidden={view !== 'research'}>
           <ResearchView targets={validTargets} entries={passports} active={view === 'research'} disabled={!!busy}

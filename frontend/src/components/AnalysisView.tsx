@@ -14,9 +14,11 @@ function valueLabel(value: number, unit?: string) {
   return unit === '%' ? (value * 100).toFixed(1) + '%' : format(value) + (unit ? ' ' + unit : '')
 }
 
-export function AnalysisView({ result, targetCount, error, onRetry }: {
+export function AnalysisView({ result, targetCount, hasSynthesis, waiting, error, onRetry }: {
   result: Analysis | null
   targetCount: number
+  hasSynthesis: boolean
+  waiting: boolean
   error: string
   onRetry: () => void
 }) {
@@ -26,7 +28,11 @@ export function AnalysisView({ result, targetCount, error, onRetry }: {
   if (!result) return <section className="panel detail-panel">
     {targetCount < 4
       ? <p>Загружено {targetCount} из 4 целей. <a className="text-link" href="#targets">Добавить изображения</a></p>
-      : <p className="hint" role="status"><LoaderCircle size={18} className="spin" /> Вычисляем характеристики целей…</p>}
+      : !hasSynthesis && !waiting
+        ? <p>Анализ доступен после расчёта ДОЭ для этих целей. <a className="text-link" href="#settings">Перейти к синтезу</a></p>
+        : <p className="hint" role="status"><LoaderCircle size={18} className="spin" />
+          {waiting ? 'Ждём завершения текущего расчёта…' : 'Вычисляем характеристики целей…'}
+        </p>}
   </section>
 
   return <div className="detail-stack">

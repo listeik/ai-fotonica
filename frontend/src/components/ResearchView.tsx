@@ -126,7 +126,7 @@ export function ResearchView({ targets, entries, active, disabled, onBusy, onRun
         {comparison.targets !== targets && <p className="hint">Показаны результаты для предыдущего набора целей.</p>}
         <div className="table-scroll">
           <table>
-            <thead><tr><th scope="col">Архитектура и checkpoint</th><th scope="col">Средняя PCC</th><th scope="col">Средняя SSIM</th><th scope="col">Время синтеза</th><th scope="col">Устройство</th><th scope="col">Карты</th></tr></thead>
+            <thead><tr><th scope="col">Архитектура и checkpoint</th><th scope="col">Средняя PCC</th><th scope="col">Средняя SSIM</th><th scope="col">Синтез и восстановление</th><th scope="col">Устройство</th><th scope="col">Карты</th></tr></thead>
             <tbody>{comparison.entries.map(({ id, number, run }) => <tr key={id}>
               <th scope="row">{run.checkpoint?.architecture}<small className="muted block">{run.model_version}</small></th>
               <td>{format(run.metrics.mean_pcc)}</td><td>{format(run.metrics.mean_ssim)}</td>

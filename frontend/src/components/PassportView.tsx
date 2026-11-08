@@ -38,7 +38,7 @@ export function PassportView({ entries, selected, onSelect }: {
     ['Seed', parameters.seed],
     ['Итерации', run.iterations],
     ['Learning rate', parameters.learning_rate ?? '—'],
-    ['Время синтеза', formatTime(run.seconds)],
+    ['Синтез и восстановление', formatTime(run.seconds)],
     ['PCC средняя / мин.', `${format(run.metrics.mean_pcc)} / ${format(run.metrics.worst_pcc)}`],
     ['SSIM средняя / мин.', `${format(run.metrics.mean_ssim)} / ${format(run.metrics.worst_ssim)}`],
   ]

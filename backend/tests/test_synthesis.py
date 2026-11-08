@@ -4,6 +4,7 @@ import pytest
 import torch
 from torch import nn
 
+from doe import synthesis
 from doe.loss import normalize_amplitude, reconstruction_loss
 from doe.metrics import evaluate
 from doe.physics import FresnelPropagator, png_to_gray, png_to_phase, quantize_phase
@@ -34,6 +35,35 @@ def test_exported_pngs_match_physics_and_metrics():
     reconstructed = torch.stack([png_to_gray(item, 16) for item in result.reconstruction_pngs])
     torch.testing.assert_close(reconstructed, (amplitude * 255).round() / 255)
     assert result.metrics == evaluate(reconstructed, target)
+
+
+def test_timing_counts_phase_and_reconstruction_only(monkeypatch):
+    elapsed = 0
+
+    class FixedPhase(nn.Module):
+        def forward(self, target):
+            nonlocal elapsed
+            elapsed += 2
+            return torch.zeros_like(target[:, :1])
+
+    def timed(fn, cost):
+        def call(*args, **kwargs):
+            nonlocal elapsed
+            elapsed += cost
+            return fn(*args, **kwargs)
+
+        return call
+
+    propagator = FresnelPropagator(16)
+    monkeypatch.setattr(synthesis, "perf_counter", lambda: elapsed)
+    monkeypatch.setattr(propagator, "amplitude", timed(propagator.amplitude, 3))
+    monkeypatch.setattr(synthesis, "phase_to_png", timed(synthesis.phase_to_png, 11))
+    monkeypatch.setattr(synthesis, "png_to_phase", timed(synthesis.png_to_phase, 13))
+    monkeypatch.setattr(synthesis, "gray_to_png", timed(synthesis.gray_to_png, 7))
+    monkeypatch.setattr(synthesis, "evaluate", timed(synthesis.evaluate, 17))
+    result = synthesize(torch.zeros(4, 16, 16), "neural", propagator, model=FixedPhase())
+
+    assert result.seconds == 5
 
 
 def test_hybrid_keeps_the_best_quantized_candidate():
