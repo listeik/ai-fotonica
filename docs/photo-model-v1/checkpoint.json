@@ -1,9 +1,0 @@
-{
-  "path": "D:\\Hackatons\\miffi2026_2\\runs\\photo-model-v1\\best.pt",
-  "bytes": 2211558,
-  "sha256": "527142714a0da4a92c3293e95f54846a6573fc0931a6335727ef6a6926cd1f2b",
-  "selected": "finetune-best.pt",
-  "parameters": 483030,
-  "gpu": "NVIDIA GeForce RTX 3050 Ti Laptop GPU",
-  "repository_path": "artifacts/doe-photo-projection-v1.pt"
-}

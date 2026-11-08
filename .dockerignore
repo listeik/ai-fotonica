@@ -1,4 +1,5 @@
 **
+!requirements.txt
 !backend/
 !backend/pyproject.toml
 !backend/src/
@@ -6,8 +7,6 @@
 backend/src/**/__pycache__/
 backend/src/**/*.pyc
 !artifacts/
-!artifacts/doe-unet.pt
-!artifacts/doe-residual-fourier.pt
 !artifacts/doe-carrier-study-v1.pt
 !frontend/
 !frontend/index.html
@@ -18,5 +17,3 @@ backend/src/**/*.pyc
 !frontend/vite.config.ts
 !frontend/src/
 !frontend/src/**
-!infra/
-!infra/nginx.conf

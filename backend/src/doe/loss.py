@@ -23,13 +23,6 @@ def global_ssim(x: Tensor, y: Tensor) -> Tensor:
     return score.squeeze(-1).squeeze(-1)
 
 
-def background_power_fraction(amplitude: Tensor, target: Tensor) -> Tensor:
-    """Per-plane fraction of unnormalized optical power on nearly black target pixels."""
-    intensity = amplitude.square()
-    total = intensity.sum(dim=(-2, -1)).clamp_min(1e-8)
-    return (intensity * (target <= 2 / 255)).sum(dim=(-2, -1)) / total
-
-
 def reconstruction_loss(
     amplitude: Tensor,
     target: Tensor,

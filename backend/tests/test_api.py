@@ -9,7 +9,7 @@ from fastapi.testclient import TestClient
 from PIL import Image
 
 from doe import api
-from doe.models.residual_fourier import ARCHITECTURE as FOURIER_ARCHITECTURE
+from doe.models.unet import CARRIER_ARCHITECTURE
 
 
 @pytest.fixture
@@ -28,14 +28,14 @@ def _uploads(count=4):
     return [("images", _upload()) for _ in range(count)]
 
 
-def test_default_fourier_checkpoint_synthesizes_with_one_forward(monkeypatch):
+def test_default_carrier_checkpoint_synthesizes_with_one_forward(monkeypatch):
     monkeypatch.chdir(Path(__file__).resolve().parents[2])
     monkeypatch.delenv("DOE_CHECKPOINT", raising=False)
     app = api.create_app(device="cpu")
     with TestClient(app) as client:
         info = client.get("/api/model/info").json()
         assert info["available"] and info["status"] == "ready"
-        assert info["version"] == f"{FOURIER_ARCHITECTURE}:38cf98d0ceb5"
+        assert info["version"] == f"{CARRIER_ARCHITECTURE}:d4176bb99d8c"
         calls = []
         hook = app.state.model.register_forward_hook(lambda *_: calls.append(1))
         try:

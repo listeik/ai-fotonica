@@ -1,70 +1,35 @@
 # AI Photonica
 
-Синтез одного фазового дифракционного оптического элемента (ДОЭ) из четырёх изображений. Каждое изображение задаёт амплитуду на своей плоскости: 24,1; 25,3; 26,5 и 27,7 мм. Лазер — 532 нм, шаг модулятора — 10 мкм.
+Конкурсное решение для синтеза фазового дифракционного оптического элемента (ДОЭ). Carrier U-Net принимает четыре изображения на расстояниях 24,1 / 25,3 / 26,5 / 27,7 мм и выдаёт один ДОЭ за один прямой проход. В сети девять встроенных проекций Френеля. Режим Neural выполняет ноль итераций оптимизации.
 
-| Метод | Как рассчитывается фаза |
-|---|---|
-| Classical | Adam оптимизирует пиксели фазы с воспроизводимой случайной инициализацией. |
-| Neural | Один проход Physics-Informed Multi-plane Residual Fourier U-Net. Сеть корректирует фазу с учётом комплексных невязок Френеля на четырёх плоскостях и спектральных признаков. |
-| Hybrid | Начинает с фазы Neural и уточняет её тем же Adam, что и Classical. Лучший кандидат выбирается по общей функции потерь на 8-битной фазе. |
+- [Исходный код нейросети](backend/src/doe/models/unet.py)
+- [Обученные веса](artifacts/doe-carrier-study-v1.pt), версия `fresnel-unet-carrier-v1:d4176bb99d8c`
+- [Dockerfile](infra/render.Dockerfile) и [зависимости Python](requirements.txt)
 
-Все методы экспортируют фазу в одноканальный PNG 128×128, где 0 соответствует −π, а 255 — +π. Четыре PNG восстановления строятся из декодированной фазы. Метрики PCC и SSIM сравнивают их с загруженными целями. Подробнее — в [описании модели](docs/physics.md).
+## Запуск приложения
 
-## Запуск через Docker Compose
-
-Выполните команду из корня репозитория.
+Из корня репозитория выполните:
 
 ```sh
-docker compose up --build
+docker compose up --build --wait
 ```
 
-Compose поднимает интерфейс и API, дождавшись загрузки обученных весов. Веса уже входят в образ backend, расчёт выполняется на CPU. Если порт 5173 занят, задайте `DOE_WEB_PORT` в окружении или в файле `.env`. Для остановки используйте `docker compose down`. [Интерфейс](http://127.0.0.1:5173) · [Справка API](http://127.0.0.1:5173/docs).
+Для запуска нужны Docker и Compose. Образ сам устанавливает зависимости, собирает интерфейс и включает веса. Внешняя настройка и GPU не требуются. Откройте [интерфейс](http://127.0.0.1:5173/) или [справку API](http://127.0.0.1:5173/docs). Для остановки выполните `docker compose down`.
 
-## Локальная разработка
+Загрузите четыре одноканальных PNG 128×128, 8 бит, в порядке возрастания расстояния. Выберите **Neural**, запустите синтез и нажмите **Скачать ДОЭ**. Для программного вызова отправьте четыре поля `images` и поле `method=neural` как multipart-форму на `POST /api/synthesize`. Ответ содержит `phase_png` в Base64.
 
-Для публикации на Render подготовлен [`render.yaml`](render.yaml): единый frontend/API-сервис с проверенной моделью и автоматическим деплоем из `master` после успешного GitHub Actions. [Подключение Render и схема CI/CD](docs/render.md).
+## Синтез для проверки без интерфейса
 
-Понадобятся Python 3.11, Node.js 24 и pnpm 11.25.0. Из корня репозитория в PowerShell:
+Поместите `plane1.png` … `plane4.png` в папку `targets` в порядке возрастания расстояния. Команды запускаются из корня репозитория:
 
-```powershell
-py -3.11 -m venv .venv
-$python = ".\.venv\Scripts\python.exe"
-& $python -m pip install --upgrade pip
-& $python -m pip install torch==2.7.1 --index-url https://download.pytorch.org/whl/cpu
-& $python -m pip install -e "./backend[dev,benchmark]"
-& $python -m uvicorn doe.api:app --port 8000
+```sh
+docker compose build backend
+docker compose run --no-deps --name photonica-eval -v "${PWD}/targets:/input:ro" backend python -m doe --method neural --device cpu --output /tmp/result /input/plane1.png /input/plane2.png /input/plane3.png /input/plane4.png
+docker cp photonica-eval:/tmp/result/doe.png ./doe.png
+docker cp photonica-eval:/tmp/result/metrics.json ./metrics.json
+docker rm photonica-eval
 ```
 
-В другом терминале:
+Файл `doe.png` имеет размер 128×128, глубину 8 бит и формат Grayscale. Значения 0 и 255 соответствуют −π и +π. Для каждого комплекта запускайте синтез один раз. В `metrics.json` записаны время синтеза, число итераций, SSIM и Pearson для каждой из четырёх реконструкций и их средние значения. Время не включает загрузку весов и запись выходных файлов. [Формулы расчёта Френеля и метрик](docs/physics.md).
 
-```powershell
-pnpm --dir frontend install --frozen-lockfile
-pnpm --dir frontend dev
-```
-
-Откройте [интерфейс](http://localhost:5173) или [справку API](http://localhost:8000/docs). Выберите готовый набор или загрузите четыре PNG (128×128, 8 бит, один канал). Для конкурсного запуска в форме по умолчанию выбран Neural, если веса загружены. На той же странице можно сравнить методы и скачать архив с фазой, реконструкциями и метриками.
-
-Backend и CLI по умолчанию используют `artifacts/doe-residual-fourier.pt`. Это чекпойнт Residual Fourier с seed 2027 и восьмой эпохи, выбранный по минимальной валидационной ошибке 0,460969 среди трёх запусков. SHA-256 — `38cf98d0ceb539d8ca27498f83e81be9b90b04bce1c287bb47b02b6d09a1f630`. Ветка подключает новую архитектуру по запросу пользователя. В сравнительном эксперименте Projection v2 получила лучшие метрики качества, а Fourier — меньшую задержку. [Результаты исследования](docs/multiplane-study.md). Путь можно изменить через `DOE_CHECKPOINT`, устройство — через `DOE_DEVICE` (`auto`, `cpu` или `cuda`). Если веса не загружены, доступен Classical, а запросы Neural и Hybrid возвращают HTTP 503. Для GPU установите подходящую сборку по [инструкции PyTorch](https://pytorch.org/get-started/previous-versions/#v271).
-
-Дополнительная модель, обученная на GPU на разнообразных изображениях и портретах, сохранена в [`artifacts/doe-photo-projection-v1.pt`](artifacts/doe-photo-projection-v1.pt). Это Projection U-Net ширины 16 с шестью слоями проекции. Для API укажите `DOE_CHECKPOINT=artifacts/doe-photo-projection-v1.pt`, для CLI — `--checkpoint artifacts/doe-photo-projection-v1.pt`. Она работает на CPU и CUDA. [Метрики, конфигурация и протокол обучения](docs/photo-model-v1/README.md).
-
-После 18 контролируемых прогонов выбран [`artifacts/doe-carrier-study-v1.pt`](artifacts/doe-carrier-study-v1.pt): Carrier U-Net ширины 16 с девятью физическими слоями и оконным SSIM 7×7 в обучении. Прирост проверен на новых широких и внешних естественных изображениях до замены работающего Compose. Для запуска используйте `docker compose -f compose.yaml -f compose.carrier.yaml up --build`, для локального API — `DOE_CHECKPOINT=artifacts/doe-carrier-study-v1.pt`. [Результаты, сравнение окон 7×7/11×11 и задержка](docs/carrier-study-v1.md).
-
-## Командная строка и эксперименты
-
-```powershell
-& $python -m doe --demo 0 --method classical --output runs/example
-& $python -m doe --method hybrid --output runs/example-hybrid plane1.png plane2.png plane3.png plane4.png
-& $python -m doe.quality plane1.png plane2.png plane3.png plane4.png --phase runs/example-hybrid/doe.png --output runs/quality
-& $python -m pytest backend
-& $python -m doe.training.train --config configs/projected.json --device auto --output runs/training
-& $python -m doe.benchmark --checkpoint artifacts/doe-residual-fourier.pt --device cpu --samples 32 --output runs/comparison
-```
-
-Файлы целей перечисляются в порядке роста расстояния. Обучение использует воспроизводимые синтетические наборы: геометрические фигуры, контуры, символы и полутоновые цели. Потери объединяют MSE амплитуды, PCC и глобальный SSIM; градиент проходит через квантование с прямой оценкой производной и через модель Френеля. Разбиения для обучения, валидации, тестирования и демонстрации используют разные потоки генератора. Веса выбираются по валидации и сохраняются в `best.pt`; `last.pt` позволяет продолжить обучение с `--resume`. Для подключения своего чекпойнта укажите путь в `DOE_CHECKPOINT`. Для Projection v2 можно задать `DOE_CHECKPOINT=artifacts/doe-unet.pt`.
-
-[Протокол бенчмарка](docs/benchmark.md) фиксирует одинаковые цели, нормировку и измерение времени для всех методов. См. [результаты экспериментов](docs/results.md) и [пример выходных PNG](experiments/example). Примеры и результаты моделирования не заменяют оптическую проверку на реальном модуляторе.
-
-Для длительного итеративного поиска используйте [`doe.quality`](docs/quality.md). Он пробует несколько стартовых фаз и сохраняет лучший проверенный 8-битный ДОЭ, а при заданном эталоне — также лучший вариант, сохраняющий средний и худший PCC эталона. Передавайте только фазовые PNG, рассчитанные для тех же четырёх целей.
-
-Для дообучения Neural с учётом оптической мощности на фоне см. [конфигурацию и результаты пилота](docs/neural-finetune.md).
+[Рабочий сайт](https://ai-fotonica.onrender.com/) использует тот же Dockerfile и веса. [Настройка CI и автодеплоя из master](docs/render.md).

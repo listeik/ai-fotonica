@@ -5,11 +5,9 @@ from typing import Literal
 import numpy as np
 import torch
 from torch import Tensor
-from torch.utils.data import Dataset
 
 Split = Literal["train", "val", "test", "demo"]
 SIZE = 128
-DATASET_VERSION = "procedural-v1"
 DEMO_NAMES = ("Геометрия", "Цифры и символы", "Контуры", "Градиенты")
 _SPLITS = {"train": 0, "val": 1, "test": 2, "demo": 3}
 _GRID = np.linspace(-1.0, 1.0, SIZE, dtype=np.float32)
@@ -118,18 +116,3 @@ def synthetic_targets(index: int, *, split: Split = "test", seed: int = 2026) ->
     rng = np.random.default_rng(np.random.SeedSequence([seed, _SPLITS[split], index]))
     planes = [_plane(rng, index % 4) for _ in range(4)]
     return torch.from_numpy(np.stack(planes)).to(torch.float32).div_(255)
-
-
-class SyntheticTargets(Dataset[Tensor]):
-    def __init__(self, split: Split, count: int, seed: int = 2026) -> None:
-        if count < 1:
-            raise ValueError("count must be positive")
-        self.split, self.count, self.seed = split, count, seed
-
-    def __len__(self) -> int:
-        return self.count
-
-    def __getitem__(self, index: int) -> Tensor:
-        if not 0 <= index < self.count:
-            raise IndexError(index)
-        return synthetic_targets(index, split=self.split, seed=self.seed)

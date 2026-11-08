@@ -25,7 +25,7 @@ jobs:
           python-version: "3.11"
       - run: python -m pip install --upgrade pip
       - run: python -m pip install torch==2.7.1 --index-url https://download.pytorch.org/whl/cpu
-      - run: python -m pip install -e './backend[dev,benchmark]'
+      - run: python -m pip install -r requirements.txt -e './backend[dev]'
       - run: ruff check backend
       - run: python -m pytest backend
   frontend:

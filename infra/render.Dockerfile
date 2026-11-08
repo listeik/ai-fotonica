@@ -21,9 +21,10 @@ RUN --mount=type=cache,target=/root/.cache/pip \
     python -m pip install --timeout 60 --retries 6 torch==2.7.1 \
     --index-url https://download.pytorch.org/whl/cpu
 COPY backend/pyproject.toml ./
+COPY requirements.txt ./
 COPY backend/src ./src
 RUN --mount=type=cache,target=/root/.cache/pip \
-    python -m pip install --timeout 60 --retries 6 . \
+    python -m pip install --timeout 60 --retries 6 -r requirements.txt . \
     && useradd --create-home photonica
 COPY artifacts/doe-carrier-study-v1.pt ./artifacts/doe-carrier-study-v1.pt
 COPY --from=frontend /app/dist ./frontend-dist

@@ -16,7 +16,7 @@ def main() -> None:
     parser = argparse.ArgumentParser(description=__doc__)
     parser.add_argument("images", nargs="*", type=Path, help="PNGs in ascending distance order")
     parser.add_argument("--demo", type=int, choices=range(len(DEMO_NAMES)), metavar="0–3")
-    parser.add_argument("--method", choices=("classical", "neural", "hybrid"), default="hybrid")
+    parser.add_argument("--method", choices=("classical", "neural", "hybrid"), default="neural")
     parser.add_argument("--checkpoint", type=Path, default=DEFAULT_CHECKPOINT)
     parser.add_argument("--iterations", type=int)
     parser.add_argument("--device", choices=("auto", "cpu", "cuda"), default="auto")

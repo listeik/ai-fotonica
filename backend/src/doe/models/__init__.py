@@ -17,7 +17,7 @@ from .unet import (
 )
 
 CHECKPOINT_FORMAT = 1
-DEFAULT_CHECKPOINT = Path("artifacts/doe-residual-fourier.pt")
+DEFAULT_CHECKPOINT = Path("artifacts/doe-carrier-study-v1.pt")
 
 
 def load_model(
