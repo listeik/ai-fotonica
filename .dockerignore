@@ -7,7 +7,6 @@
 backend/src/**/__pycache__/
 backend/src/**/*.pyc
 !artifacts/
-!artifacts/doe-carrier-study-v1.pt
 !artifacts/doe-carrier-physics-teacher-v1.pt
 !frontend/
 !frontend/index.html

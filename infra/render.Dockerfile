@@ -26,7 +26,6 @@ COPY backend/src ./src
 RUN --mount=type=cache,target=/root/.cache/pip \
     python -m pip install --timeout 60 --retries 6 -r requirements.txt . \
     && useradd --create-home photonica
-COPY artifacts/doe-carrier-study-v1.pt ./artifacts/doe-carrier-study-v1.pt
 COPY artifacts/doe-carrier-physics-teacher-v1.pt ./artifacts/doe-carrier-physics-teacher-v1.pt
 COPY --from=frontend /app/dist ./frontend-dist
 USER photonica
