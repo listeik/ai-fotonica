@@ -1,29 +1,27 @@
-import { useEffect, useState } from 'react'
+import { useEffect, useMemo, useRef, useState } from 'react'
 import { CircleAlert, LoaderCircle } from 'lucide-react'
-import { decodeBase64, request, type Demo, type Health, type Method, type Methods, type Model, type Run } from './api'
+import { decodeBase64, request, targetForm, type Analysis, type Demo, type Health, type Method, type Methods, type Model, type Run } from './api'
+import { AnalysisView } from './components/AnalysisView'
 import { ComparisonTable } from './components/ComparisonTable'
 import { Overview } from './components/Overview'
+import { PassportView } from './components/PassportView'
+import { ResearchView } from './components/ResearchView'
 import { ResultsView } from './components/ResultsView'
 import { SettingsPanel } from './components/SettingsPanel'
 import { Sidebar } from './components/Sidebar'
 import { TargetUpload } from './components/TargetUpload'
 import { exportComparison } from './export'
-import { methodIds } from './workspace'
+import { currentView, methodIds, type Passport } from './workspace'
 
-async function validateTarget(file: File) {
-  if (!file.name.toLowerCase().endsWith('.png') || file.size > 64 * 1024) {
-    throw new Error('Выберите PNG размером до 64 КиБ.')
-  }
-  const header = new DataView(await file.slice(0, 26).arrayBuffer())
-  if (header.byteLength < 26 || header.getUint32(0) !== 0x89504e47 || header.getUint32(4) !== 0x0d0a1a0a
-    || header.getUint32(8) !== 13 || header.getUint32(12) !== 0x49484452
-    || header.getUint32(16) !== 128 || header.getUint32(20) !== 128
-    || header.getUint8(24) !== 8 || header.getUint8(25) !== 0) {
-    throw new Error('Нужен одноканальный 8-битный PNG размером 128 × 128 пикселей.')
-  }
+const headings = {
+  workspace: ['Многоплоскостной синтез ДОЭ', 'Загрузите четыре цели, выберите метод и сравните восстановленные изображения.'],
+  analysis: ['Анализ целей', 'Характеристики изображений рассчитываются автоматически после загрузки всех четырёх целей.'],
+  passports: ['Паспорта синтеза', 'Технические отчёты с параметрами расчёта, фазовой картой и метриками по плоскостям.'],
+  research: ['Научный режим', 'Сравните архитектуры на одном наборе и изучите поле, восстановленное из фазового ДОЭ.'],
 }
 
 export function App() {
+  const [view, setView] = useState(currentView)
   const [targets, setTargets] = useState<(File | null)[]>(Array(4).fill(null))
   const [method, setMethod] = useState<Method>('neural')
   const [steps, setSteps] = useState({ classical: 160, hybrid: 40 })
@@ -34,11 +32,20 @@ export function App() {
   const [model, setModel] = useState<Model | null>(null)
   const [demos, setDemos] = useState<Demo[]>([])
   const [demoId, setDemoId] = useState<number | null>(null)
-  const [busy, setBusy] = useState<'upload' | 'demo' | 'synthesis' | 'export' | null>(null)
+  const [busy, setBusy] = useState<'upload' | 'demo' | 'synthesis' | 'export' | 'research' | null>(null)
+  const [analysis, setAnalysis] = useState<{ targets: File[]; result: Analysis | null; error: string } | null>(null)
+  const [analysisRetry, setAnalysisRetry] = useState(0)
+  const [passports, setPassports] = useState<Passport[]>([])
+  const [selectedPassport, setSelectedPassport] = useState('')
+  const nextPassportNumber = useRef(1)
   const [error, setError] = useState('')
   const [connectionFailed, setConnectionFailed] = useState(false)
-  const validTargets = targets.filter((file): file is File => file !== null)
+  const validTargets = useMemo(() => targets.filter((file): file is File => file !== null), [targets])
   const completed = methodIds.flatMap(id => runs[id] ? [runs[id]] : [])
+  const currentAnalysis = analysis?.targets === validTargets ? analysis : null
+  const currentPassport = passports.find(entry => entry.id === selectedPassport) ?? passports[0]
+  const activeRun = active ? runs[active] : undefined
+  const activePassport = passports.find(entry => entry.run === activeRun)
 
   async function connect(signal?: AbortSignal) {
     setConnectionFailed(false)
@@ -73,6 +80,42 @@ export function App() {
     return () => controller.abort()
   }, [])
 
+  useEffect(() => {
+    function navigate() { setView(currentView()) }
+    window.addEventListener('hashchange', navigate)
+    return () => window.removeEventListener('hashchange', navigate)
+  }, [])
+
+  useEffect(() => {
+    const anchor = window.location.hash.slice(1)
+    if (view === 'workspace' && anchor !== 'workspace' && document.getElementById(anchor)) {
+      document.getElementById(anchor)?.scrollIntoView({ block: 'start' })
+    } else {
+      window.scrollTo({ top: 0, behavior: 'instant' })
+    }
+  }, [view])
+
+  useEffect(() => {
+    if (validTargets.length !== 4) return
+    const controller = new AbortController()
+    request<Analysis>('/api/analysis', { method: 'POST', body: targetForm(validTargets), signal: controller.signal })
+      .then(result => {
+        if (!controller.signal.aborted) setAnalysis({ targets: validTargets, result, error: '' })
+      }).catch(failure => {
+        if (!controller.signal.aborted) setAnalysis({ targets: validTargets, result: null, error: failure.message })
+      })
+    return () => controller.abort()
+  }, [validTargets, analysisRetry])
+
+  function addPassports(results: Run[], source: File[]) {
+    const entries = results.map(run => ({
+      id: run.id, number: nextPassportNumber.current++, targets: source, run,
+    }))
+    setPassports(previous => [...entries, ...previous])
+    if (entries[0]) setSelectedPassport(entries[0].id)
+    return entries
+  }
+
   function clearResults() {
     setRuns({})
     setActive(null)
@@ -84,7 +127,13 @@ export function App() {
     if (file) {
       setBusy('upload')
       try {
-        await validateTarget(file)
+        if (file.size > 16 * 1024 * 1024) throw new Error('Изображение превышает 16 МиБ.')
+        const body = new FormData()
+        body.append('image', file)
+        const converted = await request<{ png: string; converted: boolean }>('/api/images/preprocess', { method: 'POST', body })
+        if (converted.converted) {
+          file = new File([decodeBase64(converted.png)], file.name.replace(/\.[^.]+$/, '') + '-128.png', { type: 'image/png' })
+        }
       } catch (failure) {
         setError(failure instanceof Error ? failure.message : 'Не удалось прочитать PNG.')
         return
@@ -116,8 +165,7 @@ export function App() {
 
   async function runSynthesis() {
     if (busy || validTargets.length !== 4) return
-    const data = new FormData()
-    for (const target of validTargets) data.append('images', target)
+    const data = targetForm(validTargets)
     data.append('method', method)
     if (method !== 'neural') data.append('iterations', String(steps[method]))
 
@@ -127,6 +175,7 @@ export function App() {
       const response = await request<Run>('/api/synthesize', { method: 'POST', body: data })
       setRuns(previous => ({ ...previous, [response.method]: response }))
       setActive(response.method)
+      addPassports([response], validTargets)
       document.getElementById('restoration')?.scrollIntoView({ block: 'start' })
     } catch (failure) {
       setError(failure instanceof Error ? failure.message : 'Синтез не выполнен.')
@@ -149,25 +198,33 @@ export function App() {
   }
 
   return <div className="app-shell">
-    <Sidebar device={health?.device} failed={connectionFailed} />
-    <main className="main-area" id="workspace">
+    <Sidebar device={health?.device} failed={connectionFailed} view={view} />
+    <main className="main-area" id={view}>
       <div className="workspace">
         <header className="page-heading">
           <div className="flex flex-wrap items-center justify-between gap-2">
             <span className="eyebrow"><i /> Вычислительная фотоника</span>
             {busy === 'synthesis' && <span className="chip busy-chip" role="status"><LoaderCircle size={15} className="spin" /> Идёт расчёт</span>}
           </div>
-          <h1>Многоплоскостной синтез ДОЭ</h1>
-          <p>Загрузите четыре цели, выберите метод и сравните восстановленные изображения.</p>
+          <h1>{headings[view][0]}</h1>
+          <p>{headings[view][1]}</p>
         </header>
         {connectionFailed && <div className="banner" role="status">
           <CircleAlert size={18} /><span>Не удалось подключиться к API.</span>
           <button className="text-link" type="button" onClick={() => void connect()}>Повторить</button>
         </div>}
-        {error && <div className="banner error" role="alert"><CircleAlert size={18} />{error}</div>}
-        <div className="synthesis-workspace">
+        {view === 'analysis' && <AnalysisView result={currentAnalysis?.result ?? null} targetCount={validTargets.length}
+          error={currentAnalysis?.error ?? ''} onRetry={() => { setAnalysis(null); setAnalysisRetry(value => value + 1) }} />}
+        {view === 'passports' && <PassportView entries={passports} selected={currentPassport} onSelect={setSelectedPassport} />}
+        <div hidden={view !== 'research'}>
+          <ResearchView targets={validTargets} entries={passports} active={view === 'research'} disabled={!!busy}
+            onBusy={pending => setBusy(pending ? 'research' : null)} onRuns={addPassports} />
+        </div>
+        {view === 'workspace' && <div className="synthesis-workspace">
+          {error && <div className="banner error" role="alert"><CircleAlert size={18} />{error}</div>}
           <div className="workbench" id="input">
             <TargetUpload targets={targets} demos={demos} demoId={demoId}
+              converting={busy === 'upload'}
               disabled={!!busy} loadingDemo={busy === 'demo'} onChange={(index, file) => void changeTarget(index, file)}
               onDemo={index => void loadDemo(index)} />
             <SettingsPanel method={method} steps={method === 'neural' ? 0 : steps[method]}
@@ -178,9 +235,12 @@ export function App() {
           <section id="restoration" className="workspace-block" aria-labelledby="restoration-heading">
             <div className="section-heading">
               <h2 id="restoration-heading">Восстановление</h2>
-              {completed.length > 0 && <a className="text-link text-xs" href="#settings">К настройкам</a>}
+              <div className="flex flex-wrap gap-3">
+                {activePassport && <a className="text-link text-xs" href="#passports" onClick={() => setSelectedPassport(activePassport.id)}>Паспорт расчёта</a>}
+                {completed.length > 0 && <a className="text-link text-xs" href="#settings">К настройкам</a>}
+              </div>
             </div>
-            <ResultsView run={active ? runs[active] : undefined} runs={completed}
+            <ResultsView run={activeRun} runs={completed}
               targets={validTargets} running={busy === 'synthesis'} onSelect={setActive} />
           </section>
           <section id="comparison" className="workspace-block" aria-labelledby="comparison-heading">
@@ -192,7 +252,7 @@ export function App() {
               }} onExport={() => void exportResults()} />
           </section>
           <Overview optics={health?.optics} />
-        </div>
+        </div>}
       </div>
     </main>
   </div>

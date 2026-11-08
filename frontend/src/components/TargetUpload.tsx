@@ -35,7 +35,7 @@ function TargetCard({ index, distance, file, disabled, onChange }: {
         setDragging(false)
         if (!disabled && event.dataTransfer.files[0]) onChange(event.dataTransfer.files[0])
       }}>
-      <input type="file" accept=".png,image/png" disabled={disabled}
+      <input type="file" accept=".jpg,.jpeg,.png,.webp,image/jpeg,image/png,image/webp" disabled={disabled}
         aria-label={`Загрузить цель для плоскости ${index + 1}`}
         onChange={event => {
           if (event.currentTarget.files?.[0]) onChange(event.currentTarget.files[0])
@@ -45,7 +45,7 @@ function TargetCard({ index, distance, file, disabled, onChange }: {
         ? <img src={url} alt={`Цель ${index + 1}`} />
         : <span className="upload-prompt">
           <span className="icon-tile"><ImagePlus size={22} /></span>
-          <strong>Выбрать PNG</strong>
+          <strong>Выбрать картинку</strong>
           <small>или перетащить сюда</small>
         </span>}
     </label>
@@ -61,7 +61,8 @@ function TargetCard({ index, distance, file, disabled, onChange }: {
   </article>
 }
 
-export function TargetUpload({ targets, demos, demoId, disabled, loadingDemo, onChange, onDemo }: {
+export function TargetUpload({ targets, demos, demoId, disabled, loadingDemo, converting, onChange, onDemo }: {
+  converting: boolean
   targets: (File | null)[]
   demos: Demo[]
   demoId: number | null
@@ -90,10 +91,14 @@ export function TargetUpload({ targets, demos, demoId, disabled, loadingDemo, on
         {!demos.length && <span className="muted text-sm">Наборы доступны при подключении к API.</span>}
       </div>
     </div>
+    <div className="grid gap-1">
+      <h3>Свои изображения</h3>
+      <p className="muted text-xs">Загрузите JPG, PNG или WebP. При необходимости приложение преобразует файл в 8-битный PNG 128 × 128 в оттенках серого и добавит чёрные поля, сохранив пропорции.</p>
+      {converting && <span className="hint" role="status"><LoaderCircle className="spin" size={16} /> Подготовка изображения…</span>}
+    </div>
     <div className="target-grid">
       {distances.map((distance, index) => <TargetCard key={distance} index={index} distance={distance}
         file={targets[index] ?? null} disabled={disabled} onChange={file => onChange(index, file)} />)}
     </div>
-    <p className="muted text-xs">PNG · 128 × 128 · 8 бит · один канал</p>
   </section>
 }

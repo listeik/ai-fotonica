@@ -1,6 +1,14 @@
-import { Atom, LayoutDashboard } from 'lucide-react'
+import { Activity, Atom, ClipboardList, FlaskConical, LayoutDashboard } from 'lucide-react'
+import type { View } from '../workspace'
 
-export function Sidebar({ device, failed }: { device?: string; failed: boolean }) {
+const navigation = [
+  { id: 'workspace', label: 'Синтез ДОЭ', icon: LayoutDashboard },
+  { id: 'analysis', label: 'Анализ целей', icon: Activity },
+  { id: 'passports', label: 'Паспорта синтеза', icon: ClipboardList },
+  { id: 'research', label: 'Научный режим', icon: FlaskConical },
+] as const
+
+export function Sidebar({ device, failed, view }: { device?: string; failed: boolean; view: View }) {
   const status = device ? 'Подключён' : failed ? 'Недоступен' : 'Подключение…'
   const state = device ? 'online' : failed ? 'offline' : 'pending'
 
@@ -16,10 +24,11 @@ export function Sidebar({ device, failed }: { device?: string; failed: boolean }
     </div>
     <div className="sidebar-label">Рабочая область</div>
     <nav className="navigation" aria-label="Разделы">
-      <a href="#workspace" className="navigation-link" aria-current="page">
-        <LayoutDashboard size={18} strokeWidth={1.8} aria-hidden="true" />
-        <span>Синтез ДОЭ</span>
-      </a>
+      {navigation.map(({ id, label, icon: Icon }) =>
+        <a key={id} href={`#${id}`} className="navigation-link" aria-current={id === view ? 'page' : undefined}>
+          <Icon size={18} strokeWidth={1.8} aria-hidden="true" />
+          <span>{label}</span>
+        </a>)}
     </nav>
     <div className={'sidebar-status ' + state} role="status">
       <div className="flex items-center justify-between gap-2">

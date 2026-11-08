@@ -6,9 +6,18 @@ export interface PlaneMetrics {
   ssim: number
 }
 
+export interface Checkpoint {
+  id: string
+  version: string
+  architecture: string
+}
+
 export interface Run {
+  id: string
+  created_at: string
   method: Method
   model_version: string | null
+  checkpoint: Checkpoint | null
   phase_png: string
   reconstruction_pngs: string[]
   metrics: {
@@ -28,13 +37,14 @@ export interface Run {
     pixel_pitch_um: number
     distances_mm: number[]
     reconstruction: string
+    learning_rate: number | null
   }
 }
 
 export interface Health {
   status: 'ok'
   device: string
-  optics: Omit<Run['parameters'], 'seed' | 'device'>
+  optics: Omit<Run['parameters'], 'seed' | 'device' | 'learning_rate'>
 }
 
 export interface Methods {
@@ -44,13 +54,55 @@ export interface Methods {
 
 export interface Model {
   available: boolean
-  version: string | null
   status: 'ready' | 'missing' | 'load_error'
 }
 
 export interface Demo {
   id: number
   name: string
+}
+
+export interface ImageDescriptors {
+  contrast: number
+  entropy_bits: number
+  edge_fraction: number
+  spectral_centroid: number
+  high_frequency_fraction: number
+}
+
+export interface Analysis {
+  planes: ImageDescriptors[]
+  reference: {
+    sets: number
+    seed: number
+    bands: Record<keyof ImageDescriptors, [number, number, number]>
+  }
+  edge_threshold: number
+  high_frequency_cutoff: number
+}
+
+export interface Diagnostics {
+  power_db_range: [number, number]
+  support_threshold: number
+  planes: {
+    distance_mm: number
+    output_pitch_um: number
+    mae: number
+    power_in_target: number
+    error_png: string
+    intensity_png: string
+  }[]
+}
+
+export interface ResearchOption {
+  id: string
+  name: string
+}
+
+export function targetForm(targets: File[]): FormData {
+  const data = new FormData()
+  for (const target of targets) data.append('images', target)
+  return data
 }
 
 export async function request<T>(url: string, init?: RequestInit): Promise<T> {
