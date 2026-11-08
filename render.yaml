@@ -15,6 +15,6 @@ services:
       - key: DOE_CPU_THREADS
         value: "1"
       - key: DOE_CHECKPOINT
-        value: /app/artifacts/doe-carrier-study-v1.pt
+        value: /app/artifacts/doe-carrier-physics-teacher-v1.pt
       - key: DOE_STATIC_DIR
         value: /app/frontend-dist

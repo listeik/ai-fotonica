@@ -35,7 +35,7 @@ def test_default_carrier_checkpoint_synthesizes_with_one_forward(monkeypatch):
     with TestClient(app) as client:
         info = client.get("/api/model/info").json()
         assert info["available"] and info["status"] == "ready"
-        assert info["version"] == f"{CARRIER_ARCHITECTURE}:d4176bb99d8c"
+        assert info["version"] == f"{CARRIER_ARCHITECTURE}:02ea2f98f059"
         calls = []
         hook = app.state.model.register_forward_hook(lambda *_: calls.append(1))
         try:

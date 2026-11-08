@@ -21,7 +21,7 @@ def test_static_frontend_does_not_shadow_api_routes(tmp_path, monkeypatch):
 
 def test_ready_requires_and_identifies_bundled_production_model(monkeypatch):
     monkeypatch.delenv("DOE_STATIC_DIR", raising=False)
-    checkpoint = Path(__file__).resolve().parents[2] / "artifacts/doe-carrier-study-v1.pt"
+    checkpoint = Path(__file__).resolve().parents[2] / "artifacts/doe-carrier-physics-teacher-v1.pt"
     with TestClient(create_app(checkpoint, device="cpu")) as client:
         ready = client.get("/api/ready")
         assert ready.status_code == 200

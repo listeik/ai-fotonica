@@ -14,7 +14,7 @@ ENV PYTHONUNBUFFERED=1 \
     PYTHONDONTWRITEBYTECODE=1 \
     DOE_DEVICE=cpu \
     DOE_CPU_THREADS=1 \
-    DOE_CHECKPOINT=/app/artifacts/doe-carrier-study-v1.pt \
+    DOE_CHECKPOINT=/app/artifacts/doe-carrier-physics-teacher-v1.pt \
     DOE_STATIC_DIR=/app/frontend-dist \
     PORT=10000
 RUN --mount=type=cache,target=/root/.cache/pip \
@@ -27,6 +27,7 @@ RUN --mount=type=cache,target=/root/.cache/pip \
     python -m pip install --timeout 60 --retries 6 -r requirements.txt . \
     && useradd --create-home photonica
 COPY artifacts/doe-carrier-study-v1.pt ./artifacts/doe-carrier-study-v1.pt
+COPY artifacts/doe-carrier-physics-teacher-v1.pt ./artifacts/doe-carrier-physics-teacher-v1.pt
 COPY --from=frontend /app/dist ./frontend-dist
 USER photonica
 EXPOSE 10000

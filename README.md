@@ -3,7 +3,7 @@
 Конкурсное решение для синтеза фазового дифракционного оптического элемента (ДОЭ). Carrier U-Net принимает четыре изображения на расстояниях 24,1 / 25,3 / 26,5 / 27,7 мм и выдаёт один ДОЭ за один прямой проход. В сети девять встроенных проекций Френеля. Режим Neural выполняет ноль итераций оптимизации.
 
 - [Исходный код нейросети](backend/src/doe/models/unet.py)
-- [Обученные веса](artifacts/doe-carrier-study-v1.pt), версия `fresnel-unet-carrier-v1:d4176bb99d8c`
+- [Обученные веса](artifacts/doe-carrier-physics-teacher-v1.pt), версия `fresnel-unet-carrier-v1:02ea2f98f059`
 - [Dockerfile](infra/render.Dockerfile) и [зависимости Python](requirements.txt)
 
 ## Запуск приложения
